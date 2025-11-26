@@ -32,38 +32,55 @@ const countries = {
 
 export function middleware(request) {
   try {
-    const { pathname } = request.nextUrl;
+    const pathname = request.nextUrl.pathname;
 
-    // Skip Next.js internals and API routes
+    // Skip internal Next.js paths and static files
     if (
       pathname.startsWith('/_next') ||
       pathname.startsWith('/api') ||
-      pathname.includes('.')
+      pathname === '/favicon.ico'
     ) {
       return NextResponse.next();
     }
 
-    const pathSegments = pathname.split('/').filter(Boolean);
+    // Parse path segments
+    const segments = pathname.split('/').filter(segment => segment.length > 0);
 
-    // Only process paths with at least 2 segments (country/lang/...)
-    if (pathSegments.length >= 2) {
-      const [country, lang] = pathSegments;
-      const countryData = countries[country];
+    // Need at least 2 segments: /country/lang
+    if (segments.length < 2) {
+      return NextResponse.next();
+    }
 
-      // If valid country but invalid language, redirect to default language
-      if (countryData && !countryData.languages.includes(lang)) {
-        const correctLang = countryData.defaultLang;
-        const restOfPath = pathSegments.slice(2).join('/');
-        const newPath = `/${country}/${correctLang}${restOfPath ? '/' + restOfPath : ''}`;
-        
-        return NextResponse.redirect(new URL(newPath, request.url));
+    const [country, lang] = segments;
+
+    // Check if country exists
+    const countryData = countries[country];
+    if (!countryData) {
+      return NextResponse.next();
+    }
+
+    // Check if language is valid for this country
+    if (!countryData.languages.includes(lang)) {
+      // Build redirect URL with correct language
+      const correctLang = countryData.defaultLang;
+      const remainingPath = segments.slice(2);
+      
+      let newPathname = `/${country}/${correctLang}`;
+      if (remainingPath.length > 0) {
+        newPathname += `/${remainingPath.join('/')}`;
       }
+
+      // Preserve query string and hash
+      const url = request.nextUrl.clone();
+      url.pathname = newPathname;
+      
+      return NextResponse.redirect(url);
     }
 
     return NextResponse.next();
   } catch (error) {
-    // Log error and continue without middleware interference
     console.error('Middleware error:', error);
+    // On error, just pass through
     return NextResponse.next();
   }
 }
@@ -71,12 +88,12 @@ export function middleware(request) {
 export const config = {
   matcher: [
     /*
-     * Match all request paths except:
+     * Match all paths except:
+     * - api routes
      * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * - public folder
+     * - _next/image (image optimization)
+     * - favicon.ico
      */
-    '/((?!_next/static|_next/image|favicon.ico|.*\\..*|api).*)',
-  ]
+    '/((?!api|_next/static|_next/image|favicon.ico).*)',
+  ],
 };
