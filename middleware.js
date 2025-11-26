@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 
-// Inline countries data
 const countries = {
   jp: { defaultLang: 'ja', languages: ['ja', 'en'] },
   th: { defaultLang: 'th', languages: ['th', 'en'] },
@@ -55,6 +54,6 @@ export function middleware(request) {
 }
 
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
-  runtime: 'edge' // Explicitly set runtime
+  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)']
+  // Don't include runtime - middleware is Edge by default in Next.js 13
 };
