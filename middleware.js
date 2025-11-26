@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 
+
 const countries = {
   jp: { defaultLang: "ja", languages: ["ja", "en"] },
   th: { defaultLang: "th", languages: ["th", "en"] },
