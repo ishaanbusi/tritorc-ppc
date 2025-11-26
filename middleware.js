@@ -31,29 +31,52 @@ const countries = {
 };
 
 export function middleware(request) {
-  const { pathname } = request.nextUrl;
+  try {
+    const { pathname } = request.nextUrl;
 
-  if (pathname.startsWith('/_next') || pathname.startsWith('/api')) {
+    // Skip Next.js internals and API routes
+    if (
+      pathname.startsWith('/_next') ||
+      pathname.startsWith('/api') ||
+      pathname.includes('.')
+    ) {
+      return NextResponse.next();
+    }
+
+    const pathSegments = pathname.split('/').filter(Boolean);
+
+    // Only process paths with at least 2 segments (country/lang/...)
+    if (pathSegments.length >= 2) {
+      const [country, lang] = pathSegments;
+      const countryData = countries[country];
+
+      // If valid country but invalid language, redirect to default language
+      if (countryData && !countryData.languages.includes(lang)) {
+        const correctLang = countryData.defaultLang;
+        const restOfPath = pathSegments.slice(2).join('/');
+        const newPath = `/${country}/${correctLang}${restOfPath ? '/' + restOfPath : ''}`;
+        
+        return NextResponse.redirect(new URL(newPath, request.url));
+      }
+    }
+
+    return NextResponse.next();
+  } catch (error) {
+    // Log error and continue without middleware interference
+    console.error('Middleware error:', error);
     return NextResponse.next();
   }
-
-  const pathSegments = pathname.split('/').filter(Boolean);
-
-  if (pathSegments.length >= 2) {
-    const [country, lang] = pathSegments;
-    const countryData = countries[country];
-
-    if (countryData && !countryData.languages.includes(lang)) {
-      const correctLang = countryData.defaultLang;
-      const newPath = pathname.replace(`/${country}/${lang}`, `/${country}/${correctLang}`);
-      return NextResponse.redirect(new URL(newPath, request.url));
-    }
-  }
-
-  return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)']
-  // Don't include runtime - middleware is Edge by default in Next.js 13
+  matcher: [
+    /*
+     * Match all request paths except:
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     * - public folder
+     */
+    '/((?!_next/static|_next/image|favicon.ico|.*\\..*|api).*)',
+  ]
 };
