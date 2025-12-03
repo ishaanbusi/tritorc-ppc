@@ -11,6 +11,7 @@ import {
   getProductBySlug,
   getProductsByCategory,
 } from "@/lib/products";
+import CollapsibleChartSection from "../[slug]/CollapsibleChartSection";
 
 export async function generateStaticParams() {
   const params = [];
@@ -516,6 +517,9 @@ export default function ProductPage({ params }) {
           </div>
         </div>
       </section>
+
+      {/* NEW: COLLAPSIBLE CHART SECTION */}
+      <CollapsibleChartSection product={product} />
 
       {/* ========================================
           SECTION 5: TESTIMONIAL - SOCIAL PROOF
