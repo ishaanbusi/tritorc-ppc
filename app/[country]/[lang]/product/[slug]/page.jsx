@@ -43,9 +43,7 @@ export default function ProductPage({ params }) {
       {/* ========================================
           SECTION 1: HERO WITH BACKGROUND IMAGE + LEAD FORM
           ======================================== */}
-      {/* ========================================
-    SECTION 1: COMPACT HERO WITH BACKGROUND IMAGE + LEAD FORM
-    ======================================== */}
+
       <section className="relative pt-24 pb-0 overflow-hidden">
         {/* Background Image with Overlay */}
         <div className="absolute inset-0">
@@ -83,17 +81,17 @@ export default function ProductPage({ params }) {
                   Hydraulic Torque Wrenches
                 </span>
                 <br />
-                <span className="text-[#D6312F]">for EPC & Oil/Gas</span>
+                {/* <span className="text-[#D6312F]">for EPC & Oil/Gas</span> */}
               </h1>
 
-              {/* Product Image - Right After Heading */}
-              <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6 shadow-2xl">
+              {/* Product Image - UPDATED WITH FULL FILL */}
+              <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden shadow-2xl">
                 <div className="absolute -inset-1 bg-gradient-to-r from-[#D6312F] to-blue-600 rounded-3xl blur-2xl opacity-20"></div>
-                <div className="relative">
+                <div className="relative aspect-square">
                   <img
                     src={product.image}
                     alt={product.name}
-                    className="w-full h-auto object-contain drop-shadow-2xl"
+                    className="w-full h-full object-cover drop-shadow-2xl"
                   />
                 </div>
               </div>
@@ -131,7 +129,7 @@ export default function ProductPage({ params }) {
               </div>
 
               {/* Trust Line */}
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-gray-400">
+              {/* <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-gray-400">
                 <div className="flex items-center space-x-2">
                   <CheckCircle className="w-5 h-5 text-green-400" />
                   <span>ISO 9001:2015 Certified</span>
@@ -141,7 +139,7 @@ export default function ProductPage({ params }) {
                   <CheckCircle className="w-5 h-5 text-green-400" />
                   <span>ASME PCC-1 Compliant</span>
                 </div>
-              </div>
+              </div> */}
             </div>
 
             {/* RIGHT: Lead Capture Form (Sticky) */}
@@ -176,20 +174,23 @@ export default function ProductPage({ params }) {
                 </div>
 
                 {/* Trust Badges */}
-                <div className="mt-6 pt-6 border-t border-gray-200 grid grid-cols-3 gap-3">
-                  {[
-                    "/cert/iso.png",
-                    "/cert/ce.png",
-                    "/cert/madeinindia.png",
-                  ].map((cert, i) => (
-                    <div key={i} className="flex items-center justify-center">
-                      <img
-                        src={cert}
-                        alt="Certificate"
-                        className="h-10 object-contain opacity-60 hover:opacity-100 transition-opacity"
-                      />
-                    </div>
-                  ))}
+
+                <div className="mt-6 pt-6 border-t border-gray-200">
+                  <div className="grid grid-cols-3 gap-4">
+                    {[
+                      "/images/cert/iso.webp",
+                      "/images/cert/ecitb.webp",
+                      "/images/cert/ce-seeklogo.png",
+                    ].map((cert, i) => (
+                      <div key={i} className="flex items-center justify-center">
+                        <img
+                          src={cert}
+                          alt="Certificate"
+                          className="h-12 object-contain hover:scale-110 transition-transform"
+                        />
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
@@ -203,9 +204,23 @@ export default function ProductPage({ params }) {
             viewBox="0 0 1440 120"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="none"
           >
+            {/* Main wave */}
             <path
-              d="M0,64L80,58.7C160,53,320,43,480,48C640,53,800,75,960,80C1120,85,1280,75,1360,69.3L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"
+              d="M0,64L48,69.3C96,75,192,85,288,80C384,75,480,53,576,48C672,43,768,53,864,64C960,75,1056,85,1152,85.3C1248,85,1344,75,1392,69.3L1440,64L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z"
+              fill="white"
+              fillOpacity="0.3"
+            />
+            {/* Secondary wave for depth */}
+            <path
+              d="M0,80L48,85.3C96,91,192,101,288,96C384,91,480,69,576,64C672,59,768,69,864,80C960,91,1056,101,1152,101.3C1248,101,1344,91,1392,85.3L1440,80L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z"
+              fill="white"
+              fillOpacity="0.6"
+            />
+            {/* Top wave */}
+            <path
+              d="M0,96L48,101.3C96,107,192,117,288,112C384,107,480,85,576,80C672,75,768,85,864,96C960,107,1056,117,1152,117.3C1248,117,1344,107,1392,101.3L1440,96L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z"
               fill="white"
             />
           </svg>
@@ -239,7 +254,7 @@ export default function ProductPage({ params }) {
                 </p>
               </div>
 
-              {/* Benefit Cards Grid */}
+              {/* Benefit Cards Grid - NOW 6 CARDS */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {[
                   {
@@ -262,6 +277,16 @@ export default function ProductPage({ params }) {
                     desc: "Rapid dispatch from OEM facility. On-site support & spares worldwide",
                     color: "bg-purple-600",
                   },
+                  {
+                    title: "Field Engineer Support",
+                    desc: "On-site technical assistance and commissioning services available globally",
+                    color: "bg-orange-600",
+                  },
+                  {
+                    title: "Rental Programs Available",
+                    desc: "Flexible rental options for short-term projects and emergency shutdowns",
+                    color: "bg-indigo-600",
+                  },
                 ].map((card, i) => (
                   <div
                     key={i}
@@ -280,28 +305,6 @@ export default function ProductPage({ params }) {
                     </p>
                   </div>
                 ))}
-              </div>
-
-              {/* Feature List */}
-              <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-8 text-white">
-                <h4 className="text-xl font-bold mb-6">
-                  Complete System Includes
-                </h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {[
-                    "High-duty cycle performance",
-                    "360° rotating reaction arm",
-                    "Rental programs available",
-                    "Field engineer support",
-                    "Chrome vanadium steel",
-                    "Compatible with all major pumps",
-                  ].map((item, i) => (
-                    <div key={i} className="flex items-center space-x-3">
-                      <CheckCircle className="w-5 h-5 text-[#D6312F] flex-shrink-0" />
-                      <span className="text-gray-300">{item}</span>
-                    </div>
-                  ))}
-                </div>
               </div>
             </div>
 
@@ -347,26 +350,6 @@ export default function ProductPage({ params }) {
                     </a>
                   </div>
                 </div>
-
-                {/* Certificates */}
-                <div className="mt-6 grid grid-cols-3 gap-4">
-                  {[
-                    "/cert/iso.png",
-                    "/cert/ce.png",
-                    "/cert/madeinindia.png",
-                  ].map((cert, i) => (
-                    <div
-                      key={i}
-                      className="bg-white border border-gray-200 rounded-xl p-4 flex items-center justify-center hover:border-[#D6312F] transition-all"
-                    >
-                      <img
-                        src={cert}
-                        alt="Certificate"
-                        className="h-10 object-contain opacity-70 hover:opacity-100 transition-opacity"
-                      />
-                    </div>
-                  ))}
-                </div>
               </div>
             </div>
           </div>
@@ -374,10 +357,10 @@ export default function ProductPage({ params }) {
       </section>
 
       {/* ========================================
-          SECTION 3: ABOUT TRITORC - AUTHORITY
-          ======================================== */}
+    SECTION 3: ABOUT TRITORC - IMAGE + CONTENT
+    ======================================== */}
       <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-white">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center mb-16">
             <div className="inline-block px-4 py-2 bg-blue-50 text-blue-600 rounded-full text-sm font-bold mb-4">
@@ -394,30 +377,73 @@ export default function ProductPage({ params }) {
             </p>
           </div>
 
-          {/* Industry Icons Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
-            {[
-              { name: "Oil & Gas", icon: "⚡" },
-              { name: "Petrochemicals", icon: "🧪" },
-              { name: "Power Generation", icon: "🔋" },
-              { name: "Shipbuilding", icon: "🚢" },
-              { name: "Offshore", icon: "🌊" },
-              { name: "Fabrication", icon: "🔧" },
-              { name: "Pipeline", icon: "⛽" },
-              { name: "LNG", icon: "❄️" },
-            ].map((industry, i) => (
-              <div
-                key={i}
-                className="bg-white border-2 border-gray-200 rounded-2xl p-6 text-center hover:border-[#D6312F] hover:shadow-lg transition-all group"
-              >
-                <div className="text-4xl mb-3 group-hover:scale-110 transition-transform">
-                  {industry.icon}
+          {/* Image + Content Split */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-12">
+            {/* LEFT: Image */}
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+              <img
+                src="/images/industries/manufacturing.jpg"
+                alt="Tritorc Manufacturing Facility"
+                className="w-full h-[500px] object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+              <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
+                <div className="text-sm font-bold text-[#D6312F] mb-2">
+                  SINCE 1990
                 </div>
-                <div className="font-bold text-gray-900 text-sm">
-                  {industry.name}
-                </div>
+                <h3 className="text-3xl font-black mb-2">
+                  World-Class Manufacturing
+                </h3>
+                <p className="text-gray-200">
+                  State-of-the-art facility in India serving 50+ countries
+                </p>
               </div>
-            ))}
+            </div>
+
+            {/* RIGHT: Content */}
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-3xl lg:text-4xl font-black text-gray-900 mb-6 leading-tight">
+                  Engineering Excellence for Critical Applications
+                </h3>
+
+                <p className="text-lg text-gray-600 leading-relaxed mb-6">
+                  Tritorc has been the trusted partner for major EPC contractors
+                  and oil & gas operators worldwide. Our hydraulic torque tools
+                  have been deployed on some of the world&apos;s most
+                  challenging projects.
+                </p>
+
+                <p className="text-lg text-gray-600 leading-relaxed mb-6">
+                  With over three decades of manufacturing experience, we
+                  combine precision engineering with rigorous quality control to
+                  deliver tools that meet the demanding requirements of
+                  mission-critical bolting applications.
+                </p>
+
+                <p className="text-lg text-gray-600 leading-relaxed">
+                  Every Tritorc tool is backed by ISO 9001:2015 certification,
+                  comprehensive calibration documentation.
+                </p>
+              </div>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                <Link
+                  href={`/${country}/${lang}/about`}
+                  className="inline-flex items-center justify-center px-8 py-4 bg-[#D6312F] text-white rounded-xl font-bold hover:bg-red-700 transition-all"
+                >
+                  About Tritorc
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </Link>
+                <Link
+                  href={`/${country}/${lang}/contact`}
+                  className="inline-flex items-center justify-center px-8 py-4 bg-white border-2 border-gray-900 text-gray-900 rounded-xl font-bold hover:bg-gray-50 transition-all"
+                >
+                  Contact Engineering Team
+                </Link>
+              </div>
+            </div>
           </div>
 
           {/* Product Line CTA */}
@@ -500,7 +526,7 @@ export default function ProductPage({ params }) {
           </div>
 
           {/* Feature Pills */}
-          <div className="flex flex-wrap justify-center gap-4">
+          {/* <div className="flex flex-wrap justify-center gap-4">
             {[
               "Confined Space Design",
               "Industrial-Strong",
@@ -514,7 +540,7 @@ export default function ProductPage({ params }) {
                 <span>{feature}</span>
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
       </section>
 
@@ -577,7 +603,7 @@ export default function ProductPage({ params }) {
               </div>
 
               {/* Trust Badges */}
-              <div className="mt-8 grid grid-cols-3 gap-4">
+              {/* <div className="mt-8 grid grid-cols-3 gap-4">
                 <div className="bg-white border border-gray-200 rounded-xl p-4 text-center">
                   <div className="text-3xl font-bold text-[#D6312F]">500+</div>
                   <div className="text-xs text-gray-600 mt-1">Projects</div>
@@ -590,7 +616,7 @@ export default function ProductPage({ params }) {
                   <div className="text-3xl font-bold text-[#D6312F]">99%</div>
                   <div className="text-xs text-gray-600 mt-1">Satisfaction</div>
                 </div>
-              </div>
+              </div> */}
             </div>
 
             {/* RIGHT: Project Image + Engineer Card */}
@@ -649,17 +675,17 @@ export default function ProductPage({ params }) {
           </div>
         </div>
       </section>
-
       {/* ========================================
-          SECTION 6: VIDEO GRID
-          ======================================== */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gray-900 text-white">
+    SECTION 6: PREMIUM VERTICAL VIDEOS
+    ======================================== */}
+      <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
         <div className="max-w-7xl mx-auto">
+          {/* Header */}
           <div className="text-center mb-16">
             <div className="inline-block px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-sm font-bold mb-4">
               Product Demos
             </div>
-            <h2 className="text-4xl lg:text-5xl font-black">
+            <h2 className="text-4xl lg:text-5xl font-black text-white">
               See the Tools in Action
             </h2>
             <p className="text-xl text-gray-400 mt-4">
@@ -667,42 +693,86 @@ export default function ProductPage({ params }) {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {(
-              product.videos || [
-                { title: "TSL Torque Wrench Demo", thumbnail: product.image },
-                { title: "Hydraulic Pump Operation", thumbnail: product.image },
-                { title: "Socket & Accessories", thumbnail: product.image },
-                { title: "Reaction Arm Setup", thumbnail: product.image },
-                { title: "Field Engineer QC", thumbnail: product.image },
-                { title: "Cold Cutting Demo", thumbnail: product.image },
-              ]
-            ).map((video, i) => (
-              <div
-                key={i}
-                className="group relative aspect-video rounded-2xl overflow-hidden bg-gray-800 cursor-pointer border-2 border-gray-700 hover:border-[#D6312F] transition-all"
-              >
-                <img
-                  src={video.thumbnail || product.image}
-                  alt={video.title}
-                  className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity"
-                />
+          {/* 3 Vertical Videos Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                title: "TSL Series Torque Wrench",
+                description: "Complete operation guide",
+                thumbnail: product.image,
+                duration: "2:45",
+                views: "2.5K",
+              },
+              {
+                title: "Hydraulic Pump Setup",
+                description: "Step-by-step tutorial",
+                thumbnail: product.image,
+                duration: "3:20",
+                views: "1.8K",
+              },
+              {
+                title: "Field Installation",
+                description: "Real project demo",
+                thumbnail: product.image,
+                duration: "4:15",
+                views: "3.2K",
+              },
+            ].map((video, i) => (
+              <div key={i} className="group">
+                {/* Video Card */}
+                <div className="relative aspect-[9/16] rounded-3xl overflow-hidden bg-gray-800 cursor-pointer border-2 border-gray-700 hover:border-[#D6312F] transition-all hover:shadow-2xl hover:-translate-y-2">
+                  {/* Thumbnail */}
+                  <img
+                    src={video.thumbnail || product.image}
+                    alt={video.title}
+                    className="w-full h-full object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-500"
+                  />
 
-                {/* Play Button */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-20 h-20 rounded-full bg-[#D6312F] flex items-center justify-center group-hover:scale-110 transition-transform shadow-2xl">
-                    <div className="w-0 h-0 border-t-[12px] border-t-transparent border-l-[20px] border-l-white border-b-[12px] border-b-transparent ml-1"></div>
+                  {/* Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+
+                  {/* Play Button */}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="relative">
+                      <div className="absolute inset-0 bg-[#D6312F] rounded-full blur-xl opacity-50 group-hover:opacity-70 transition-opacity"></div>
+                      <div className="relative w-20 h-20 rounded-full bg-[#D6312F] flex items-center justify-center group-hover:scale-110 transition-transform shadow-2xl">
+                        <div className="w-0 h-0 border-t-[14px] border-t-transparent border-l-[22px] border-l-white border-b-[14px] border-b-transparent ml-1"></div>
+                      </div>
+                    </div>
                   </div>
-                </div>
 
-                {/* Title */}
-                <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 to-transparent p-4">
-                  <h4 className="font-bold text-sm">{video.title}</h4>
-                  <p className="text-xs text-gray-400 mt-1">2:45 min</p>
+                  {/* Duration Badge */}
+                  <div className="absolute top-4 right-4 px-3 py-1 bg-black/70 backdrop-blur-sm rounded-full text-xs font-bold">
+                    {video.duration}
+                  </div>
+
+                  {/* Bottom Info */}
+                  <div className="absolute bottom-0 inset-x-0 p-6">
+                    <h4 className="font-bold text-xl mb-1 text-white">
+                      {video.title}
+                    </h4>
+                    <p className="text-sm text-gray-300 mb-3">
+                      {video.description}
+                    </p>
+                    <div className="flex items-center space-x-3 text-xs text-gray-400">
+                      <span>👁️ {video.views} views</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
+
+          {/* Bottom CTA */}
+          {/* <div className="text-center mt-12">
+            <Link
+              href={`/${country}/${lang}/videos`}
+              className="inline-flex items-center px-8 py-4 bg-white/10 backdrop-blur-sm border-2 border-white/20 text-white rounded-xl font-bold hover:bg-white/20 transition-all"
+            >
+              View All Videos
+              <ArrowRight className="ml-2 w-5 h-5" />
+            </Link>
+          </div> */}
         </div>
       </section>
 
@@ -853,7 +923,7 @@ export default function ProductPage({ params }) {
           {/* Trust Elements */}
           <div className="space-y-8">
             {/* Certificates */}
-            <div className="flex justify-center items-center space-x-8">
+            {/* <div className="flex justify-center items-center space-x-8">
               <img
                 src="/cert/iso.png"
                 className="h-16 opacity-60 hover:opacity-100 transition-opacity"
@@ -869,10 +939,10 @@ export default function ProductPage({ params }) {
                 className="h-16 opacity-60 hover:opacity-100 transition-opacity"
                 alt="Made in India"
               />
-            </div>
+            </div> */}
 
             {/* Stats Row */}
-            <div className="flex justify-center space-x-12 text-center">
+            {/* <div className="flex justify-center space-x-12 text-center">
               <div>
                 <div className="text-3xl font-bold text-[#D6312F]">500+</div>
                 <div className="text-sm text-gray-400">Major Projects</div>
@@ -885,7 +955,7 @@ export default function ProductPage({ params }) {
                 <div className="text-3xl font-bold text-[#D6312F]">24/7</div>
                 <div className="text-sm text-gray-400">Support</div>
               </div>
-            </div>
+            </div> */}
 
             {/* Final Trust Line */}
             <div className="text-gray-400 text-lg">
@@ -896,7 +966,7 @@ export default function ProductPage({ params }) {
         </div>
       </section>
 
-      <CountryScroller />
+      {/* <CountryScroller /> */}
       <Footer country={country} lang={lang} translations={t} />
     </div>
   );
@@ -919,19 +989,26 @@ function ClientMarqueeModern({ clients = [] }) {
   const logos = clients.length > 0 ? clients : defaultClients;
 
   return (
-    <div className="relative bg-white py-8 border-t border-gray-200">
+    <div className="relative bg-gradient-to-b from-gray-50 to-white py-12 border-t border-gray-200">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-6">
-          <p className="text-sm text-gray-600 font-semibold">
-            TRUSTED BY LEADING EPC CONTRACTORS & OIL/GAS OPERATORS
+        <div className="text-center mb-10">
+          <p className="text-xs text-gray-500 font-semibold tracking-widest uppercase mb-2">
+            Trusted Partners
           </p>
+          <h3 className="text-sm text-gray-700 font-medium">
+            Leading EPC Contractors & Oil/Gas Operators Worldwide
+          </h3>
         </div>
-        <div className="overflow-hidden">
-          <div className="flex gap-12 min-w-max animate-marquee">
+        <div className="relative overflow-hidden">
+          {/* Gradient fade edges */}
+          <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white to-transparent z-10" />
+          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10" />
+
+          <div className="flex gap-16 min-w-max animate-marquee">
             {[...logos, ...logos, ...logos].map((client, i) => (
               <div
                 key={i}
-                className="flex items-center justify-center min-w-[180px] h-12 text-gray-400 font-bold text-lg tracking-wide hover:text-[#D6312F] transition-colors"
+                className="flex items-center justify-center min-w-[220px] h-16 text-gray-600 font-bold text-2xl tracking-wide hover:text-[#D6312F] hover:scale-105 transition-all duration-300 cursor-default"
               >
                 {client}
               </div>
