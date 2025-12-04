@@ -8,6 +8,7 @@ import ContactForm from "@/components/ContactForm";
 import { translations } from "@/lib/translations";
 import { getProductBySlug, getProductsByCategory } from "@/lib/products";
 import CollapsibleChartSection from "./CollapsibleChartSection";
+import FloatingCTA from "./FloatingCTA";
 
 export default function ProductPage({ params }) {
   const { country, lang, slug } = params;
@@ -155,7 +156,7 @@ export default function ProductPage({ params }) {
         </div>
 
         {/* Curve Separator */}
-        <div className="relative h-32 -mb-1">
+        {/* <div className="relative h-32 -mb-1">
           <svg
             className="absolute bottom-0 w-full h-32"
             viewBox="0 0 1440 120"
@@ -178,7 +179,7 @@ export default function ProductPage({ params }) {
               fill="white"
             />
           </svg>
-        </div>
+        </div> */}
 
         {/* Client Marquee - DYNAMIC */}
         {product.clientLogos && product.clientLogos.length > 0 && (
@@ -914,6 +915,8 @@ export default function ProductPage({ params }) {
           </div>
         </div>
       </section>
+
+      <FloatingCTA />
 
       <Footer country={country} lang={lang} translations={t} />
     </div>
