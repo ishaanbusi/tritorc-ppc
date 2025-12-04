@@ -81,18 +81,21 @@ export default function TorqueWrenchesPage({ params }) {
               bolting applications. Trusted by leading EPC contractors
               worldwide.
             </p>
-            <div className="flex flex-wrap justify-center gap-6 text-white">
-              <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                <span className="text-sm">±3% Accuracy</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                <span className="text-sm">ISO 9001 Certified</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                <span className="text-sm">24h Global Delivery</span>
+            <div className="mt-6 pt-6 border-t border-gray-200">
+              <div className="grid grid-cols-3 gap-4">
+                {[
+                  "/images/cert/iso.webp",
+                  "/images/cert/ecitb.webp",
+                  "/images/cert/ce-seeklogo.png",
+                ].map((cert, i) => (
+                  <div key={i} className="flex items-center justify-center">
+                    <img
+                      src={cert}
+                      alt="Certificate"
+                      className="h-12 object-contain hover:scale-110 transition-transform"
+                    />
+                  </div>
+                ))}
               </div>
             </div>
           </div>
