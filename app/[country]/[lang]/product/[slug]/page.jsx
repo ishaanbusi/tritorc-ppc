@@ -374,7 +374,7 @@ export default function ProductPage({ params }) {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-12">
             <div className="relative rounded-3xl overflow-hidden shadow-2xl">
               <img
-                src="/images/industries/manufacturing.jpg"
+                src="/images/industries/manufacturing_optimized.webp"
                 alt="Tritorc Manufacturing Facility"
                 className="w-full h-[500px] object-cover"
               />

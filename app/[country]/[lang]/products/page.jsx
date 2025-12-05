@@ -2,99 +2,56 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import {
-  ArrowRight,
-  Filter,
-  Download,
-  ChevronDown,
-  Search,
-  Grid,
-  List,
-} from "lucide-react";
+import { ArrowRight, Filter, Download, Grid, List } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { countries } from "@/lib/countries";
 import { translations } from "@/lib/translations";
-
-// Product data matching your image
-const PRODUCTS = [
-  {
-    id: "tsl-series",
-    name: "Square Drive Type – TSL Series",
-    image: "/images/tsl-3.png",
-    minTorque: "112 Nm",
-    maxTorque: "69427 Nm",
-    boltSize: '3/4" – 2.1/2"',
-    range: "(19 – 53mm)",
-    description:
-      "Compact square drive design for confined spaces. Ideal for standard bolting applications.",
-    features: ["360° Rotating Head", "Compact Design", "High Accuracy"],
-    category: "Hydraulic Torque Wrenches",
-    series: "TSL",
-    applications: ["Oil & Gas", "Petrochemical", "Power Generation"],
-    badge: "Best Seller",
-    slug: "tsl-square-drive",
-  },
-  {
-    id: "thl-series",
-    name: "Low Profile Ratchet Type – THL Series",
-    image: "/images/products/thl-series.jpg",
-    minTorque: "273 Nm",
-    maxTorque: "51909 Nm",
-    boltSize: '3/4" – 6.7/8"',
-    range: "(19 – 170mm)",
-    description:
-      "Low profile ratcheting design for tight access areas. Perfect for flange work.",
-    features: ["Ratcheting Mechanism", "Low Profile", "Extended Reach"],
-    category: "Hydraulic Torque Wrenches",
-    series: "THL",
-    applications: ["Pipeline", "Marine", "Construction"],
-    badge: "Popular",
-    slug: "thl-low-profile",
-  },
-  {
-    id: "thl-ultra-slim",
-    name: "Ultra Slim Type – THL Series",
-    image: "/images/products/thl-ultra-slim.jpg",
-    minTorque: "293 Nm",
-    maxTorque: "12834 Nm",
-    boltSize: '3/4" – 3.1/8"',
-    range: "(19 – 79mm)",
-    description:
-      "Ultra-slim profile for extremely limited access. Industry's thinnest design.",
-    features: ["Ultra Slim Body", "Lightweight", "Precision Control"],
-    category: "Hydraulic Torque Wrenches",
-    series: "THL",
-    applications: ["Offshore", "Subsea", "Wind Energy"],
-    badge: "New",
-    slug: "thl-ultra-slim",
-  },
-];
+import {
+  products,
+  getProductsByCategory,
+  getProductCategories,
+} from "@/lib/products";
 
 export default function CategoryPage({ params }) {
-  const { country, lang } = params;
+  const { country, lang, category } = params;
   const t = translations[lang] || translations.en;
+
+  // Get products for this category (or all if no category specified)
+  const categoryProducts = category
+    ? getProductsByCategory(category)
+    : products;
 
   const [selectedSeries, setSelectedSeries] = useState("All");
   const [selectedApplication, setSelectedApplication] = useState("All");
   const [viewMode, setViewMode] = useState("grid"); // grid or list
 
   // Filter products
-  const filteredProducts = PRODUCTS.filter((product) => {
+  const filteredProducts = categoryProducts.filter((product) => {
     const seriesMatch =
       selectedSeries === "All" || product.series === selectedSeries;
     const applicationMatch =
       selectedApplication === "All" ||
-      product.applications.includes(selectedApplication);
+      (product.applications &&
+        product.applications.includes(selectedApplication));
     return seriesMatch && applicationMatch;
   });
 
   // Get unique series and applications for filters
-  const allSeries = ["All", ...new Set(PRODUCTS.map((p) => p.series))];
+  const allSeries = [
+    "All",
+    ...new Set(categoryProducts.map((p) => p.series).filter(Boolean)),
+  ];
   const allApplications = [
     "All",
-    ...new Set(PRODUCTS.flatMap((p) => p.applications)),
+    ...new Set(categoryProducts.flatMap((p) => p.applications || [])),
   ];
+
+  // Get category name for hero
+  const categoryName = category || "All Products";
+  const displayCategory = categoryName
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
 
   return (
     <div className="min-h-screen bg-white">
@@ -111,7 +68,7 @@ export default function CategoryPage({ params }) {
               Professional Grade Tools
             </div>
             <h1 className="text-5xl lg:text-6xl font-black text-white mb-6 tracking-tight">
-              Hydraulic Torque Wrenches
+              {displayCategory}
             </h1>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
               Precision-engineered torque solutions for critical industrial
@@ -147,30 +104,34 @@ export default function CategoryPage({ params }) {
               </div>
 
               {/* Series Filter */}
-              <select
-                value={selectedSeries}
-                onChange={(e) => setSelectedSeries(e.target.value)}
-                className="px-4 py-2 border-2 border-gray-200 rounded-xl font-semibold text-gray-900 hover:border-[#D6312F] transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#D6312F]"
-              >
-                {allSeries.map((series) => (
-                  <option key={series} value={series}>
-                    {series} Series
-                  </option>
-                ))}
-              </select>
+              {allSeries.length > 1 && (
+                <select
+                  value={selectedSeries}
+                  onChange={(e) => setSelectedSeries(e.target.value)}
+                  className="px-4 py-2 border-2 border-gray-200 rounded-xl font-semibold text-gray-900 hover:border-[#D6312F] transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#D6312F]"
+                >
+                  {allSeries.map((series) => (
+                    <option key={series} value={series}>
+                      {series === "All" ? "All Series" : `${series} Series`}
+                    </option>
+                  ))}
+                </select>
+              )}
 
               {/* Application Filter */}
-              <select
-                value={selectedApplication}
-                onChange={(e) => setSelectedApplication(e.target.value)}
-                className="px-4 py-2 border-2 border-gray-200 rounded-xl font-semibold text-gray-900 hover:border-[#D6312F] transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#D6312F]"
-              >
-                {allApplications.map((app) => (
-                  <option key={app} value={app}>
-                    {app}
-                  </option>
-                ))}
-              </select>
+              {allApplications.length > 1 && (
+                <select
+                  value={selectedApplication}
+                  onChange={(e) => setSelectedApplication(e.target.value)}
+                  className="px-4 py-2 border-2 border-gray-200 rounded-xl font-semibold text-gray-900 hover:border-[#D6312F] transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#D6312F]"
+                >
+                  {allApplications.map((app) => (
+                    <option key={app} value={app}>
+                      {app === "All" ? "All Applications" : app}
+                    </option>
+                  ))}
+                </select>
+              )}
 
               {/* Reset Filters */}
               {(selectedSeries !== "All" || selectedApplication !== "All") && (
@@ -189,7 +150,8 @@ export default function CategoryPage({ params }) {
             {/* Right: View Mode & Results */}
             <div className="flex items-center space-x-4">
               <span className="text-gray-600 font-medium">
-                {filteredProducts.length} Products
+                {filteredProducts.length}{" "}
+                {filteredProducts.length === 1 ? "Product" : "Products"}
               </span>
               <div className="flex bg-gray-100 rounded-lg p-1">
                 <button
@@ -199,6 +161,7 @@ export default function CategoryPage({ params }) {
                       ? "bg-white shadow-sm text-[#D6312F]"
                       : "text-gray-600 hover:text-gray-900"
                   }`}
+                  aria-label="Grid view"
                 >
                   <Grid className="w-5 h-5" />
                 </button>
@@ -209,6 +172,7 @@ export default function CategoryPage({ params }) {
                       ? "bg-white shadow-sm text-[#D6312F]"
                       : "text-gray-600 hover:text-gray-900"
                   }`}
+                  aria-label="List view"
                 >
                   <List className="w-5 h-5" />
                 </button>
@@ -302,10 +266,9 @@ export default function CategoryPage({ params }) {
 }
 
 // Product Card Component (Grid View)
-// Product Card Component (Grid View) - WITH FULL IMAGE FILL
 function ProductCard({ product, country, lang }) {
   return (
-    <div className="group bg-white rounded-2xl overflow-hidden border border-gray-200 hover:border-gray-300 transition-all duration-300 hover:shadow-lg">
+    <div className="group relative bg-white rounded-2xl overflow-hidden border border-gray-200 hover:border-gray-300 transition-all duration-300 hover:shadow-lg">
       {/* Badge */}
       {product.badge && (
         <div className="absolute top-4 left-4 z-10">
@@ -323,7 +286,7 @@ function ProductCard({ product, country, lang }) {
         </div>
       )}
 
-      {/* Image - FILLS COMPLETELY */}
+      {/* Image */}
       <div className="aspect-[4/3] bg-gradient-to-br from-gray-50 to-white overflow-hidden relative">
         <img
           src={product.image}
@@ -334,46 +297,62 @@ function ProductCard({ product, country, lang }) {
 
       {/* Content */}
       <div className="p-6">
-        <div className="mb-2">
-          <span className="text-xs font-bold text-gray-500 uppercase tracking-wide">
-            {product.series} Series
-          </span>
-        </div>
+        {product.series && (
+          <div className="mb-2">
+            <span className="text-xs font-bold text-gray-500 uppercase tracking-wide">
+              {product.series} Series
+            </span>
+          </div>
+        )}
 
         <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 min-h-[3.5rem]">
           {product.name}
         </h3>
 
         <p className="text-sm text-gray-600 mb-4 line-clamp-2 leading-relaxed">
-          {product.description}
+          {product.shortDescription}
         </p>
 
         {/* Specs Grid */}
         <div className="space-y-2 mb-4 pb-4 border-b border-gray-200">
-          <div className="flex justify-between items-center text-xs">
-            <span className="text-gray-500 font-medium">Min Torque:</span>
-            <span className="font-bold text-gray-900">{product.minTorque}</span>
-          </div>
-          <div className="flex justify-between items-center text-xs">
-            <span className="text-gray-500 font-medium">Max Torque:</span>
-            <span className="font-bold text-gray-900">{product.maxTorque}</span>
-          </div>
-          <div className="flex justify-between items-center text-xs">
-            <span className="text-gray-500 font-medium">Bolt Size:</span>
-            <span className="font-bold text-gray-900">{product.boltSize}</span>
-          </div>
-          <div className="flex justify-between items-center text-xs">
-            <span className="text-gray-500 font-medium">Range:</span>
-            <span className="font-semibold text-gray-700">{product.range}</span>
-          </div>
+          {product.torqueRange && (
+            <div className="flex justify-between items-center text-xs">
+              <span className="text-gray-500 font-medium">Torque Range:</span>
+              <span className="font-bold text-gray-900">
+                {product.torqueRange}
+              </span>
+            </div>
+          )}
+          {product.loadRange && (
+            <div className="flex justify-between items-center text-xs">
+              <span className="text-gray-500 font-medium">Load Range:</span>
+              <span className="font-bold text-gray-900">
+                {product.loadRange}
+              </span>
+            </div>
+          )}
+          {product.weight && (
+            <div className="flex justify-between items-center text-xs">
+              <span className="text-gray-500 font-medium">Weight:</span>
+              <span className="font-bold text-gray-900">{product.weight}</span>
+            </div>
+          )}
+          {product.boltSize && (
+            <div className="flex justify-between items-center text-xs">
+              <span className="text-gray-500 font-medium">Bolt Size:</span>
+              <span className="font-semibold text-gray-700">
+                {product.boltSize}
+              </span>
+            </div>
+          )}
         </div>
 
-        {/* CTA Button - Matching Your Red Color */}
+        {/* CTA Button */}
         <Link
           href={`/${country}/${lang}/product/${product.slug}`}
           className="w-full flex items-center justify-center px-6 py-2.5 bg-[#D6312F] text-white rounded-lg font-bold text-sm hover:bg-red-700 transition-all"
         >
-          Read More
+          View Details
         </Link>
       </div>
     </div>
@@ -412,67 +391,79 @@ function ProductListItem({ product, country, lang }) {
         {/* Content */}
         <div className="lg:w-2/3 p-6 lg:p-8 flex flex-col justify-between">
           <div>
-            <div className="mb-2">
-              <span className="text-xs font-bold text-gray-500 uppercase tracking-wide">
-                {product.series} Series
-              </span>
-            </div>
+            {product.series && (
+              <div className="mb-2">
+                <span className="text-xs font-bold text-gray-500 uppercase tracking-wide">
+                  {product.series} Series
+                </span>
+              </div>
+            )}
 
             <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3 group-hover:text-[#D6312F] transition-colors">
               {product.name}
             </h3>
 
             <p className="text-base text-gray-600 mb-6 leading-relaxed">
-              {product.description}
+              {product.shortDescription}
             </p>
 
             {/* Specs Row */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-              <div>
-                <div className="text-xs text-gray-500 font-medium mb-1">
-                  Min Torque
+              {product.torqueRange && (
+                <div>
+                  <div className="text-xs text-gray-500 font-medium mb-1">
+                    Torque Range
+                  </div>
+                  <div className="text-sm font-bold text-[#D6312F]">
+                    {product.torqueRange}
+                  </div>
                 </div>
-                <div className="text-sm font-bold text-gray-900">
-                  {product.minTorque}
+              )}
+              {product.loadRange && (
+                <div>
+                  <div className="text-xs text-gray-500 font-medium mb-1">
+                    Load Range
+                  </div>
+                  <div className="text-sm font-bold text-[#D6312F]">
+                    {product.loadRange}
+                  </div>
                 </div>
-              </div>
-              <div>
-                <div className="text-xs text-gray-500 font-medium mb-1">
-                  Max Torque
+              )}
+              {product.weight && (
+                <div>
+                  <div className="text-xs text-gray-500 font-medium mb-1">
+                    Weight
+                  </div>
+                  <div className="text-sm font-bold text-gray-900">
+                    {product.weight}
+                  </div>
                 </div>
-                <div className="text-sm font-bold text-[#D6312F]">
-                  {product.maxTorque}
+              )}
+              {product.boltSize && (
+                <div>
+                  <div className="text-xs text-gray-500 font-medium mb-1">
+                    Bolt Size
+                  </div>
+                  <div className="text-sm font-bold text-gray-900">
+                    {product.boltSize}
+                  </div>
                 </div>
-              </div>
-              <div>
-                <div className="text-xs text-gray-500 font-medium mb-1">
-                  Bolt Size
-                </div>
-                <div className="text-sm font-bold text-gray-900">
-                  {product.boltSize}
-                </div>
-              </div>
-              <div>
-                <div className="text-xs text-gray-500 font-medium mb-1">
-                  Range
-                </div>
-                <div className="text-sm font-semibold text-gray-700">
-                  {product.range}
-                </div>
-              </div>
+              )}
             </div>
 
             {/* Features Tags */}
-            <div className="flex flex-wrap gap-2 mb-6">
-              {product.features.map((feature, idx) => (
-                <span
-                  key={idx}
-                  className="px-3 py-1 bg-gray-100 text-gray-700 text-xs font-medium rounded-lg"
-                >
-                  {feature}
-                </span>
-              ))}
-            </div>
+            {product.features && product.features.length > 0 && (
+              <div className="flex flex-wrap gap-2 mb-6">
+                {product.features.slice(0, 5).map((feature, idx) => (
+                  <span
+                    key={idx}
+                    className="px-3 py-1 bg-gray-100 text-gray-700 text-xs font-medium rounded-lg"
+                  >
+                    {feature}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* CTA Button */}
@@ -481,7 +472,7 @@ function ProductListItem({ product, country, lang }) {
               href={`/${country}/${lang}/product/${product.slug}`}
               className="inline-flex items-center px-8 py-3 bg-gray-900 text-white rounded-xl font-bold hover:bg-gray-800 transition-all group/btn"
             >
-              <span className="mr-2">Read More</span>
+              <span className="mr-2">View Details</span>
               <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
             </Link>
           </div>
