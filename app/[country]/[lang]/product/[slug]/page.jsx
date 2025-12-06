@@ -1,4 +1,5 @@
-"use client";
+export const dynamic = "force-static"; // build as static HTML
+export const revalidate = 86400; // ISR: revalidate every 24 hours
 
 import Link from "next/link";
 import Image from "next/image";
@@ -43,7 +44,7 @@ export default function ProductPage({ params }) {
             />
           </div>
 
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-950/95 via-slate-900/90 to-slate-950/95"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-950/95 via-slate-900/90 to-slate-950/95" />
         </div>
 
         {/* Animated Grid */}
@@ -186,6 +187,7 @@ export default function ProductPage({ params }) {
           <SpecsCard product={product} country={country} lang={lang} />
         </div>
       </section>
+
       {/* =============================== ABOUT TRITORC =============================== */}
       <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-white">
         <div className="max-w-7xl mx-auto">
@@ -219,7 +221,7 @@ export default function ProductPage({ params }) {
               </div>
 
               {/* Caption Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
                 <div className="text-sm font-bold text-[#D6312F] mb-2">
                   SINCE 1990
@@ -293,7 +295,7 @@ export default function ProductPage({ params }) {
                   key={i}
                   className="flex items-center justify-center space-x-2"
                 >
-                  <div className="w-2 h-2 bg-[#D6312F] rounded-full"></div>
+                  <div className="w-2 h-2 bg-[#D6312F] rounded-full" />
                   <span className="text-sm text-gray-300">{item}</span>
                 </div>
               ))}
@@ -312,10 +314,8 @@ export default function ProductPage({ params }) {
 
       {/* =============================== PRODUCT VISUALS / GALLERY =============================== */}
       <section className="py-24 px-4 sm:px-6 lg:px-8 bg-white">
-        {/* 4-Grid Images */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
           {(product.images || [])
-            // Ensure valid paths
             .map((img) =>
               img && img.startsWith("/")
                 ? img
@@ -323,7 +323,7 @@ export default function ProductPage({ params }) {
                 ? `/images/${img.replace(/^\/?images\//, "")}`
                 : null
             )
-            .filter(Boolean) // remove null/undefined
+            .filter(Boolean)
             .slice(0, 4)
             .map((img, i) => (
               <div
@@ -468,6 +468,7 @@ export default function ProductPage({ params }) {
           </div>
         </section>
       )}
+
       {/* =============================== VIDEOS SECTION =============================== */}
       {product.videos && product.videos.length > 0 && (
         <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
@@ -504,10 +505,10 @@ export default function ProductPage({ params }) {
                     {/* Play Button */}
                     <div className="absolute inset-0 flex items-center justify-center">
                       <div className="relative">
-                        <div className="absolute inset-0 bg-[#D6312F] rounded-full blur-xl opacity-50 group-hover:opacity-70 transition-opacity"></div>
+                        <div className="absolute inset-0 bg-[#D6312F] rounded-full blur-xl opacity-50 group-hover:opacity-70 transition-opacity" />
 
                         <div className="relative w-20 h-20 rounded-full bg-[#D6312F] flex items-center justify-center group-hover:scale-110 transition-transform shadow-2xl">
-                          <div className="w-0 h-0 border-t-[14px] border-t-transparent border-l-[22px] border-l-white border-b-[14px] border-b-transparent ml-1"></div>
+                          <div className="w-0 h-0 border-t-[14px] border-t-transparent border-l-[22px] border-l-white border-b-[14px] border-b-transparent ml-1" />
                         </div>
                       </div>
                     </div>
@@ -691,7 +692,7 @@ export default function ProductPage({ params }) {
           {/* Header */}
           <div className="mb-12">
             <div className="inline-flex items-center space-x-2 px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full mb-6">
-              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
               <span className="text-sm font-semibold text-white">
                 Sales Team Online Now
               </span>
@@ -784,7 +785,7 @@ function BenefitCards({ product }) {
           <div
             className={`w-12 h-12 ${card.color} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}
           >
-            <div className="w-6 h-6 bg-white rounded-full"></div>
+            <div className="w-6 h-6 bg-white rounded-full" />
           </div>
 
           <h3 className="text-lg font-bold text-gray-900 mb-2">{card.title}</h3>
