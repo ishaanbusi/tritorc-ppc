@@ -16,6 +16,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { translations } from "@/lib/translations";
 import { getProductsByCategory } from "@/lib/products";
+import CollageSection from "@/components/CollageSection";
 
 export default function TorqueWrenchesPage({ params }) {
   const { country, lang } = params;
@@ -101,10 +102,10 @@ export default function TorqueWrenchesPage({ params }) {
             </nav>
 
             {/* Category Badge */}
-            <div className="inline-flex items-center px-5 py-2.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-sm font-bold text-white mb-8 shadow-xl">
+            {/* <div className="inline-flex items-center px-5 py-2.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-sm font-bold text-white mb-8 shadow-xl">
               <span className="w-2 h-2 bg-green-400 rounded-full mr-3 animate-pulse"></span>
               Professional Grade Tools
-            </div>
+            </div> */}
 
             {/* Main Heading */}
             <h1 className="text-5xl lg:text-7xl font-black leading-[1.1] mb-6">
@@ -121,7 +122,7 @@ export default function TorqueWrenchesPage({ params }) {
             </p>
 
             {/* Trust Metrics */}
-            <div className="flex flex-wrap justify-center items-center gap-8 mb-12">
+            {/* <div className="flex flex-wrap justify-center items-center gap-8 mb-12">
               {[
                 {
                   label: "±3% Accuracy",
@@ -146,7 +147,7 @@ export default function TorqueWrenchesPage({ params }) {
                   </span>
                 </div>
               ))}
-            </div>
+            </div> */}
 
             {/* Certifications */}
             <div className="flex justify-center items-center space-x-12 pt-8 border-t border-white/10">
@@ -162,7 +163,7 @@ export default function TorqueWrenchesPage({ params }) {
                       src={cert.src}
                       alt={`${cert.name} Certification`}
                       fill
-                      className="object-contain grayscale hover:grayscale-0 transition-all duration-500 group-hover:scale-110"
+                      className="object-contain "
                     />
                   </div>
                 </div>
@@ -470,6 +471,10 @@ export default function TorqueWrenchesPage({ params }) {
           </div>
         </div>
       </section>
+
+      <div>
+        <CollageSection />
+      </div>
 
       {/* ========================================
           TOOLS IN ACTION - MATCHING PRODUCT PAGE
