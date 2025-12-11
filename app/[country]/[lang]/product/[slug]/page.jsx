@@ -1,9 +1,11 @@
-export const dynamic = "force-static"; // build as static HTML
-export const revalidate = 86400; // ISR: revalidate every 24 hours
+export const dynamic = "force-static";
+export const revalidate = 86400;
 
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Download } from "lucide-react";
+import dyn from "next/dynamic"; // ← rename the imported function
+import { ArrowRight, Download, Video } from "lucide-react";
+
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm";
@@ -11,6 +13,13 @@ import { translations } from "@/lib/translations";
 import { getProductBySlug, getProductsByCategory } from "@/lib/products";
 import CollapsibleChartSection from "./CollapsibleChartSection";
 import FloatingCTA from "./FloatingCTA";
+import StaticReelSwiper from "@/components/StaticReelSwiper";
+import UltraReels from "@/components/UltraReels";
+
+// use renamed import
+const VideoGallery = dyn(() => import("@/components/VideoGallery"), {
+  ssr: false,
+});
 
 export default function ProductPage({ params }) {
   const { country, lang, slug } = params;
@@ -469,70 +478,17 @@ export default function ProductPage({ params }) {
         </section>
       )}
 
+      <div>
+        <UltraReels />
+      </div>
+
+      <div>
+        <StaticReelSwiper />
+      </div>
+
       {/* =============================== VIDEOS SECTION =============================== */}
       {product.videos && product.videos.length > 0 && (
-        <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
-          <div className="max-w-7xl mx-auto">
-            {/* Header */}
-            <div className="text-center mb-16">
-              <div className="inline-block px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-sm font-bold mb-4">
-                Product Demos
-              </div>
-              <h2 className="text-4xl lg:text-5xl font-black text-white">
-                See the Tools in Action
-              </h2>
-              <p className="text-xl text-gray-400 mt-4">
-                Watch real field performance from EPC sites
-              </p>
-            </div>
-
-            {/* 3 Videos */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {product.videos.slice(0, 3).map((video, i) => (
-                <div key={i} className="group">
-                  <div className="relative aspect-[9/16] rounded-3xl overflow-hidden bg-gray-800 cursor-pointer border-2 border-gray-700 hover:border-[#D6312F] transition-all hover:shadow-2xl hover:-translate-y-2">
-                    <div className="relative w-full h-full">
-                      <Image
-                        src={video.thumbnail}
-                        alt={video.title}
-                        fill
-                        className="object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-500"
-                      />
-                    </div>
-
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
-
-                    {/* Play Button */}
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="relative">
-                        <div className="absolute inset-0 bg-[#D6312F] rounded-full blur-xl opacity-50 group-hover:opacity-70 transition-opacity" />
-
-                        <div className="relative w-20 h-20 rounded-full bg-[#D6312F] flex items-center justify-center group-hover:scale-110 transition-transform shadow-2xl">
-                          <div className="w-0 h-0 border-t-[14px] border-t-transparent border-l-[22px] border-l-white border-b-[14px] border-b-transparent ml-1" />
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Duration */}
-                    <div className="absolute top-4 right-4 px-3 py-1 bg-black/70 backdrop-blur-sm rounded-full text-xs font-bold">
-                      {video.duration}
-                    </div>
-
-                    {/* Text Overlay */}
-                    <div className="absolute bottom-0 inset-x-0 p-6">
-                      <h4 className="font-bold text-xl mb-1 text-white">
-                        {video.title}
-                      </h4>
-                      <p className="text-sm text-gray-300 mb-3">
-                        {video.description}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <VideoGallery videos={product.videos} />
       )}
 
       {/* =============================== RELATED PRODUCTS =============================== */}

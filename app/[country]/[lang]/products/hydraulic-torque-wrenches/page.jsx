@@ -11,12 +11,14 @@ import {
   List,
   Play,
   Phone,
+  Video,
 } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { translations } from "@/lib/translations";
 import { getProductsByCategory } from "@/lib/products";
 import CollageSection from "@/components/CollageSection";
+import VideoSection from "@/components/VideoSection";
 
 export default function TorqueWrenchesPage({ params }) {
   const { country, lang } = params;
@@ -517,68 +519,9 @@ export default function TorqueWrenchesPage({ params }) {
       {/* ========================================
           MANUFACTURING VIDEOS - MATCHING STYLE
           ======================================== */}
-      <section className="py-24 px-6 lg:px-8 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <div className="inline-block px-4 py-2 bg-purple-50 text-purple-600 rounded-full text-sm font-bold mb-4">
-              Behind the Scenes
-            </div>
-            <h2 className="text-4xl lg:text-5xl font-black text-gray-900 mb-4">
-              Manufacturing Excellence
-            </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Watch how we manufacture precision torque tools
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              { title: "Manufacturing Process", duration: "2:45" },
-              { title: "Quality Control", duration: "1:30" },
-              { title: "Assembly Line", duration: "3:15" },
-            ].map((video, idx) => (
-              <div
-                key={idx}
-                className="relative aspect-video bg-gray-900 rounded-3xl overflow-hidden group cursor-pointer shadow-2xl"
-              >
-                <div className="relative w-full h-full">
-                  <Image
-                    src={
-                      categoryProducts[0]?.images[idx] ||
-                      "/images/placeholder.jpg"
-                    }
-                    alt={video.title}
-                    fill
-                    className="object-cover opacity-70 group-hover:opacity-50 transition-opacity duration-500"
-                  />
-                </div>
-
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="relative">
-                    <div className="absolute inset-0 bg-[#D6312F] rounded-full blur-xl opacity-50 group-hover:opacity-70 transition-opacity" />
-                    <div className="relative w-20 h-20 bg-[#D6312F] rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-2xl">
-                      <Play
-                        className="w-10 h-10 text-white ml-1"
-                        fill="white"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="absolute top-4 right-4 px-3 py-1 bg-black/70 backdrop-blur-sm rounded-full text-xs font-bold text-white">
-                  {video.duration}
-                </div>
-
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/70 to-transparent p-6">
-                  <h3 className="text-white font-bold text-lg mb-1">
-                    {video.title}
-                  </h3>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <div>
+        <VideoSection product={categoryProducts[0]} />
+      </div>
 
       {/* ========================================
           FINAL CTA - MATCHING PRODUCT PAGE
