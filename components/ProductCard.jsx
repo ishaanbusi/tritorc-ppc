@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 export default function ProductCard({ product, country, lang, translations }) {
   return (
@@ -26,10 +26,12 @@ export default function ProductCard({ product, country, lang, translations }) {
         </p>
         <div className="flex items-center justify-between">
           <div className="text-sm text-gray-500">
-            <span className="font-semibold text-gray-900">{product.torqueRange}</span>
+            <span className="font-semibold text-gray-900">
+              {product.torqueRange}
+            </span>
           </div>
           <div className="flex items-center text-[#D6312F] font-semibold text-sm group-hover:translate-x-1 transition-transform">
-            {translations?.products?.learnMore || 'Learn More'}
+            {translations?.products?.learnMore || "Learn More"}
             <ArrowRight className="w-4 h-4 ml-1" />
           </div>
         </div>

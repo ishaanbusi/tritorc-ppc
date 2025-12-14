@@ -142,7 +142,7 @@ export default function GCCHomePage() {
               {/* Main Image with Enhanced Styling */}
               <div className="relative aspect-square rounded-3xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500">
                 <img
-                  src="https://images.pexels.com/photos/159306/construction-site-build-construction-work-159306.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                  src="/images/hottapping/gcc-home.webp"
                   alt="Tritorc Industrial Solutions"
                   className="w-full h-full object-cover"
                 />

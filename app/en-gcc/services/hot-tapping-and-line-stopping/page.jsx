@@ -35,13 +35,12 @@ export default function HotTappingServicesPage({ params }) {
       <Navigation country={country} lang={lang} translations={t} />
 
       {/* =============================== HERO SECTION =============================== */}
-      {/* =============================== HERO SECTION =============================== */}
       <section className="relative pt-24 pb-0 overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0">
           <div className="relative w-full h-full">
             <Image
-              src="/images/hot-tapping-hero.jpg"
+              src="/images/hottapping/hot-tapping-4.webp"
               alt="Hot Tapping Services Background"
               fill
               priority
