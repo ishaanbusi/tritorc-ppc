@@ -215,114 +215,23 @@ export default function ProductPage({ params }) {
               Maintenance Leads worldwide.
             </p>
           </div>
-
-          {/* GRID */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-12">
-            {/* IMAGE LEFT */}
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl">
-              <div className="relative w-full h-[500px]">
-                <Image
-                  src="/images/industries/manufacturing_optimized.webp"
-                  alt="Tritorc Manufacturing Facility"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-
-              {/* Caption Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
-                <div className="text-sm font-bold text-[#D6312F] mb-2">
-                  SINCE 1990
-                </div>
-                <h3 className="text-3xl font-black mb-2">
-                  World-Class Manufacturing
-                </h3>
-                <p className="text-gray-200">
-                  State-of-the-art facility serving 50+ countries
-                </p>
-              </div>
-            </div>
-
-            {/* TEXT RIGHT */}
-            <div className="space-y-6">
-              <h3 className="text-3xl lg:text-4xl font-black text-gray-900 mb-6 leading-tight">
-                Engineering Excellence for Critical Applications
-              </h3>
-
-              <p className="text-lg text-gray-600 leading-relaxed mb-6">
-                Tritorc has been the trusted partner for major EPC contractors
-                and oil & gas operators worldwide. Our hydraulic torque tools
-                perform in the world’s toughest environments.
-              </p>
-
-              <p className="text-lg text-gray-600 leading-relaxed mb-6">
-                With over three decades of manufacturing experience, we combine
-                precision engineering with rigorous quality control.
-              </p>
-
-              <p className="text-lg text-gray-600 leading-relaxed">
-                Every Tritorc tool is backed by ISO 9001:2015 certification and
-                full calibration documentation.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Link
-                  href={`/${country}/${lang}/about`}
-                  className="inline-flex items-center justify-center px-8 py-4 bg-[#D6312F] text-white rounded-xl font-bold hover:bg-red-700 transition-all"
-                >
-                  About Tritorc
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Link>
-
-                <Link
-                  href={`/${country}/${lang}/contact`}
-                  className="inline-flex px-8 py-4 bg-white border-2 border-gray-900 text-gray-900 rounded-xl font-bold hover:bg-gray-50 transition-all"
-                >
-                  Contact Engineering Team
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          {/* FULL SOLUTIONS STRIP */}
-          <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-3xl p-10 text-white text-center">
-            <h3 className="text-2xl font-bold mb-4">
-              Complete Bolting & Cutting Solutions
-            </h3>
-
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
-              {[
-                "Hydraulic Torque Wrenches",
-                "Hydraulic Tensioners",
-                "Cold Cutting Machines",
-                "Hot Tapping Systems",
-                "Pipeline Tools",
-                "Maintenance Equipment",
-              ].map((item, i) => (
-                <div
-                  key={i}
-                  className="flex items-center justify-center space-x-2"
-                >
-                  <div className="w-2 h-2 bg-[#D6312F] rounded-full" />
-                  <span className="text-sm text-gray-300">{item}</span>
-                </div>
-              ))}
-            </div>
-
-            <Link
-              href={`/${country}/${lang}/products`}
-              className="inline-flex items-center px-8 py-4 bg-[#D6312F] rounded-xl font-bold hover:bg-red-700 transition-all"
-            >
-              View All Products
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Link>
-          </div>
         </div>
       </section>
 
       {/* =============================== PRODUCT VISUALS / GALLERY =============================== */}
       <section className="py-24 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="text-center mb-16">
+          <div className="inline-block px-4 py-2 bg-yellow-50 text-yellow-600 rounded-full text-sm font-bold mb-4">
+            Field-Proven Design
+          </div>
+          <h2 className="text-4xl lg:text-5xl font-black text-gray-900 mb-4">
+            Compact, Powerful
+            <br />& Field-Proven
+          </h2>
+          <p className="text-xl text-gray-600">
+            Engineered for the toughest environments
+          </p>
+        </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
           {(product.images || [])
             .map((img) =>
@@ -482,14 +391,14 @@ export default function ProductPage({ params }) {
         <UltraReels />
       </div>
 
-      <div>
+      {/* <div>
         <StaticReelSwiper />
-      </div>
+      </div> */}
 
       {/* =============================== VIDEOS SECTION =============================== */}
-      {product.videos && product.videos.length > 0 && (
+      {/* {product.videos && product.videos.length > 0 && (
         <VideoGallery videos={product.videos} />
-      )}
+      )} */}
 
       {/* =============================== RELATED PRODUCTS =============================== */}
       {related && related.length > 0 && (
@@ -827,21 +736,37 @@ function SpecsCard({ product, country, lang }) {
   );
 }
 
-/* ====================== Client Logo Marquee ====================== */
+/* ====================== Client Logo Marquee (Text Only, Slow Scroll) ====================== */
 
 function ClientMarqueeModern({ clients = [] }) {
   const defaultClients = [
-    "Shell",
+    "ADNOC",
+    "Saudi Aramco",
     "ExxonMobil",
-    "Chevron",
     "BP",
+    "Shell",
     "TotalEnergies",
+    "Reliance Industries",
+    "Indian Oil Corporation",
+    "ONGC",
+    "QatarEnergy",
+    "SLB (Schlumberger)",
+    "Halliburton",
+    "Saipem",
+    "McDermott",
+    "Samsung Engineering",
+    "Larsen & Toubro",
+    "NPCC",
+    "Sonatrach",
+    "Kuwait Oil Company",
+    "Petroleum Development Oman",
   ];
+
   const logos = clients.length > 0 ? clients : defaultClients;
 
   return (
-    <div className="relative bg-gradient-to-b from-gray-50 to-white py-12 border-t border-gray-200">
-      <div className="max-w-7xl mx-auto px-4">
+    <div className="relative bg-gradient-to-b from-gray-50 to-white py-12 border-t border-gray-200 overflow-hidden">
+      <div className=" mx-auto px-4">
         <div className="text-center mb-10">
           <p className="text-xs text-gray-500 font-semibold tracking-widest uppercase mb-2">
             Trusted Partners
@@ -851,15 +776,18 @@ function ClientMarqueeModern({ clients = [] }) {
           </h3>
         </div>
 
-        <div className="flex gap-16 justify-center flex-wrap">
-          {logos.map((client, i) => (
-            <div
-              key={i}
-              className="text-gray-600 font-bold text-2xl hover:text-[#D6312F] transition-all"
-            >
-              {client}
-            </div>
-          ))}
+        {/* Scrolling Row */}
+        <div className="relative overflow-hidden marquee-fade">
+          <div className="flex gap-16 w-max animate-marquee-slow">
+            {[...logos, ...logos].map((client, i) => (
+              <div
+                key={i}
+                className="text-gray-600 font-bold text-2xl hover:text-[#D6312F] transition-all whitespace-nowrap"
+              >
+                {client}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

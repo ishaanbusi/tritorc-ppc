@@ -381,7 +381,7 @@ export default function TorqueWrenchesPage({ params }) {
       {/* ========================================
           INDUSTRIES SERVED
           ======================================== */}
-      <section className="py-24 px-6 lg:px-8 bg-white">
+      {/* <section className="py-24 px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <div className="inline-block px-4 py-2 bg-blue-50 text-blue-600 rounded-full text-sm font-bold mb-4">
@@ -420,7 +420,7 @@ export default function TorqueWrenchesPage({ params }) {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* ========================================
           FAQs

@@ -80,3 +80,27 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+/* ===============================
+   Client Marquee – Slow Scroll
+   =============================== */
+
+@keyframes marquee-slow {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee-slow {
+  animation: marquee-slow 100s linear infinite; /* very slow */
+}
+
+.animate-marquee-slow:hover {
+  animation-play-state: paused;
+}
+
+

@@ -183,7 +183,7 @@ function DesktopGrid({ videos, openModal }) {
   };
 
   return (
-    <div className="grid grid-cols-3 gap-6 max-w-6xl mx-auto px-6">
+    <div className="grid grid-cols-3 gap-6  mx-auto px-6">
       {videos.map((v, i) => (
         <div
           key={i}
