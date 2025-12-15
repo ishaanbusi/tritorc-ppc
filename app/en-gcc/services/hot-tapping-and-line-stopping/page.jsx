@@ -55,12 +55,12 @@ export default function HotTappingServicesPage({ params }) {
             {/* Left Content */}
             <div className="text-white space-y-6 flex flex-col justify-center">
               {/* Badge */}
-              <div className="inline-flex items-center space-x-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-6 py-3 w-fit">
+              {/* <div className="inline-flex items-center space-x-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-6 py-3 w-fit">
                 <Zap className="w-5 h-5 text-[#D6312F]" />
                 <span className="text-sm font-bold uppercase tracking-wider">
                   System Downtime is Never an Option
                 </span>
-              </div>
+              </div> */}
 
               <h1 className="text-4xl lg:text-6xl xl:text-7xl font-black leading-[1.1]">
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
@@ -71,11 +71,9 @@ export default function HotTappingServicesPage({ params }) {
               </h1>
 
               <p className="text-lg lg:text-xl text-gray-300 leading-relaxed">
-                Our Hot Tapping and Line Stopping services deliver seamless
-                system modifications, maintenance, and expansions—while
-                operations continue uninterrupted. By reducing risk, minimizing
-                downtime, and maintaining pressure integrity, we represent an
-                efficient choice for your modern infrastructure demands.
+                Modify or expand live pipelines without shutdowns. Field-Proven
+                Hot Tapping & Line Stopping solutions that protect pressure
+                integrity and production uptime.
               </p>
 
               {/* Key Stats */}
@@ -108,7 +106,7 @@ export default function HotTappingServicesPage({ params }) {
             <div className="relative flex items-center">
               <div className="relative w-full aspect-[4/3] lg:aspect-auto lg:h-full rounded-3xl overflow-hidden shadow-2xl border-4 border-white/10">
                 <Image
-                  src="/images/hottapping/hot-tapping-1.webp"
+                  src="/images/hottapping/hot-tapping-new.jpg"
                   alt="Hot Tapping Operations"
                   fill
                   className="object-cover"
@@ -254,8 +252,16 @@ export default function HotTappingServicesPage({ params }) {
               Professional-Grade Tools & Equipment
             </h2>
             <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto">
-              State-of-the-art hot tapping and line stopping equipment for safe,
-              reliable operations
+              Designed and operated in accordance with API 2201 and API 1104
+              Appendix B codes and adheres to DNP standards for material and
+              design integrity.
+            </p>
+            <p className="text-sm md:text-base text-gray-500 mt-2">
+              Our Hot Tap Tees engineered to meet ASME B31.3 / B31.4 / B31.8
+              design requirements. The standard materials used include ASTM A516
+              GR70, MSS SP WPHY, ASTM A537 Class 1/2, or equivalents conforming
+              to BS specifications; ensuring superior strength, durability, and
+              compatibility across various industrial systems.
             </p>
           </div>
 
@@ -313,8 +319,8 @@ export default function HotTappingServicesPage({ params }) {
                 desc: "Multiple drive types for any application",
               },
               {
-                title: 'Size Range: ½" - 88"',
-                desc: "Complete coverage for all pipe diameters",
+                title: 'Size Range: ½" - 84"',
+                desc: "Hot Tapping & Line Stop Fittings Size Range",
               },
               {
                 title: "All Steel Types",
@@ -331,6 +337,185 @@ export default function HotTappingServicesPage({ params }) {
                 <p className="text-xs md:text-sm text-gray-600">
                   {feature.desc}
                 </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* =============================== TECHNICAL SPECIFICATIONS TABLE =============================== */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+              Technical Specifications
+            </h2>
+            <p className="text-gray-600">
+              Comprehensive capabilities for all hot tapping and line stopping
+              operations
+            </p>
+          </div>
+
+          {/* Specifications Table */}
+          <div className="bg-white border-2 border-gray-900 rounded-2xl overflow-hidden shadow-2xl">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="bg-gradient-to-r from-gray-900 to-gray-800 text-white">
+                    <th className="px-4 md:px-6 py-4 text-left font-bold text-sm md:text-base">
+                      Technical Specifications
+                    </th>
+                    <th className="px-4 md:px-6 py-4 text-left font-bold text-sm md:text-base">
+                      Metric
+                    </th>
+                    <th className="px-4 md:px-6 py-4 text-left font-bold text-sm md:text-base">
+                      Imperial
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {/* Minimum Pipe Diameter */}
+                  <tr className="bg-gray-50 hover:bg-gray-100 transition-colors">
+                    <td className="px-4 md:px-6 py-3 md:py-4 font-semibold text-gray-900 text-sm md:text-base">
+                      Minimum Pipe Diameter
+                    </td>
+                    <td className="px-4 md:px-6 py-3 md:py-4 text-gray-700 text-sm md:text-base">
+                      50.8 mm
+                    </td>
+                    <td className="px-4 md:px-6 py-3 md:py-4 text-gray-700 text-sm md:text-base">
+                      2&quot;
+                    </td>
+                  </tr>
+
+                  {/* Maximum Pipe Diameter */}
+                  <tr className="bg-white hover:bg-gray-100 transition-colors">
+                    <td className="px-4 md:px-6 py-3 md:py-4 font-semibold text-gray-900 text-sm md:text-base">
+                      Maximum Pipe Diameter
+                    </td>
+                    <td className="px-4 md:px-6 py-3 md:py-4 text-gray-700 text-sm md:text-base">
+                      1676.4mm
+                    </td>
+                    <td className="px-4 md:px-6 py-3 md:py-4 text-gray-700 text-sm md:text-base">
+                      66&quot;
+                    </td>
+                  </tr>
+
+                  {/* Materials Covered */}
+                  <tr className="bg-gray-50 hover:bg-gray-100 transition-colors">
+                    <td className="px-4 md:px-6 py-3 md:py-4 font-semibold text-gray-900 text-sm md:text-base">
+                      Materials Covered
+                    </td>
+                    <td
+                      colSpan="2"
+                      className="px-4 md:px-6 py-3 md:py-4 text-gray-700 text-sm md:text-base"
+                    >
+                      Alloy Steel, Stainless Steel and Carbon Steel
+                    </td>
+                  </tr>
+
+                  {/* Drive Types */}
+                  <tr className="bg-white hover:bg-gray-100 transition-colors">
+                    <td className="px-4 md:px-6 py-3 md:py-4 font-semibold text-gray-900 text-sm md:text-base">
+                      Drive Types of Hot Tapping Machines
+                    </td>
+                    <td
+                      colSpan="2"
+                      className="px-4 md:px-6 py-3 md:py-4 text-gray-700 text-sm md:text-base"
+                    >
+                      Manual, Pneumatic and Hydraulic
+                    </td>
+                  </tr>
+
+                  {/* Hot Tapping & Line Stop Fittings */}
+                  <tr className="bg-gray-50 hover:bg-gray-100 transition-colors">
+                    <td className="px-4 md:px-6 py-3 md:py-4 font-semibold text-gray-900 text-sm md:text-base">
+                      Hot Tapping & Line Stop Fittings Size Range
+                    </td>
+                    <td className="px-4 md:px-6 py-3 md:py-4 text-gray-700 text-sm md:text-base">
+                      12.7mm to 22352.2mm
+                    </td>
+                    <td className="px-4 md:px-6 py-3 md:py-4 text-gray-700 text-sm md:text-base">
+                      1/2&quot; to 84&quot;
+                    </td>
+                  </tr>
+
+                  {/* Inflatable Gas Bag */}
+                  <tr className="bg-white hover:bg-gray-100 transition-colors">
+                    <td className="px-4 md:px-6 py-3 md:py-4 font-semibold text-gray-900 text-sm md:text-base">
+                      Inflatable Gas Bag isolation up to
+                    </td>
+                    <td className="px-4 md:px-6 py-3 md:py-4 text-gray-700 text-sm md:text-base">
+                      2438.4mm
+                    </td>
+                    <td className="px-4 md:px-6 py-3 md:py-4 text-gray-700 text-sm md:text-base">
+                      96&quot;
+                    </td>
+                  </tr>
+
+                  {/* Line Stopping Machines */}
+                  <tr className="bg-gray-50 hover:bg-gray-100 transition-colors">
+                    <td className="px-4 md:px-6 py-3 md:py-4 font-semibold text-gray-900 text-sm md:text-base">
+                      Line Stopping Machines ranges up to
+                    </td>
+                    <td className="px-4 md:px-6 py-3 md:py-4 text-gray-700 text-sm md:text-base">
+                      1676.4mm
+                    </td>
+                    <td className="px-4 md:px-6 py-3 md:py-4 text-gray-700 text-sm md:text-base">
+                      66&quot;
+                    </td>
+                  </tr>
+
+                  {/* Sandwich Valves - Manual & Hydraulic */}
+                  <tr className="bg-white hover:bg-gray-100 transition-colors">
+                    <td className="px-4 md:px-6 py-3 md:py-4 font-semibold text-gray-900 text-sm md:text-base">
+                      Sandwich Valves
+                    </td>
+                    <td className="px-4 md:px-6 py-3 md:py-4 text-gray-700 text-sm md:text-base">
+                      <div className="space-y-1">
+                        <div>Manual up to: 457.2 mm</div>
+                        <div>Hydraulic up to: 1219.2 mm</div>
+                      </div>
+                    </td>
+                    <td className="px-4 md:px-6 py-3 md:py-4 text-gray-700 text-sm md:text-base">
+                      <div className="space-y-1">
+                        <div>Manual up to: 18&quot;</div>
+                        <div>Hydraulic up to: 48&quot;</div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Key Highlights Below Table */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
+            {[
+              {
+                icon: "🔧",
+                label: "Max Operating Pressure",
+                value: "1,450 psig / 100 bar",
+              },
+              {
+                icon: "🌡️",
+                label: "Max Temperature",
+                value: "280°C / 536°F",
+              },
+              {
+                icon: "✓",
+                label: "Compliance",
+                value: "API 2201 & DNP Standards",
+              },
+            ].map((item, idx) => (
+              <div
+                key={idx}
+                className="bg-gradient-to-br from-[#D6312F]/5 to-orange-50 border-2 border-[#D6312F]/20 rounded-xl p-4 md:p-6 text-center hover:border-[#D6312F] transition-all"
+              >
+                <div className="text-3xl mb-2">{item.icon}</div>
+                <div className="text-xs text-gray-600 mb-1">{item.label}</div>
+                <div className="text-sm md:text-base font-bold text-gray-900">
+                  {item.value}
+                </div>
               </div>
             ))}
           </div>
@@ -379,62 +564,6 @@ export default function HotTappingServicesPage({ params }) {
                 <item.icon className="w-10 h-10 text-[#D6312F] mx-auto mb-3" />
                 <h3 className="font-bold text-gray-900 mb-2">{item.title}</h3>
                 <p className="text-sm text-gray-600">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* =============================== COMPACT TECHNICAL SPECS =============================== */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
-              Technical Capabilities
-            </h2>
-            <p className="text-gray-600">
-              Rated for the most demanding applications
-            </p>
-          </div>
-
-          <div className="bg-white rounded-2xl border-2 border-gray-200 shadow-lg overflow-hidden">
-            <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-gray-200">
-              {[
-                {
-                  label: "Max Pressure",
-                  value: "1,450 psig",
-                  sub: "100 bar",
-                },
-                { label: "Max Temperature", value: "280°C", sub: "536°F" },
-                { label: "Max Diameter", value: '66"', sub: "1676mm" },
-              ].map((spec, idx) => (
-                <div key={idx} className="p-6 text-center">
-                  <div className="text-sm text-gray-500 mb-2">{spec.label}</div>
-                  <div className="text-3xl font-bold text-[#D6312F] mb-1">
-                    {spec.value}
-                  </div>
-                  <div className="text-xs text-gray-600">{spec.sub}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Quick Specs Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
-            {[
-              { label: "Materials", value: "All Steel Types" },
-              { label: "Drive Types", value: "Manual/Hydraulic" },
-              { label: "Size Range", value: '½" - 88"' },
-              { label: "Standards", value: "API 2201" },
-            ].map((item, idx) => (
-              <div
-                key={idx}
-                className="bg-white border border-gray-200 rounded-lg p-4 text-center"
-              >
-                <div className="text-xs text-gray-500 mb-1">{item.label}</div>
-                <div className="text-sm font-bold text-gray-900">
-                  {item.value}
-                </div>
               </div>
             ))}
           </div>
