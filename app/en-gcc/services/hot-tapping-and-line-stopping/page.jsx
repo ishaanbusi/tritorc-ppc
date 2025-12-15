@@ -522,54 +522,6 @@ export default function HotTappingServicesPage({ params }) {
         </div>
       </section>
 
-      {/* =============================== COMPACT KEY BENEFITS =============================== */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
-              Why Choose Our Services
-            </h2>
-            <p className="text-lg text-gray-600">
-              Proven expertise with zero-compromise on safety
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                icon: CheckCircle,
-                title: "No Downtime",
-                desc: "Operations continue uninterrupted",
-              },
-              {
-                icon: Shield,
-                title: "API 2201 Certified",
-                desc: "Industry-standard compliance",
-              },
-              {
-                icon: Clock,
-                title: "24/7 Support",
-                desc: "Emergency response available",
-              },
-              {
-                icon: Award,
-                title: "35+ Years",
-                desc: "Proven industry experience",
-              },
-            ].map((item, idx) => (
-              <div
-                key={idx}
-                className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:border-[#D6312F] hover:shadow-lg transition-all text-center"
-              >
-                <item.icon className="w-10 h-10 text-[#D6312F] mx-auto mb-3" />
-                <h3 className="font-bold text-gray-900 mb-2">{item.title}</h3>
-                <p className="text-sm text-gray-600">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* =============================== CONTACT SECTION (COMPACT) =============================== */}
       <section id="contact" className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div className="max-w-4xl mx-auto">
