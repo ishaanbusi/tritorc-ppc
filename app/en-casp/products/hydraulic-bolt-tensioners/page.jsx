@@ -274,66 +274,6 @@ export default function HydraulicBoltTensionersPage() {
         </div>
       </section>
 
-      {/* =============================== WHY CHOOSE (COMPACT) =============================== */}
-      <section className="py-12 md:py-16 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-black text-gray-900 mb-2">
-              Why Choose Tritorc
-            </h2>
-            <p className="text-gray-600">
-              Engineered for critical bolting applications
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-            {[
-              {
-                icon: Shield,
-                stat: "±3%",
-                label: "Precision",
-                color: "bg-blue-600",
-              },
-              {
-                icon: Award,
-                stat: "35+",
-                label: "Years Exp.",
-                color: "bg-[#D6312F]",
-              },
-              {
-                icon: Zap,
-                stat: "700",
-                label: "Bar Max",
-                color: "bg-green-600",
-              },
-              {
-                icon: Phone,
-                stat: "24/7",
-                label: "Support",
-                color: "bg-purple-600",
-              },
-            ].map((item, idx) => (
-              <div
-                key={idx}
-                className="bg-white border-2 border-gray-200 rounded-xl p-4 md:p-6 hover:border-[#D6312F] hover:shadow-lg transition-all text-center"
-              >
-                <div
-                  className={`w-10 h-10 md:w-12 md:h-12 ${item.color} rounded-lg flex items-center justify-center mx-auto mb-3`}
-                >
-                  <item.icon className="w-5 h-5 md:w-6 md:h-6 text-white" />
-                </div>
-                <div className="text-2xl md:text-3xl font-black text-gray-900 mb-1">
-                  {item.stat}
-                </div>
-                <div className="text-xs md:text-sm text-gray-600">
-                  {item.label}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* =============================== COLLAGE SECTION =============================== */}
       <CollageSection />
 
