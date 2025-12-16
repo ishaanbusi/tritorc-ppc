@@ -13,6 +13,7 @@ import {
   Shield,
   Award,
   Zap,
+  TrendingUp,
 } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -20,13 +21,11 @@ import { translations } from "@/lib/translations";
 import { getProductsByCategory } from "@/lib/products";
 import CollageSection from "@/components/CollageSection";
 
-export default function HydraulicBoltTensionersPage() {
-  // Static route - hardcode values
-  const country = "gcc";
-  const lang = "en";
+export default function HydraulicTorqueWrenchPage({ params }) {
+  const { country = "gcc", lang = "en" } = params || {};
   const t = translations[lang] || translations.en;
 
-  const categoryProducts = getProductsByCategory("Hydraulic Bolt Tensioners");
+  const categoryProducts = getProductsByCategory("Hydraulic Torque Wrenches");
 
   const [selectedSeries, setSelectedSeries] = useState("All");
   const [selectedApplication, setSelectedApplication] = useState("All");
@@ -55,14 +54,14 @@ export default function HydraulicBoltTensionersPage() {
     <div className="min-h-screen bg-white">
       <Navigation country={country} lang={lang} translations={t} />
 
-      {/* =============================== HERO SECTION =============================== */}
+      {/* =============================== HERO SECTION (COMPACT) =============================== */}
       <section className="relative pt-24 pb-12 md:pb-16 overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
           <div className="relative w-full h-full">
             <Image
               src="/images/industries/refinery-background.jpg"
-              alt="Hydraulic Bolt Tensioners"
+              alt="Hydraulic Torque Wrenches"
               fill
               priority
               className="object-cover"
@@ -83,35 +82,35 @@ export default function HydraulicBoltTensionersPage() {
               aria-label="Breadcrumb"
             >
               <Link
-                href="/en-gcc"
+                href={`/${country}/${lang}`}
                 className="hover:text-white transition-colors font-medium"
               >
                 Home
               </Link>
               <span className="text-gray-600">/</span>
               <Link
-                href="/en-gcc/products"
+                href={`/${country}/${lang}/products`}
                 className="hover:text-white transition-colors font-medium"
               >
                 Products
               </Link>
               <span className="text-gray-600">/</span>
               <span className="text-white font-semibold">
-                Hydraulic Bolt Tensioners
+                Hydraulic Torque Wrenches
               </span>
             </nav>
 
             {/* Main Heading */}
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-black leading-[1.1] mb-4">
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
-                Hydraulic Bolt Tensioners
+                Hydraulic Torque Wrenches
               </span>
             </h1>
 
             {/* Description */}
             <p className="text-base md:text-xl text-gray-300 max-w-3xl mx-auto mb-8 leading-relaxed">
-              Precision-engineered bolt tensioning solutions for critical
-              industrial applications. Trusted by leading EPC contractors
+              Precision-engineered torque solutions for critical industrial
+              bolting applications. Trusted by leading EPC contractors
               worldwide.
             </p>
 
@@ -274,8 +273,49 @@ export default function HydraulicBoltTensionersPage() {
         </div>
       </section>
 
+      <section className="py-14 md:py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div className="max-w-7xl mx-auto">
+          <div className="max-w-6xl mx-auto bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
+            <div className="grid grid-cols-1 md:grid-cols-5">
+              {/* IMAGE — FULL FILL */}
+              <div className="md:col-span-2 relative min-h-[280px] md:min-h-[420px]">
+                <img
+                  src="/images/testimonail.jpg"
+                  alt="Pamban Bridge Project Testimonial"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                {/* subtle overlay for polish */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+              </div>
+
+              {/* CONTENT */}
+              <div className="md:col-span-3 p-6 md:p-10 flex flex-col justify-center">
+                <p className="text-gray-700 text-base md:text-lg leading-relaxed mb-6">
+                  “Tritorc has been a key partner in our shutdown success at
+                  Qatar Gas. For five years, their dedicated team has delivered
+                  reliable bolt torquing and flange-facing support, helping us
+                  complete critical shutdowns on time. Their professionalism,
+                  planning, and qualified workforce continue to add real value
+                  to our operations.”
+                </p>
+
+                {/* REVIEWER */}
+                <div className="mt-2">
+                  <div className="text-lg font-black text-gray-900">
+                    Mr. Aftab Ahmed Waseer
+                  </div>
+                  <div className="text-sm text-gray-500 font-medium">
+                    Shutdown Manager for Qatar Gas
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* =============================== WHY CHOOSE (COMPACT) =============================== */}
-      <section className="py-12 md:py-16 px-4 sm:px-6 lg:px-8 bg-white">
+      {/* <section className="py-12 md:py-16 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10">
             <h2 className="text-2xl md:text-3xl font-black text-gray-900 mb-2">
@@ -307,7 +347,7 @@ export default function HydraulicBoltTensionersPage() {
                 color: "bg-green-600",
               },
               {
-                icon: Phone,
+                icon: TrendingUp,
                 stat: "24/7",
                 label: "Support",
                 color: "bg-purple-600",
@@ -332,7 +372,7 @@ export default function HydraulicBoltTensionersPage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* =============================== COLLAGE SECTION =============================== */}
       <CollageSection />
@@ -404,7 +444,7 @@ export default function HydraulicBoltTensionersPage() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/en-gcc/contact"
+              href={`/${country}/${lang}/contact`}
               className="inline-flex items-center justify-center px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-[#D6312F] to-red-600 text-white rounded-xl font-bold hover:shadow-2xl transition-all hover:scale-105"
             >
               <span>Contact Team</span>
@@ -443,7 +483,7 @@ export default function HydraulicBoltTensionersPage() {
         </a>
 
         <Link
-          href="/en-gcc/contact"
+          href={`/${country}/${lang}/contact`}
           className="flex items-center justify-center w-12 h-12 md:w-14 md:h-14 bg-[#D6312F] text-white rounded-full shadow-2xl hover:bg-red-700 transition-all hover:scale-110"
         >
           <ArrowRight className="w-5 h-5 md:w-6 md:h-6" />
@@ -458,7 +498,10 @@ export default function HydraulicBoltTensionersPage() {
 /* ====================== PRODUCT CARD (COMPACT) ====================== */
 function ProductCard({ product, country, lang }) {
   return (
-    <Link href={`/en-gcc/product/${product.slug}`} className="group">
+    <Link
+      href={`/${country}/${lang}/product/${product.slug}`}
+      className="group"
+    >
       <div className="relative bg-white rounded-2xl overflow-hidden border-2 border-gray-200 hover:border-[#D6312F] transition-all duration-300 hover:shadow-xl">
         {product.badge && (
           <div className="absolute top-4 left-4 z-10">
@@ -525,6 +568,16 @@ function ProductCard({ product, country, lang }) {
                 </span>
               </div>
             )}
+            {product.boltSize && (
+              <div className="flex justify-between items-center">
+                <span className="text-xs text-gray-500 font-semibold">
+                  Bolt Size
+                </span>
+                <span className="text-sm font-bold text-gray-900">
+                  {product.boltSize}
+                </span>
+              </div>
+            )}
           </div>
 
           <div className="flex items-center justify-between">
@@ -544,7 +597,10 @@ function ProductCard({ product, country, lang }) {
 /* ====================== PRODUCT LIST ITEM (COMPACT) ====================== */
 function ProductListItem({ product, country, lang }) {
   return (
-    <Link href={`/en-gcc/product/${product.slug}`} className="group block">
+    <Link
+      href={`/${country}/${lang}/product/${product.slug}`}
+      className="group block"
+    >
       <div className="bg-white rounded-2xl overflow-hidden border-2 border-gray-200 hover:border-[#D6312F] transition-all duration-300 hover:shadow-xl">
         <div className="flex flex-col md:flex-row">
           <div className="md:w-2/5 aspect-video md:aspect-square bg-gradient-to-br from-gray-100 to-gray-50 relative p-8">
@@ -620,6 +676,19 @@ function ProductListItem({ product, country, lang }) {
                 </div>
               )}
             </div>
+
+            {product.features && product.features.length > 0 && (
+              <div className="flex flex-wrap gap-2 mb-6">
+                {product.features.slice(0, 4).map((feature, idx) => (
+                  <span
+                    key={idx}
+                    className="px-3 py-1.5 bg-gray-100 text-gray-700 text-xs font-bold rounded-lg"
+                  >
+                    {feature}
+                  </span>
+                ))}
+              </div>
+            )}
 
             <div className="flex items-center justify-between">
               <span className="text-[#D6312F] font-bold group-hover:underline">

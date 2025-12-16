@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Menu, X, ChevronDown } from "lucide-react";
-import { getTranslation } from "@/lib/translations";
+import { Menu, X, ChevronDown, Phone } from "lucide-react";
 import { countries } from "@/lib/countries";
 
 export default function Navigation({ country, lang, translations }) {
@@ -17,47 +16,62 @@ export default function Navigation({ country, lang, translations }) {
     <nav className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-b border-gray-200 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
+          {/* LOGO */}
           <Link
             href={`/${country}/${lang}`}
             className="flex items-center space-x-2"
           >
             <img
-              src="/logo.png" // ← replace with your actual path
+              src="/logo.png"
               alt="Tritorc Logo"
               className="h-8 w-auto object-contain"
             />
           </Link>
 
+          {/* DESKTOP NAV */}
           <div className="hidden md:flex items-center space-x-8">
             <Link
               href={`/${country}/${lang}/products`}
-              className="text-gray-700 hover:text-[#D6312F] transition-colors font-medium"
+              className="text-gray-700 hover:text-[#D6312F] font-medium transition-colors"
             >
               {translations.nav.products}
             </Link>
+
             <Link
               href={`/${country}/${lang}/services`}
-              className="text-gray-700 hover:text-[#D6312F] transition-colors font-medium"
+              className="text-gray-700 hover:text-[#D6312F] font-medium transition-colors"
             >
               {translations.nav.services}
             </Link>
+
             <Link
               href={`/${country}/${lang}/industries`}
-              className="text-gray-700 hover:text-[#D6312F] transition-colors font-medium"
+              className="text-gray-700 hover:text-[#D6312F] font-medium transition-colors"
             >
               {translations.nav.industries}
             </Link>
+
             <Link
               href={`/${country}/${lang}/contact`}
-              className="text-gray-700 hover:text-[#D6312F] transition-colors font-medium"
+              className="text-gray-700 hover:text-[#D6312F] font-medium transition-colors"
             >
               {translations.nav.contact}
             </Link>
 
+            {/* PHONE NUMBER */}
+            <a
+              href="tel:+918850076944"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#D6312F]/10 text-[#D6312F] font-bold hover:bg-[#D6312F] hover:text-white transition-all"
+            >
+              <Phone className="w-4 h-4" />
+              +91 88500 76944
+            </a>
+
+            {/* LANGUAGE DROPDOWN */}
             <div className="relative">
               <button
                 onClick={() => setLangDropdownOpen(!langDropdownOpen)}
-                className="flex items-center space-x-1 text-gray-700 hover:text-[#D6312F] transition-colors font-medium"
+                className="flex items-center space-x-1 text-gray-700 hover:text-[#D6312F] font-medium transition-colors"
               >
                 <span>{lang.toUpperCase()}</span>
                 <ChevronDown className="w-4 h-4" />
@@ -82,6 +96,7 @@ export default function Navigation({ country, lang, translations }) {
             <span className="text-2xl">{currentCountry?.flag}</span>
           </div>
 
+          {/* MOBILE MENU BUTTON */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="md:hidden text-gray-700"
@@ -95,6 +110,7 @@ export default function Navigation({ country, lang, translations }) {
         </div>
       </div>
 
+      {/* MOBILE MENU */}
       {mobileMenuOpen && (
         <div className="md:hidden bg-white border-t border-gray-200">
           <div className="px-4 py-4 space-y-3">
@@ -105,6 +121,7 @@ export default function Navigation({ country, lang, translations }) {
             >
               {translations.nav.products}
             </Link>
+
             <Link
               href={`/${country}/${lang}/services`}
               className="block text-gray-700 hover:text-[#D6312F] font-medium"
@@ -112,6 +129,7 @@ export default function Navigation({ country, lang, translations }) {
             >
               {translations.nav.services}
             </Link>
+
             <Link
               href={`/${country}/${lang}/industries`}
               className="block text-gray-700 hover:text-[#D6312F] font-medium"
@@ -119,6 +137,7 @@ export default function Navigation({ country, lang, translations }) {
             >
               {translations.nav.industries}
             </Link>
+
             <Link
               href={`/${country}/${lang}/contact`}
               className="block text-gray-700 hover:text-[#D6312F] font-medium"
@@ -127,7 +146,17 @@ export default function Navigation({ country, lang, translations }) {
               {translations.nav.contact}
             </Link>
 
-            <div className="pt-3 border-t border-gray-200">
+            {/* MOBILE PHONE */}
+            <a
+              href="tel:+918850076944"
+              className="flex items-center gap-2 mt-3 px-4 py-3 rounded-lg bg-[#D6312F] text-white font-bold"
+            >
+              <Phone className="w-5 h-5" />
+              Call +91 88500 76944
+            </a>
+
+            {/* LANGUAGE */}
+            <div className="pt-4 border-t border-gray-200">
               <div className="text-sm text-gray-500 mb-2">
                 {translations.nav.selectLanguage}
               </div>
