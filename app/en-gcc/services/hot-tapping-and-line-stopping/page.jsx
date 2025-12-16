@@ -221,7 +221,7 @@ export default function HotTappingServicesPage({ params }) {
               supporting global EPC contractors
             </div>
           </div>
-          <div className="flex flex-wrap justify-center items-center gap-8">
+          {/* <div className="flex flex-wrap justify-center items-center gap-8">
             {[
               "ADNOC",
               "Saudi Aramco",
@@ -237,7 +237,7 @@ export default function HotTappingServicesPage({ params }) {
                 {company}
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
       </section>
 
@@ -409,7 +409,7 @@ export default function HotTappingServicesPage({ params }) {
                       colSpan="2"
                       className="px-4 md:px-6 py-3 md:py-4 text-gray-700 text-sm md:text-base"
                     >
-                      Alloy Steel, Stainless Steel and Carbon Steel
+                      Carbon Steel | Mild Steel
                     </td>
                   </tr>
 

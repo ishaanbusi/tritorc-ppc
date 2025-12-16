@@ -228,7 +228,7 @@ export default function PipeFreezingServicesPage({ params }) {
               supporting global EPC contractors
             </div>
           </div>
-          <div className="flex flex-wrap justify-center items-center gap-8">
+          {/* <div className="flex flex-wrap justify-center items-center gap-8">
             {[
               "ADNOC",
               "Saudi Aramco",
@@ -244,7 +244,7 @@ export default function PipeFreezingServicesPage({ params }) {
                 {company}
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
       </section>
 
@@ -483,54 +483,6 @@ export default function PipeFreezingServicesPage({ params }) {
                 <div className="text-sm md:text-base font-bold text-gray-900">
                   {item.value}
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* =============================== COMPACT KEY BENEFITS =============================== */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
-              Why Choose Pipe Freezing
-            </h2>
-            <p className="text-lg text-gray-600">
-              Safe, non-intrusive isolation without system drainage
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                icon: Snowflake,
-                title: "No System Drainage",
-                desc: "Freeze plugs eliminate complete drainage",
-              },
-              {
-                icon: Shield,
-                title: "ISO Certified",
-                desc: "Validated freeze-plug procedures",
-              },
-              {
-                icon: Clock,
-                title: "24/7 Support",
-                desc: "Emergency response available",
-              },
-              {
-                icon: Award,
-                title: "35+ Years",
-                desc: "Proven industry experience",
-              },
-            ].map((item, idx) => (
-              <div
-                key={idx}
-                className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:border-[#D6312F] hover:shadow-lg transition-all text-center"
-              >
-                <item.icon className="w-10 h-10 text-[#D6312F] mx-auto mb-3" />
-                <h3 className="font-bold text-gray-900 mb-2">{item.title}</h3>
-                <p className="text-sm text-gray-600">{item.desc}</p>
               </div>
             ))}
           </div>
