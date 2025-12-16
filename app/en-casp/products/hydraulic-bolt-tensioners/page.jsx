@@ -274,7 +274,7 @@ export default function HydraulicBoltTensionersPage() {
         </div>
       </section>
 
-      {/* =============================== COLLAGE SECTION =============================== */}
+      {/* =============================== COLLAGE  =============================== */}
       <CollageSection />
 
       {/* =============================== TOOLS IN ACTION (COMPACT) =============================== */}
