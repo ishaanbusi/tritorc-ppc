@@ -9,26 +9,20 @@ import {
   Download,
   Grid,
   List,
+  Play,
   Phone,
-  CheckCircle,
-  Shield,
-  Award,
-  Zap,
-  TrendingUp,
-  Wrench,
 } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { translations } from "@/lib/translations";
 import { getProductsByCategory } from "@/lib/products";
 import CollageSection from "@/components/CollageSection";
-import VideoSection from "@/components/VideoSection";
 
-export default function HydraulicTorqueWrenchPage({ params }) {
-  const { country = "gcc", lang = "en" } = params || {};
+export default function TorqueWrenchesPage({ params }) {
+  const { country, lang } = params;
   const t = translations[lang] || translations.en;
 
-  const categoryProducts = getProductsByCategory("Hydraulic Torque Wrenches");
+  const categoryProducts = getProductsByCategory("Hydraulic Bolt Tensioners");
 
   const [selectedSeries, setSelectedSeries] = useState("All");
   const [selectedApplication, setSelectedApplication] = useState("All");
@@ -57,14 +51,16 @@ export default function HydraulicTorqueWrenchPage({ params }) {
     <div className="min-h-screen bg-white">
       <Navigation country={country} lang={lang} translations={t} />
 
-      {/* =============================== HERO SECTION =============================== */}
+      {/* ========================================
+          HERO SECTION - MATCHING PRODUCT PAGE STYLE
+          ======================================== */}
       <section className="relative pt-32 pb-20 overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
           <div className="relative w-full h-full">
             <Image
-              src="/images/industries/refinery-background.jpg"
-              alt="Hydraulic Torque Wrenches"
+              src="/images/industries/manufacturing_optimized.webp"
+              alt="Industrial Background"
               fill
               priority
               className="object-cover"
@@ -74,10 +70,10 @@ export default function HydraulicTorqueWrenchPage({ params }) {
         </div>
 
         {/* Animated Grid */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
 
         {/* Radial Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#D6312F]/10 via-transparent to-blue-600/10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#D6312F]/10 via-transparent to-blue-600/10"></div>
 
         <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center">
@@ -101,23 +97,57 @@ export default function HydraulicTorqueWrenchPage({ params }) {
               </Link>
               <span className="text-gray-600">/</span>
               <span className="text-white font-semibold">
-                Hydraulic Torque Wrenches
+                Hydraulic Bolt Tensioners
               </span>
             </nav>
+
+            {/* Category Badge */}
+            {/* <div className="inline-flex items-center px-5 py-2.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-sm font-bold text-white mb-8 shadow-xl">
+              <span className="w-2 h-2 bg-green-400 rounded-full mr-3 animate-pulse"></span>
+              Professional Grade Tools
+            </div> */}
 
             {/* Main Heading */}
             <h1 className="text-5xl lg:text-7xl font-black leading-[1.1] mb-6">
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
-                Hydraulic Torque Wrenches
+                Hydraulic Bolt Tensioners
               </span>
             </h1>
 
             {/* Description */}
             <p className="text-xl lg:text-2xl text-gray-300 max-w-4xl mx-auto mb-12 leading-relaxed font-light">
-              Precision-engineered torque solutions for critical industrial
+              Precision-engineered bolt solutions for critical industrial
               bolting applications. Trusted by leading EPC contractors
               worldwide.
             </p>
+
+            {/* Trust Metrics */}
+            {/* <div className="flex flex-wrap justify-center items-center gap-8 mb-12">
+              {[
+                {
+                  label: "±3% Accuracy",
+                  color: "from-yellow-400 to-orange-500",
+                },
+                {
+                  label: "ISO 9001 Certified",
+                  color: "from-green-400 to-emerald-500",
+                },
+                {
+                  label: "24h Global Delivery",
+                  color: "from-blue-400 to-cyan-500",
+                },
+              ].map((stat, i) => (
+                <div
+                  key={i}
+                  className="flex items-center space-x-3 px-6 py-3 bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl hover:bg-white/10 transition-all group"
+                >
+                  <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                  <span className="text-white font-semibold text-sm">
+                    {stat.label}
+                  </span>
+                </div>
+              ))}
+            </div> */}
 
             {/* Certifications */}
             <div className="flex justify-center items-center space-x-12 pt-8 border-t border-white/10">
@@ -127,13 +157,13 @@ export default function HydraulicTorqueWrenchPage({ params }) {
                 { src: "/images/cert/ce-seeklogo.png", name: "CE" },
               ].map((cert, i) => (
                 <div key={i} className="relative group cursor-pointer">
-                  <div className="absolute inset-0 bg-white/20 rounded-xl blur-xl group-hover:bg-white/30 transition-all" />
+                  <div className="absolute inset-0 bg-white/20 rounded-xl blur-xl group-hover:bg-white/30 transition-all"></div>
                   <div className="relative h-16 w-20">
                     <Image
                       src={cert.src}
                       alt={`${cert.name} Certification`}
                       fill
-                      className="object-contain"
+                      className="object-contain "
                     />
                   </div>
                 </div>
@@ -143,7 +173,9 @@ export default function HydraulicTorqueWrenchPage({ params }) {
         </div>
       </section>
 
-      {/* =============================== FILTERS =============================== */}
+      {/* ========================================
+          FILTERS - MATCHING PRODUCT PAGE STICKY STYLE
+          ======================================== */}
       <section className="sticky top-0 z-40 bg-white/95 backdrop-blur-xl border-b-2 border-gray-200 shadow-lg">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-5">
           <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
@@ -228,7 +260,9 @@ export default function HydraulicTorqueWrenchPage({ params }) {
         </div>
       </section>
 
-      {/* =============================== PRODUCTS GRID =============================== */}
+      {/* ========================================
+          PRODUCTS GRID
+          ======================================== */}
       <section className="py-20 px-6 lg:px-8 bg-gradient-to-br from-white via-gray-50 to-white">
         <div className="max-w-7xl mx-auto">
           {viewMode === "grid" ? (
@@ -280,67 +314,9 @@ export default function HydraulicTorqueWrenchPage({ params }) {
         </div>
       </section>
 
-      {/* =============================== WHY CHOOSE =============================== */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <div className="inline-block px-4 py-2 bg-blue-50 text-blue-600 rounded-full text-sm font-bold mb-4">
-              Why Choose Tritorc
-            </div>
-            <h2 className="text-4xl lg:text-5xl font-black text-gray-900 mb-4">
-              Engineered for Critical
-              <br />
-              Bolting Applications
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              {
-                icon: Shield,
-                stat: "±3%",
-                label: "Precision Accuracy",
-                color: "bg-blue-600",
-              },
-              {
-                icon: Award,
-                stat: "35+",
-                label: "Years Experience",
-                color: "bg-[#D6312F]",
-              },
-              {
-                icon: Zap,
-                stat: "700",
-                label: "Bar Max Pressure",
-                color: "bg-green-600",
-              },
-              {
-                icon: TrendingUp,
-                stat: "24/7",
-                label: "Global Support",
-                color: "bg-purple-600",
-              },
-            ].map((item, idx) => (
-              <div
-                key={idx}
-                className="bg-gradient-to-br from-white to-gray-50 border-2 border-gray-200 rounded-2xl p-8 hover:border-[#D6312F] hover:shadow-xl transition-all group"
-              >
-                <div
-                  className={`w-14 h-14 ${item.color} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}
-                >
-                  <item.icon className="w-7 h-7 text-white" />
-                </div>
-                <div className="text-4xl font-black text-gray-900 mb-2">
-                  {item.stat}
-                </div>
-                <div className="text-sm text-gray-600">{item.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* =============================== TESTIMONIALS =============================== */}
+      {/* ========================================
+          TESTIMONIALS - MATCHING PRODUCT PAGE
+          ======================================== */}
       <section className="py-24 px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
@@ -400,8 +376,54 @@ export default function HydraulicTorqueWrenchPage({ params }) {
         </div>
       </section>
 
-      {/* =============================== FAQs =============================== */}
-      <section className="py-24 px-6 lg:px-8 bg-white">
+      {/* ========================================
+          INDUSTRIES SERVED
+          ======================================== */}
+      {/* <section className="py-24 px-6 lg:px-8 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <div className="inline-block px-4 py-2 bg-blue-50 text-blue-600 rounded-full text-sm font-bold mb-4">
+              Global Reach
+            </div>
+            <h2 className="text-4xl lg:text-5xl font-black text-gray-900 mb-4">
+              Industries We Serve
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Delivering precision bolting solutions across critical sectors
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+            {[
+              { name: "Oil & Gas", icon: "🛢️" },
+              { name: "Petrochemical", icon: "⚗️" },
+              { name: "Power Generation", icon: "⚡" },
+              { name: "Pipeline", icon: "🔗" },
+              { name: "Marine", icon: "⚓" },
+              { name: "Construction", icon: "🏗️" },
+            ].map((industry, idx) => (
+              <div
+                key={idx}
+                className="group relative bg-white border-2 border-gray-200 rounded-2xl p-8 hover:border-[#D6312F] hover:shadow-xl transition-all cursor-pointer overflow-hidden"
+              >
+                <div className="relative z-10 text-center">
+                  <div className="text-5xl mb-4 group-hover:scale-125 transition-transform duration-300">
+                    {industry.icon}
+                  </div>
+                  <h3 className="text-sm font-bold text-gray-900 leading-tight">
+                    {industry.name}
+                  </h3>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section> */}
+
+      {/* ========================================
+          FAQs
+          ======================================== */}
+      <section className="py-24 px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-white">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
             <div className="inline-block px-4 py-2 bg-yellow-50 text-yellow-600 rounded-full text-sm font-bold mb-4">
@@ -450,12 +472,13 @@ export default function HydraulicTorqueWrenchPage({ params }) {
         </div>
       </section>
 
-      {/* =============================== COLLAGE SECTION =============================== */}
       <div>
         <CollageSection />
       </div>
 
-      {/* =============================== TOOLS IN ACTION =============================== */}
+      {/* ========================================
+          TOOLS IN ACTION - MATCHING PRODUCT PAGE
+          ======================================== */}
       <section className="py-24 px-6 lg:px-8 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
@@ -484,19 +507,82 @@ export default function HydraulicTorqueWrenchPage({ params }) {
                     className="object-cover group-hover:scale-110 transition-transform duration-700"
                   />
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* =============================== VIDEO SECTION =============================== */}
-      <div>
-        <VideoSection product={categoryProducts[0]} />
-      </div>
+      {/* ========================================
+          MANUFACTURING VIDEOS - MATCHING STYLE
+          ======================================== */}
+      <section className="py-24 px-6 lg:px-8 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <div className="inline-block px-4 py-2 bg-purple-50 text-purple-600 rounded-full text-sm font-bold mb-4">
+              Behind the Scenes
+            </div>
+            <h2 className="text-4xl lg:text-5xl font-black text-gray-900 mb-4">
+              Manufacturing Excellence
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Watch how we manufacture precision torque tools
+            </p>
+          </div>
 
-      {/* =============================== FINAL CTA =============================== */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { title: "Manufacturing Process", duration: "2:45" },
+              { title: "Quality Control", duration: "1:30" },
+              { title: "Assembly Line", duration: "3:15" },
+            ].map((video, idx) => (
+              <div
+                key={idx}
+                className="relative aspect-video bg-gray-900 rounded-3xl overflow-hidden group cursor-pointer shadow-2xl"
+              >
+                <div className="relative w-full h-full">
+                  <Image
+                    src={
+                      categoryProducts[0]?.images[idx] ||
+                      "/images/placeholder.jpg"
+                    }
+                    alt={video.title}
+                    fill
+                    className="object-cover opacity-70 group-hover:opacity-50 transition-opacity duration-500"
+                  />
+                </div>
+
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-[#D6312F] rounded-full blur-xl opacity-50 group-hover:opacity-70 transition-opacity" />
+                    <div className="relative w-20 h-20 bg-[#D6312F] rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-2xl">
+                      <Play
+                        className="w-10 h-10 text-white ml-1"
+                        fill="white"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="absolute top-4 right-4 px-3 py-1 bg-black/70 backdrop-blur-sm rounded-full text-xs font-bold text-white">
+                  {video.duration}
+                </div>
+
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/70 to-transparent p-6">
+                  <h3 className="text-white font-bold text-lg mb-1">
+                    {video.title}
+                  </h3>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ========================================
+          FINAL CTA - MATCHING PRODUCT PAGE
+          ======================================== */}
       <section className="relative py-32 px-6 lg:px-8 bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#D6312F]/10 via-transparent to-blue-600/10" />
@@ -544,7 +630,9 @@ export default function HydraulicTorqueWrenchPage({ params }) {
         </div>
       </section>
 
-      {/* =============================== FLOATING BUTTONS =============================== */}
+      {/* ========================================
+          FLOATING BUTTONS - MATCHING PRODUCT PAGE
+          ======================================== */}
       <div className="fixed bottom-6 right-6 z-50">
         <Link
           href={`/${country}/${lang}/contact`}
@@ -557,7 +645,7 @@ export default function HydraulicTorqueWrenchPage({ params }) {
 
       <div className="fixed right-6 bottom-28 z-50 flex flex-col space-y-4">
         <a
-          href="https://wa.me/+918850076944"
+          href="https://wa.me/1234567890"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center w-16 h-16 bg-green-500 text-white rounded-full shadow-2xl hover:bg-green-600 transition-all hover:scale-110"
@@ -568,7 +656,7 @@ export default function HydraulicTorqueWrenchPage({ params }) {
         </a>
 
         <a
-          href="tel:+918850076944"
+          href="tel:+1234567890"
           className="flex items-center justify-center w-16 h-16 bg-blue-500 text-white rounded-full shadow-2xl hover:bg-blue-600 transition-all hover:scale-110"
         >
           <Phone className="w-7 h-7" />
@@ -580,7 +668,9 @@ export default function HydraulicTorqueWrenchPage({ params }) {
   );
 }
 
-/* ====================== PRODUCT CARD ====================== */
+// ========================================
+// PRODUCT CARD - MATCHING PRODUCT PAGE STYLE
+// ========================================
 function ProductCard({ product, country, lang }) {
   return (
     <Link
@@ -610,10 +700,10 @@ function ProductCard({ product, country, lang }) {
               src={product.image}
               alt={product.name}
               fill
-              className="object-contain p-8 group-hover:scale-110 transition-transform duration-700"
+              className="object-cover group-hover:scale-110 transition-transform duration-700"
             />
           </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
         </div>
 
         <div className="p-8">
@@ -678,7 +768,9 @@ function ProductCard({ product, country, lang }) {
   );
 }
 
-/* ====================== PRODUCT LIST ITEM ====================== */
+// ========================================
+// LIST ITEM - MATCHING PRODUCT PAGE STYLE
+// ========================================
 function ProductListItem({ product, country, lang }) {
   return (
     <Link

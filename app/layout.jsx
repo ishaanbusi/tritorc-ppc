@@ -13,32 +13,61 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      {/* LinkedIn Insight Tag */}
-      <Script id="linkedin-insight" strategy="afterInteractive">
-        {`
-          _linkedin_partner_id = "8987961";
-          window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
-          window._linkedin_data_partner_ids.push(_linkedin_partner_id);
-        `}
-      </Script>
+      <head>
+        {/* Google Tag Manager */}
+        <Script id="gtm-script" strategy="afterInteractive">
+          {`
+            (function(w,d,s,l,i){w[l]=w[l]||[];
+            w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
+            var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+            j.async=true;
+            j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+            f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-KFP4XBML');
+          `}
+        </Script>
 
-      <Script
-        id="linkedin-insight-lib"
-        strategy="afterInteractive"
-        src="https://snap.licdn.com/li.lms-analytics/insight.min.js"
-      />
+        {/* LinkedIn Insight Tag */}
+        <Script id="linkedin-insight" strategy="afterInteractive">
+          {`
+            _linkedin_partner_id = "8987961";
+            window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+            window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+          `}
+        </Script>
 
-      <noscript>
-        <img
-          height="1"
-          width="1"
-          style={{ display: "none" }}
-          alt=""
-          src="https://px.ads.linkedin.com/collect/?pid=8987961&fmt=gif"
+        <Script
+          id="linkedin-insight-lib"
+          strategy="afterInteractive"
+          src="https://snap.licdn.com/li.lms-analytics/insight.min.js"
         />
-      </noscript>
+      </head>
 
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        {/* Google Tag Manager (noscript) */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-KFP4XBML"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
+
+        {/* LinkedIn Insight noscript */}
+        <noscript>
+          <img
+            height="1"
+            width="1"
+            style={{ display: "none" }}
+            alt=""
+            src="https://px.ads.linkedin.com/collect/?pid=8987961&fmt=gif"
+          />
+        </noscript>
+
+        {children}
+      </body>
     </html>
   );
 }
