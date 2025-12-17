@@ -639,7 +639,7 @@ export default function HotTappingServicesPage({ params }) {
 
       <div className="fixed right-6 bottom-28 z-50 flex flex-col space-y-4">
         <a
-          href="https://wa.me/+918850076944"
+          href="https://wa.me/+971506304582"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center w-16 h-16 bg-green-500 text-white rounded-full shadow-2xl hover:bg-green-600 transition-all hover:scale-110"
@@ -650,7 +650,7 @@ export default function HotTappingServicesPage({ params }) {
         </a>
 
         <a
-          href="tel:+918850076944"
+          href="tel:+971506304582"
           className="flex items-center justify-center w-16 h-16 bg-blue-500 text-white rounded-full shadow-2xl hover:bg-blue-600 transition-all hover:scale-110"
         >
           <Phone className="w-7 h-7" />
