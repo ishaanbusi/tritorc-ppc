@@ -82,11 +82,11 @@ export default function Navigation({ country, lang, translations }) {
 
             {/* PHONE */}
             <a
-              href="tel:+918850076944"
+              href="tel:+971506304582"
               className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#D6312F]/10 text-[#D6312F] font-bold hover:bg-[#D6312F] hover:text-white transition"
             >
               <Phone className="w-4 h-4" />
-              +91 88500 76944
+              +971 506304582
             </a>
 
             {/* LANGUAGE */}

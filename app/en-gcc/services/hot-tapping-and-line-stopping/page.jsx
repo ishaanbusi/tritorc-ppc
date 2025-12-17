@@ -67,7 +67,7 @@ export default function HotTappingServicesPage({ params }) {
                   Hot Tapping & Line Stopping
                 </span>
                 <br />
-                <span className="text-[#D6312F]">in the UAE</span>
+                {/* <span className="text-[#D6312F]">in the UAE</span> */}
               </h1>
 
               <p className="text-lg lg:text-xl text-gray-300 leading-relaxed">
@@ -106,7 +106,7 @@ export default function HotTappingServicesPage({ params }) {
             <div className="relative flex items-center">
               <div className="relative w-full aspect-[4/3] lg:aspect-auto lg:h-full rounded-3xl overflow-hidden shadow-2xl border-4 border-white/10">
                 <Image
-                  src="/images/hottapping/hot-tapping-new.jpg"
+                  src="/images/hottapping/banner-hott1.jpg"
                   alt="Hot Tapping Operations"
                   fill
                   className="object-cover"
@@ -221,14 +221,19 @@ export default function HotTappingServicesPage({ params }) {
               supporting global EPC contractors
             </div>
           </div>
-          {/* <div className="flex flex-wrap justify-center items-center gap-8">
+          <div className="flex flex-wrap justify-center items-center gap-8">
             {[
-              "ADNOC",
-              "Saudi Aramco",
-              "Qatar Energy",
-              "PDO",
-              "Shell",
-              "BP",
+              "Petrofac",
+              "Maire Tecnimont",
+              "Tecnicas Reunidas",
+              "Petrojet",
+              "Saipem",
+              "Technip",
+              "McDermott",
+              "CCC",
+              "Subsea 7",
+              "Samsung E&A / C&T",
+              "CPECC",
             ].map((company) => (
               <div
                 key={company}
@@ -237,7 +242,7 @@ export default function HotTappingServicesPage({ params }) {
                 {company}
               </div>
             ))}
-          </div> */}
+          </div>
         </div>
       </section>
 
@@ -266,43 +271,56 @@ export default function HotTappingServicesPage({ params }) {
           </div>
 
           {/* Tools Image Grid - Compact Mobile */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
+          {/* ================= TOOLS IMAGE GRID ================= */}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6">
             {[
               {
-                src: "/images/hottapping/hot-tapping-1.webp",
-                alt: "Hot Tapping Machine",
+                src: "/images/hottapping/cutters-final.jpg",
                 label: "Hot Tapping System",
               },
               {
-                src: "/images/hottapping/hot-tapping-2.webp",
-                alt: "Line Stopping Equipment",
+                src: "/images/hottapping/Hot tapping_1-optimized.webp",
                 label: "Line Stopping Unit",
               },
               {
-                src: "/images/hottapping/hot-tapping-3.webp",
-                alt: "Hydraulic Pump",
+                src: "/images/hottapping/Hottapping_2-optimized.webp",
                 label: "Hydraulic Systems",
               },
               {
-                src: "/images/hottapping/hot-tapping-4.webp",
-                alt: "Completion Plug",
+                src: "/images/hottapping/Hot tapping-optimized.webp",
                 label: "Completion Tools",
+              },
+              {
+                src: "/images/hottapping/Fittings-optimized.webp",
+                label: "Pipeline Fittings",
+              },
+              {
+                src: "/images/hottapping/Fitting 2-optimized.webp",
+                label: "Specialized Fittings",
               },
             ].map((tool, idx) => (
               <div
                 key={idx}
-                className="group relative aspect-square rounded-lg md:rounded-2xl overflow-hidden shadow-md md:shadow-lg hover:shadow-2xl transition-all border-2 border-gray-200 hover:border-[#D6312F]"
+                className="
+        group relative aspect-[4/3]
+        rounded-xl md:rounded-2xl
+        overflow-hidden
+        border border-gray-200
+        hover:border-[#D6312F]
+        transition
+      "
               >
                 <Image
                   src={tool.src}
-                  alt={tool.alt}
+                  alt={tool.label}
                   fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-500"
+                  className="object-cover"
                 />
-                {/* Mobile: Always show label */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent lg:opacity-0 lg:group-hover:opacity-100 transition-opacity">
-                  <div className="absolute bottom-0 left-0 right-0 p-3 md:p-6">
-                    <h3 className="text-white font-bold text-xs md:text-lg">
+
+                {/* LABEL */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent">
+                  <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4">
+                    <h3 className="text-white font-semibold text-xs md:text-sm">
                       {tool.label}
                     </h3>
                   </div>

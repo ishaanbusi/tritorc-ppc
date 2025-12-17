@@ -1,10 +1,10 @@
-import Link from 'next/link';
-import { ArrowLeft, Mail, Phone, MapPin } from 'lucide-react';
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
-import ContactForm from '@/components/ContactForm';
-import { countries } from '@/lib/countries';
-import { translations } from '@/lib/translations';
+import Link from "next/link";
+import { ArrowLeft, Mail, Phone, MapPin } from "lucide-react";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
+import ContactForm from "@/components/ContactForm";
+import { countries } from "@/lib/countries";
+import { translations } from "@/lib/translations";
 
 export async function generateStaticParams() {
   const params = [];
@@ -27,6 +27,7 @@ export default function ContactPage({ params }) {
 
       <div className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
+          {/* Back Link */}
           <Link
             href={`/${country}/${lang}`}
             className="inline-flex items-center text-gray-600 hover:text-[#D6312F] mb-8 transition-colors"
@@ -35,6 +36,7 @@ export default function ContactPage({ params }) {
             Back to Home
           </Link>
 
+          {/* Header */}
           <div className="mb-12">
             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
               {t.nav.contact}
@@ -44,33 +46,51 @@ export default function ContactPage({ params }) {
             </p>
           </div>
 
+          {/* Content */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            {/* Form */}
             <div className="lg:col-span-2">
               <ContactForm />
             </div>
 
+            {/* Contact Info */}
             <div className="space-y-6">
+              {/* Email */}
               <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
                 <div className="w-12 h-12 bg-[#D6312F] rounded-lg flex items-center justify-center mb-4">
                   <Mail className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="font-bold text-gray-900 mb-2">Email</h3>
-                <p className="text-gray-600">info@tritorc.com</p>
+                <a
+                  href="mailto:reach.ses@tritorc.com"
+                  className="text-gray-600 hover:text-[#D6312F]"
+                >
+                  reach.ses@tritorc.com
+                </a>
               </div>
 
+              {/* Phone */}
               <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
                 <div className="w-12 h-12 bg-[#D6312F] rounded-lg flex items-center justify-center mb-4">
                   <Phone className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="font-bold text-gray-900 mb-2">Phone</h3>
-                <p className="text-gray-600">+1 (800) 123-4567</p>
+                <a
+                  href="tel:+971506304582"
+                  className="text-gray-600 hover:text-[#D6312F]"
+                >
+                  +971 506304582
+                </a>
               </div>
 
+              {/* Location */}
               <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
                 <div className="w-12 h-12 bg-[#D6312F] rounded-lg flex items-center justify-center mb-4">
                   <MapPin className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="font-bold text-gray-900 mb-2">{countryData?.name}</h3>
+                <h3 className="font-bold text-gray-900 mb-2">
+                  {countryData?.name}
+                </h3>
                 <p className="text-gray-600">Local representative available</p>
               </div>
             </div>
