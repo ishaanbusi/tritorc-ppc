@@ -18,7 +18,7 @@ import { translations } from "@/lib/translations";
 export const metadata = {
   title: "Hot Tapping & Line Stopping Services UAE | Tritorc",
   description:
-    "Professional hot tapping and line stopping services in the UAE. Zero downtime operations. Rated up to 1,450 psig and 280°C. API 2201 certified.",
+    "Professional hot tapping and line stopping services in the UAE. Zero downtime operations. Rated up to 1,450 PSI and 280°C. API 2201 certified.",
 };
 
 export default function HotTappingServicesPage({ params }) {
@@ -78,7 +78,7 @@ export default function HotTappingServicesPage({ params }) {
 
               {/* Key Stats */}
               <div className="grid grid-cols-3 gap-4 pt-6 border-t border-white/20">
-                <StatBadge label="Max Pressure" value="1,450 psig" />
+                <StatBadge label="Max Pressure" value="1,450 PSI" />
                 <StatBadge label="Max Temp" value="280°C" />
                 <StatBadge label="Max Diameter" value='66"' />
               </div>
@@ -106,7 +106,7 @@ export default function HotTappingServicesPage({ params }) {
             <div className="relative flex items-center">
               <div className="relative w-full aspect-[4/3] lg:aspect-auto lg:h-full rounded-3xl overflow-hidden shadow-2xl border-4 border-white/10">
                 <Image
-                  src="/images/hottapping/banner-hott1.jpg"
+                  src="/images/hottapping/hottapping-img.png"
                   alt="Hot Tapping Operations"
                   fill
                   className="object-cover"
@@ -512,7 +512,7 @@ export default function HotTappingServicesPage({ params }) {
               {
                 icon: "🔧",
                 label: "Max Operating Pressure",
-                value: "1,450 psig / 100 bar",
+                value: "1,450 PSI / 100 bar",
               },
               {
                 icon: "🌡️",
