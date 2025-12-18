@@ -24,7 +24,7 @@ import { translations } from "@/lib/translations";
 export const metadata = {
   title: "Industrial Pipe Freezing Services UAE | Tritorc",
   description:
-    "Safe, non-intrusive pipeline isolation services. Pipe sizes ½″ to 30″+, up to 6000 PSI. ISO-certified freezing procedures for oil & gas, petrochemical industries.",
+    "Safe, non-intrusive pipeline isolation services. Pipe sizes ½″ to 24″+, up to 6000 PSI. ISO-certified freezing procedures for oil & gas, petrochemical industries.",
 };
 
 export default function PipeFreezingServicesPage({ params }) {
@@ -84,7 +84,7 @@ export default function PipeFreezingServicesPage({ params }) {
 
               {/* Key Stats */}
               <div className="grid grid-cols-3 gap-4 pt-6 border-t border-white/20">
-                <StatBadge label="Pipe Size" value="½″ to 30″+" />
+                <StatBadge label="Pipe Size" value="½″ to 24″+" />
                 <StatBadge label="Pressure" value="6000 PSI" />
                 <StatBadge label="Certification" value="ISO" />
               </div>
@@ -396,7 +396,7 @@ export default function PipeFreezingServicesPage({ params }) {
                   </tr>
 
                   {/* Pipe Temperature Range */}
-                  <tr className="bg-gray-50 hover:bg-gray-100 transition-colors">
+                  {/* <tr className="bg-gray-50 hover:bg-gray-100 transition-colors">
                     <td className="px-4 md:px-6 py-3 md:py-4 font-semibold text-gray-900 text-sm md:text-base">
                       Pipe Temperature Range
                     </td>
@@ -406,7 +406,7 @@ export default function PipeFreezingServicesPage({ params }) {
                     <td className="px-4 md:px-6 py-3 md:py-4 text-gray-700 text-sm md:text-base">
                       122°F to 248°F
                     </td>
-                  </tr>
+                  </tr> */}
 
                   {/* Cooling Fluid */}
                   <tr className="bg-white hover:bg-gray-100 transition-colors">
@@ -430,9 +430,7 @@ export default function PipeFreezingServicesPage({ params }) {
                       colSpan="2"
                       className="px-4 md:px-6 py-3 md:py-4 text-gray-700 text-sm md:text-base"
                     >
-                      Carbon Steels, Stainless Steel, Aluminum Alloys, Cast
-                      Iron, Epoxy Coated Pipes, Nickel Alloys, Copper-based
-                      Alloys
+                      Carbon Steel, Stainless Steel, Ductile Iron, and Copper
                     </td>
                   </tr>
 
@@ -445,9 +443,7 @@ export default function PipeFreezingServicesPage({ params }) {
                       colSpan="2"
                       className="px-4 md:px-6 py-3 md:py-4 text-gray-700 text-sm md:text-base"
                     >
-                      Freshwater, Glycol solutions, Seawaters, Effluents/Sewage,
-                      Produced water, Sludge, Crude oil, Fuel oils, Lubrication
-                      oils, Various chemical products
+                      Chilled Water, Fire Fighter Lines, Condensate Lines
                     </td>
                   </tr>
                 </tbody>

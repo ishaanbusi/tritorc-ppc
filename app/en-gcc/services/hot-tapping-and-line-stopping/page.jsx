@@ -80,7 +80,7 @@ export default function HotTappingServicesPage({ params }) {
               <div className="grid grid-cols-3 gap-4 pt-6 border-t border-white/20">
                 <StatBadge label="Max Pressure" value="1,450 PSI" />
                 <StatBadge label="Max Temp" value="280°C" />
-                <StatBadge label="Max Diameter" value='66"' />
+                <StatBadge label="Max Diameter" value='72"' />
               </div>
 
               {/* CTA Buttons */}
@@ -114,7 +114,7 @@ export default function HotTappingServicesPage({ params }) {
               </div>
 
               {/* Stats Overlay */}
-              <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl">
+              {/* <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl">
                 <div className="flex items-center justify-between text-center">
                   <div>
                     <div className="text-xl font-bold text-gray-900">35+</div>
@@ -135,7 +135,7 @@ export default function HotTappingServicesPage({ params }) {
                     <div className="text-xs text-gray-600">Safety Record</div>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
 
@@ -253,7 +253,7 @@ export default function HotTappingServicesPage({ params }) {
             {/* <div className="inline-block px-4 py-2 bg-[#D6312F]/10 text-[#D6312F] rounded-full text-sm font-bold mb-3">
               Our Equipment
             </div> */}
-            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-2">
+            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-4">
               Professional-Grade Tools & Equipment
             </h2>
             <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto">
@@ -261,13 +261,12 @@ export default function HotTappingServicesPage({ params }) {
               Appendix B codes and adheres to DNP standards for material and
               design integrity.
             </p>
-            <p className="text-sm md:text-base text-gray-500 mt-2">
+            {/* <p className="text-sm md:text-base text-gray-500 mt-2">
               Our Hot Tap Tees engineered to meet ASME B31.3 / B31.4 / B31.8
-              design requirements. The standard materials used include ASTM A516
-              GR70, MSS SP WPHY, ASTM A537 Class 1/2, or equivalents conforming
+              design requirements. The standard materials used include or equivalents conforming
               to BS specifications; ensuring superior strength, durability, and
               compatibility across various industrial systems.
-            </p>
+            </p> */}
           </div>
 
           {/* Tools Image Grid - Compact Mobile */}
@@ -276,27 +275,27 @@ export default function HotTappingServicesPage({ params }) {
             {[
               {
                 src: "/images/hottapping/cutters-final.jpg",
-                label: "Hot Tapping System",
+                label: "Cutters",
               },
               {
                 src: "/images/hottapping/Hot tapping_1-optimized.webp",
-                label: "Line Stopping Unit",
+                label: "Split-Tees",
               },
               {
                 src: "/images/hottapping/Hottapping_2-optimized.webp",
-                label: "Hydraulic Systems",
+                label: "Hot-Tapping Machines",
               },
               {
                 src: "/images/hottapping/Hot tapping-optimized.webp",
-                label: "Completion Tools",
+                label: "Sandwich Valves",
               },
               {
                 src: "/images/hottapping/Fittings-optimized.webp",
-                label: "Pipeline Fittings",
+                label: "Adapters",
               },
               {
                 src: "/images/hottapping/Fitting 2-optimized.webp",
-                label: "Specialized Fittings",
+                label: "Adapters",
               },
             ].map((tool, idx) => (
               <div
@@ -414,7 +413,7 @@ export default function HotTappingServicesPage({ params }) {
                       1676.4mm
                     </td>
                     <td className="px-4 md:px-6 py-3 md:py-4 text-gray-700 text-sm md:text-base">
-                      66&quot;
+                      72&quot;
                     </td>
                   </tr>
 
@@ -427,7 +426,7 @@ export default function HotTappingServicesPage({ params }) {
                       colSpan="2"
                       className="px-4 md:px-6 py-3 md:py-4 text-gray-700 text-sm md:text-base"
                     >
-                      Carbon Steel | Mild Steel
+                      Carbon Steel, Mild Steel, HTP, UPVC, GRP, FRP
                     </td>
                   </tr>
 
@@ -490,13 +489,13 @@ export default function HotTappingServicesPage({ params }) {
                     </td>
                     <td className="px-4 md:px-6 py-3 md:py-4 text-gray-700 text-sm md:text-base">
                       <div className="space-y-1">
-                        <div>Manual up to: 457.2 mm</div>
+                        <div>Manual up to: 304.8 mm</div>
                         <div>Hydraulic up to: 1219.2 mm</div>
                       </div>
                     </td>
                     <td className="px-4 md:px-6 py-3 md:py-4 text-gray-700 text-sm md:text-base">
                       <div className="space-y-1">
-                        <div>Manual up to: 18&quot;</div>
+                        <div>Manual up to: 12&quot;</div>
                         <div>Hydraulic up to: 48&quot;</div>
                       </div>
                     </td>
