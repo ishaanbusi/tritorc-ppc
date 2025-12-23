@@ -70,37 +70,34 @@ export default function HydraulicTorqueWrenchPage({ params }) {
           <div className="absolute inset-0 bg-gradient-to-br from-slate-950/95 via-slate-900/90 to-slate-950/95" />
         </div>
 
-        {/* Animated Grid */}
+        {/* Grid Overlay */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#D6312F]/10 via-transparent to-blue-600/10" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 md:pt-12">
           <div className="text-center">
             {/* Breadcrumb */}
-            <nav
-              className="flex items-center justify-center space-x-2 text-xs md:text-sm text-gray-400 mb-6"
-              aria-label="Breadcrumb"
-            >
+            <nav className="flex justify-center space-x-2 text-xs md:text-sm text-gray-400 mb-6">
               <Link
                 href={`/${country}/${lang}`}
-                className="hover:text-white transition-colors font-medium"
+                className="hover:text-white font-medium"
               >
                 Home
               </Link>
-              <span className="text-gray-600">/</span>
+              <span>/</span>
               <Link
                 href={`/${country}/${lang}/products`}
-                className="hover:text-white transition-colors font-medium"
+                className="hover:text-white font-medium"
               >
                 Products
               </Link>
-              <span className="text-gray-600">/</span>
+              <span>/</span>
               <span className="text-white font-semibold">
                 Hydraulic Torque Wrenches
               </span>
             </nav>
 
-            {/* Main Heading */}
+            {/* Heading */}
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-black leading-[1.1] mb-4">
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
                 Hydraulic Torque Wrenches
@@ -108,25 +105,80 @@ export default function HydraulicTorqueWrenchPage({ params }) {
             </h1>
 
             {/* Description */}
-            <p className="text-base md:text-xl text-gray-300 max-w-3xl mx-auto mb-8 leading-relaxed">
+            <p className="text-base md:text-xl text-gray-300 max-w-3xl mx-auto mb-10 leading-relaxed">
               Precision-engineered torque solutions for critical industrial
               bolting applications. Trusted by leading EPC contractors
               worldwide.
             </p>
 
-            {/* Certifications - Compact */}
-            <div className="flex justify-center items-center space-x-6 md:space-x-10 pt-6 border-t border-white/10">
+            {/* ================= QUICK ENQUIRY FORM ================= */}
+            {/* ================= QUICK ENQUIRY FORM ================= */}
+            <div className="max-w-4xl mx-auto">
+              <form className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl p-4 md:p-6 shadow-2xl">
+                {/* Row 1 */}
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
+                  <input
+                    type="text"
+                    name="name"
+                    required
+                    placeholder="Full Name *"
+                    className="w-full rounded-lg bg-white/90 px-4 py-3 text-sm text-gray-900 outline-none focus:ring-2 focus:ring-[#D6312F]"
+                  />
+
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    placeholder="Work Email *"
+                    className="w-full rounded-lg bg-white/90 px-4 py-3 text-sm text-gray-900 outline-none focus:ring-2 focus:ring-[#D6312F]"
+                  />
+
+                  <input
+                    type="tel"
+                    name="phone"
+                    required
+                    placeholder="Phone Number *"
+                    className="w-full rounded-lg bg-white/90 px-4 py-3 text-sm text-gray-900 outline-none focus:ring-2 focus:ring-[#D6312F]"
+                  />
+
+                  <button
+                    type="submit"
+                    className="rounded-lg bg-[#D6312F] px-6 py-3 text-sm font-bold text-white hover:bg-[#b72826] transition-all"
+                  >
+                    Get Quote
+                  </button>
+                </div>
+
+                {/* Message */}
+                <div className="mt-3">
+                  <textarea
+                    name="message"
+                    required
+                    rows={3}
+                    placeholder="Message / Application details (torque range, bolt size, industry, urgency, etc.) *"
+                    className="w-full rounded-lg bg-white/90 px-4 py-3 text-sm text-gray-900 outline-none focus:ring-2 focus:ring-[#D6312F] resize-none"
+                  />
+                </div>
+
+                <p className="text-xs text-gray-300 mt-3 text-center">
+                  Get pricing, datasheets & delivery timelines within 24 hours
+                </p>
+              </form>
+            </div>
+
+            {/* Certifications */}
+            <div className="flex justify-center items-center space-x-6 md:space-x-10 pt-10 border-t border-white/10 mt-10">
               {[
                 { src: "/images/cert/iso.webp", name: "ISO" },
                 { src: "/images/cert/ecitb.webp", name: "ECITB" },
                 { src: "/images/cert/ce-seeklogo.png", name: "CE" },
               ].map((cert, i) => (
-                <div key={i} className="relative group cursor-pointer">
+                <div key={i} className="relative group">
                   <div className="absolute inset-0 bg-white/20 rounded-xl blur-xl group-hover:bg-white/30 transition-all" />
                   <div className="relative h-10 md:h-14 w-14 md:w-18">
                     <Image
                       src={cert.src}
-                      alt={`${cert.name} Certification`}
+                      alt={cert.name}
                       fill
                       className="object-contain"
                     />
@@ -279,9 +331,10 @@ export default function HydraulicTorqueWrenchPage({ params }) {
             <div className="grid grid-cols-1 md:grid-cols-5">
               {/* IMAGE — FULL FILL */}
               <div className="md:col-span-2 relative min-h-[280px] md:min-h-[420px]">
-                <img
+                <Image
                   src="/images/testimonail.jpg"
                   alt="Pamban Bridge Project Testimonial"
+                  fill
                   className="absolute inset-0 w-full h-full object-cover"
                 />
                 {/* subtle overlay for polish */}
@@ -461,7 +514,7 @@ export default function HydraulicTorqueWrenchPage({ params }) {
       {/* =============================== FLOATING BUTTONS (MOBILE OPTIMIZED) =============================== */}
       <div className="fixed bottom-4 right-4 z-50 flex flex-col space-y-3">
         <a
-          href="https://wa.me/+918850076944"
+          href="https://wa.me/+971506304582"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center w-12 h-12 md:w-14 md:h-14 bg-green-500 text-white rounded-full shadow-2xl hover:bg-green-600 transition-all hover:scale-110"
@@ -476,7 +529,7 @@ export default function HydraulicTorqueWrenchPage({ params }) {
         </a>
 
         <a
-          href="tel:+918850076944"
+          href="tel:+971506304582"
           className="flex items-center justify-center w-12 h-12 md:w-14 md:h-14 bg-blue-500 text-white rounded-full shadow-2xl hover:bg-blue-600 transition-all hover:scale-110"
         >
           <Phone className="w-6 h-6 md:w-7 md:h-7" />
@@ -520,14 +573,13 @@ function ProductCard({ product, country, lang }) {
         )}
 
         <div className="aspect-[4/3] bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden relative">
-          <div className="relative w-full h-full">
-            <Image
-              src={product.image}
-              alt={product.name}
-              fill
-              className="object-contain p-6 group-hover:scale-110 transition-transform duration-500"
-            />
-          </div>
+          <Image
+            src={product.image}
+            alt={product.name}
+            fill
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            sizes="(max-width: 768px) 100vw, 33vw"
+          />
         </div>
 
         <div className="p-5">

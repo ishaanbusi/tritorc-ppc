@@ -361,7 +361,7 @@ export default function HydraulicBoltTensionersPage() {
       {/* =============================== FLOATING BUTTONS (MOBILE OPTIMIZED) =============================== */}
       <div className="fixed bottom-4 right-4 z-50 flex flex-col space-y-3">
         <a
-          href="https://wa.me/+918850076944"
+          href="https://wa.me/+971506304582"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center w-12 h-12 md:w-14 md:h-14 bg-green-500 text-white rounded-full shadow-2xl hover:bg-green-600 transition-all hover:scale-110"
@@ -376,7 +376,7 @@ export default function HydraulicBoltTensionersPage() {
         </a>
 
         <a
-          href="tel:+918850076944"
+          href="tel:+971506304582"
           className="flex items-center justify-center w-12 h-12 md:w-14 md:h-14 bg-blue-500 text-white rounded-full shadow-2xl hover:bg-blue-600 transition-all hover:scale-110"
         >
           <Phone className="w-6 h-6 md:w-7 md:h-7" />
