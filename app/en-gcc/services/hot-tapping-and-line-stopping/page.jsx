@@ -93,7 +93,7 @@ export default function HotTappingServicesPage({ params }) {
                   <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </a>
                 <a
-                  href="tel:+971XXXXXXXX"
+                  href="tel:+971506304582"
                   className="inline-flex items-center justify-center px-8 py-4 bg-white/10 backdrop-blur-sm border-2 border-white/20 text-white rounded-xl font-semibold hover:bg-white/20 transition-all"
                 >
                   <Phone className="w-5 h-5 mr-2" />

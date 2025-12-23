@@ -99,13 +99,20 @@ export default function PipeFreezingServicesPage({ params }) {
                   <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </a>
                 <a
+                  href="tel:+971506304582"
+                  className="inline-flex items-center justify-center px-8 py-4 bg-white/10 backdrop-blur-sm border-2 border-white/20 text-white rounded-xl font-semibold hover:bg-white/20 transition-all"
+                >
+                  <Phone className="w-5 h-5 mr-2" />
+                  Emergency Hotline
+                </a>
+                {/* <a
                   href="/assets/pdf/pipe-freezing-service.pdf"
                   download
                   className="inline-flex items-center justify-center px-8 py-4 bg-white/10 backdrop-blur-sm border-2 border-white/20 text-white rounded-xl font-semibold hover:bg-white/20 transition-all"
                 >
                   <Download className="w-5 h-5 mr-2" />
                   Download Catalog
-                </a>
+                </a> */}
               </div>
             </div>
 
@@ -561,13 +568,20 @@ export default function PipeFreezingServicesPage({ params }) {
               <ArrowRight className="ml-2 w-5 h-5" />
             </a>
             <a
+              href="tel:+971506304582"
+              className="inline-flex items-center justify-center px-8 py-4 bg-white/10 backdrop-blur-sm border-2 border-white/20 text-white rounded-xl font-semibold hover:bg-white/20 transition-all"
+            >
+              <Phone className="w-5 h-5 mr-2" />
+              Emergency Hotline
+            </a>
+            {/* <a
               href="/assets/pdf/pipe-freezing-service.pdf"
               download
               className="inline-flex items-center justify-center px-8 py-4 bg-white/10 backdrop-blur-sm border-2 border-white/20 text-white rounded-xl font-bold hover:bg-white/20 transition-all"
             >
               <Download className="mr-2 w-5 h-5" />
               Download Catalog
-            </a>
+            </a> */}
           </div>
         </div>
       </section>
@@ -585,7 +599,7 @@ export default function PipeFreezingServicesPage({ params }) {
 
       <div className="fixed right-6 bottom-28 z-50 flex flex-col space-y-4">
         <a
-          href="https://wa.me/+918850076944"
+          href="https://wa.me/+971506304582"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center w-16 h-16 bg-green-500 text-white rounded-full shadow-2xl hover:bg-green-600 transition-all hover:scale-110"
@@ -596,7 +610,7 @@ export default function PipeFreezingServicesPage({ params }) {
         </a>
 
         <a
-          href="tel:+918850076944"
+          href="tel:+971506304582"
           className="flex items-center justify-center w-16 h-16 bg-blue-500 text-white rounded-full shadow-2xl hover:bg-blue-600 transition-all hover:scale-110"
         >
           <Phone className="w-7 h-7" />

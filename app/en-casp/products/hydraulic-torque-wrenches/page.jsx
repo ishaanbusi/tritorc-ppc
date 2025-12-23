@@ -20,9 +20,10 @@ import Footer from "@/components/Footer";
 import { translations } from "@/lib/translations";
 import { getProductsByCategory } from "@/lib/products";
 import CollageSection from "@/components/CollageSection";
+import HeroEnquiryForm from "@/components/HeroEnquiryForm";
 
 export default function HydraulicTorqueWrenchPage({ params }) {
-  const { country = "gcc", lang = "en" } = params || {};
+  const { country = "casp", lang = "en" } = params || {};
   const t = translations[lang] || translations.en;
 
   const categoryProducts = getProductsByCategory("Hydraulic Torque Wrenches");
@@ -112,59 +113,7 @@ export default function HydraulicTorqueWrenchPage({ params }) {
             </p>
 
             {/* ================= QUICK ENQUIRY FORM ================= */}
-            {/* ================= QUICK ENQUIRY FORM ================= */}
-            <div className="max-w-4xl mx-auto">
-              <form className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl p-4 md:p-6 shadow-2xl">
-                {/* Row 1 */}
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-                  <input
-                    type="text"
-                    name="name"
-                    required
-                    placeholder="Full Name *"
-                    className="w-full rounded-lg bg-white/90 px-4 py-3 text-sm text-gray-900 outline-none focus:ring-2 focus:ring-[#D6312F]"
-                  />
-
-                  <input
-                    type="email"
-                    name="email"
-                    required
-                    placeholder="Work Email *"
-                    className="w-full rounded-lg bg-white/90 px-4 py-3 text-sm text-gray-900 outline-none focus:ring-2 focus:ring-[#D6312F]"
-                  />
-
-                  <input
-                    type="tel"
-                    name="phone"
-                    required
-                    placeholder="Phone Number *"
-                    className="w-full rounded-lg bg-white/90 px-4 py-3 text-sm text-gray-900 outline-none focus:ring-2 focus:ring-[#D6312F]"
-                  />
-
-                  <button
-                    type="submit"
-                    className="rounded-lg bg-[#D6312F] px-6 py-3 text-sm font-bold text-white hover:bg-[#b72826] transition-all"
-                  >
-                    Get Quote
-                  </button>
-                </div>
-
-                {/* Message */}
-                <div className="mt-3">
-                  <textarea
-                    name="message"
-                    required
-                    rows={3}
-                    placeholder="Message / Application details (torque range, bolt size, industry, urgency, etc.) *"
-                    className="w-full rounded-lg bg-white/90 px-4 py-3 text-sm text-gray-900 outline-none focus:ring-2 focus:ring-[#D6312F] resize-none"
-                  />
-                </div>
-
-                <p className="text-xs text-gray-300 mt-3 text-center">
-                  Get pricing, datasheets & delivery timelines within 24 hours
-                </p>
-              </form>
-            </div>
+            <HeroEnquiryForm />
 
             {/* Certifications */}
             <div className="flex justify-center items-center space-x-6 md:space-x-10 pt-10 border-t border-white/10 mt-10">

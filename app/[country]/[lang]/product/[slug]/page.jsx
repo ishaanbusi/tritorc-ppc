@@ -597,7 +597,7 @@ export default function ProductPage({ params }) {
         </div>
       </section>
 
-      <FloatingCTA />
+      <FloatingCTA datasheetUrl={product?.datasheetUrl} />
       <Footer country={country} lang={lang} translations={t} />
     </div>
   );

@@ -19,6 +19,7 @@ import Footer from "@/components/Footer";
 import { translations } from "@/lib/translations";
 import { getProductsByCategory } from "@/lib/products";
 import CollageSection from "@/components/CollageSection";
+import HeroEnquiryForm from "@/components/HeroEnquiryForm";
 
 export default function HydraulicBoltTensionersPage() {
   // Static route - hardcode values
@@ -114,6 +115,8 @@ export default function HydraulicBoltTensionersPage() {
               industrial applications. Trusted by leading EPC contractors
               worldwide.
             </p>
+            {/* ================= QUICK ENQUIRY FORM ================= */}
+            <HeroEnquiryForm />
 
             {/* Certifications - Compact */}
             <div className="flex justify-center items-center space-x-6 md:space-x-10 pt-6 border-t border-white/10">
@@ -398,7 +401,10 @@ export default function HydraulicBoltTensionersPage() {
 /* ====================== PRODUCT CARD (COMPACT) ====================== */
 function ProductCard({ product, country, lang }) {
   return (
-    <Link href={`/en-gcc/product/${product.slug}`} className="group">
+    <Link
+      href={`/${country}/${lang}/product/${product.slug}`}
+      className="group"
+    >
       <div className="relative bg-white rounded-2xl overflow-hidden border-2 border-gray-200 hover:border-[#D6312F] transition-all duration-300 hover:shadow-xl">
         {product.badge && (
           <div className="absolute top-4 left-4 z-10">
@@ -484,7 +490,10 @@ function ProductCard({ product, country, lang }) {
 /* ====================== PRODUCT LIST ITEM (COMPACT) ====================== */
 function ProductListItem({ product, country, lang }) {
   return (
-    <Link href={`/en-gcc/product/${product.slug}`} className="group block">
+    <Link
+      href={`/${country}/${lang}/product/${product.slug}`}
+      className="group block"
+    >
       <div className="bg-white rounded-2xl overflow-hidden border-2 border-gray-200 hover:border-[#D6312F] transition-all duration-300 hover:shadow-xl">
         <div className="flex flex-col md:flex-row">
           <div className="md:w-2/5 aspect-video md:aspect-square bg-gradient-to-br from-gray-100 to-gray-50 relative p-8">
