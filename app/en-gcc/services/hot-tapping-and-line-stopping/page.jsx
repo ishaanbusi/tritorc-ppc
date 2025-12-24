@@ -3,6 +3,7 @@ import Image from "next/image";
 import {
   ArrowRight,
   CheckCircle,
+  Download,
   Shield,
   Zap,
   Clock,
@@ -92,12 +93,20 @@ export default function HotTappingServicesPage({ params }) {
                   Request Service Quote
                   <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </a>
-                <a
+                {/* <a
                   href="tel:+971506304582"
                   className="inline-flex items-center justify-center px-8 py-4 bg-white/10 backdrop-blur-sm border-2 border-white/20 text-white rounded-xl font-semibold hover:bg-white/20 transition-all"
                 >
                   <Phone className="w-5 h-5 mr-2" />
                   Emergency Hotline
+                </a> */}
+                <a
+                  href="/catalog/hot-tapping-catalog.pdf"
+                  download
+                  className="inline-flex items-center justify-center px-8 py-4 bg-white/10 backdrop-blur-sm border-2 border-white/20 text-white rounded-xl font-bold hover:bg-white/20 transition-all"
+                >
+                  <Download className="mr-2 w-5 h-5" />
+                  Download Catalog
                 </a>
               </div>
             </div>

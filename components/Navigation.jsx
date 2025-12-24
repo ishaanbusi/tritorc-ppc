@@ -55,12 +55,12 @@ export default function Navigation({ country, lang, translations }) {
               {translations.nav.services}
             </Link>
 
-            <Link
+            {/* <Link
               href={`/${country}/${lang}/industries`}
               className="text-gray-700 hover:text-[#D6312F] font-medium"
             >
               {translations.nav.industries}
-            </Link>
+            </Link> */}
 
             <Link
               href={`/${country}/${lang}/contact`}
@@ -146,12 +146,12 @@ export default function Navigation({ country, lang, translations }) {
               {translations.nav.services}
             </Link>
 
-            <Link
+            {/* <Link
               href={`/${country}/${lang}/industries`}
               onClick={() => setMobileMenuOpen(false)}
             >
               {translations.nav.industries}
-            </Link>
+            </Link> */}
 
             <Link
               href={`/${country}/${lang}/contact`}
