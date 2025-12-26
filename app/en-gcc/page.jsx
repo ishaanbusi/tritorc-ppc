@@ -94,7 +94,7 @@ export default function GCCHomePage() {
 
               <p className="text-xl md:text-2xl text-gray-600 leading-relaxed max-w-xl">
                 Delivering world-class torque solutions across UAE, Saudi
-                Arabia, Kuwait, Qatar, Bahrain, and Oman
+                Arabia, Kuwait, Qatar, Bahrain, and Oman.
               </p>
 
               {/* CTA Buttons */}
