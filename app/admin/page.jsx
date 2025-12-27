@@ -1,61 +1,55 @@
 "use client";
 
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
+import { login, logout, isAuthenticated } from "../../lib/auth";
+import { fetchPPC, updatePPCStatus } from "../../lib/api";
 export default function AdminPanel() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(isAuthenticated());
   const [error, setError] = useState("");
   const [search, setSearch] = useState("");
   const [expanded, setExpanded] = useState(null);
 
-  const [enquiries, setEnquiries] = useState([
-    {
-      id: 1,
-      name: "Rahul Mehta",
-      email: "rahul@epc.com",
-      phone: "+91 98765 43210",
-      message: "Need 8000 Nm wrench for refinery shutdown.",
-      status: "NEW",
-      date: "26 Jan 2025",
-    },
-    {
-      id: 2,
-      name: "Ahmed Khan",
-      email: "ahmed@construction.ae",
-      phone: "+971 55 234 7788",
-      message: "Torque range, delivery time & rental option required.",
-      status: "CONTACTED",
-      date: "25 Jan 2025",
-    },
-    {
-      id: 3,
-      name: "Vikram Singh",
-      email: "vikram@powerplant.in",
-      phone: "+91 98111 22334",
-      message: "Looking for hydraulic wrench for turbine maintenance.",
-      status: "CLOSED",
-      date: "23 Jan 2025",
-    },
-  ]);
+  const [enquiries, setEnquiries] = useState([]);
+  const [page, setPage] = useState(1);
+  const [limit] = useState(10);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalCount, setTotalCount] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [fetchError, setFetchError] = useState(null);
 
   /* ---------------- LOGIN ---------------- */
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     const form = Object.fromEntries(new FormData(e.target));
+    const email = form.email;
+    const password = form.password;
 
-    if (form.username === "admin" && form.password === "tritorc@123") {
+    try {
+      await login(email, password);
       setLoggedIn(true);
       setError("");
-    } else {
-      setError("Invalid credentials");
+    } catch (err) {
+      console.error('Login error', err);
+      setError(err?.response?.data?.message || err.message || 'Login failed');
     }
   };
 
   /* ---------------- STATUS UPDATE (UI ONLY) ---------------- */
   const updateStatus = (id, status) => {
-    setEnquiries((prev) =>
-      prev.map((e) => (e.id === id ? { ...e, status } : e))
-    );
+    // Optimistic UI update
+    setEnquiries((prev) => prev.map((e) => (e.id === id ? { ...e, status } : e)));
+    // Send to API
+    (async () => {
+      try {
+        const newStatus = typeof status === 'string' ? status.toLowerCase() : status;
+        await updatePPCStatus(id, newStatus);
+      } catch (err) {
+        console.error('Failed to update status', err);
+        // revert by refetching current page
+        fetchEnquiries(page);
+        alert('Failed to update status');
+      }
+    })();
   };
 
   const statusStyle = (status) => {
@@ -64,10 +58,8 @@ export default function AdminPanel() {
     return "bg-green-100 text-green-700";
   };
 
-  const filtered = enquiries.filter(
-    (e) =>
-      e.name.toLowerCase().includes(search.toLowerCase()) ||
-      e.email.toLowerCase().includes(search.toLowerCase())
+  const filtered = enquiries.filter((e) =>
+    e.name.toLowerCase().includes(search.toLowerCase()) || e.email.toLowerCase().includes(search.toLowerCase())
   );
 
   const count = (s) => enquiries.filter((e) => e.status === s).length;
@@ -83,8 +75,9 @@ export default function AdminPanel() {
           <h2 className="text-2xl font-black mb-6 text-center">Admin Login</h2>
 
           <input
-            name="username"
-            placeholder="Username"
+            name="email"
+            type="email"
+            placeholder="Email"
             required
             className="w-full mb-3 px-4 py-3 border rounded-lg"
           />
@@ -107,6 +100,30 @@ export default function AdminPanel() {
     );
   }
 
+  async function fetchEnquiries(p = 1) {
+    setLoading(true);
+    setFetchError(null);
+    try {
+      const res = await fetchPPC(p, limit);
+      // expected { data, pagination }
+      setEnquiries(res.data || []);
+      if (res.pagination) {
+        setTotalPages(res.pagination.totalPages || 1);
+        setTotalCount(res.pagination.total || 0);
+        setPage(res.pagination.page || p);
+      }
+    } catch (err) {
+      console.error('fetchPPC error', err);
+      setFetchError(err?.message || 'Failed to fetch enquiries');
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    if (loggedIn) fetchEnquiries(page);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loggedIn, page]);
   /* ---------------- DASHBOARD ---------------- */
   return (
     <div className="min-h-screen bg-gray-100 p-6 md:p-10">
@@ -115,7 +132,10 @@ export default function AdminPanel() {
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-black">Enquiry Admin Panel</h1>
           <button
-            onClick={() => setLoggedIn(false)}
+            onClick={() => {
+              logout();
+              setLoggedIn(false);
+            }}
             className="text-sm text-gray-600 hover:text-red-600"
           >
             Logout
@@ -171,15 +191,17 @@ export default function AdminPanel() {
                   </td>
                   <td className="p-3">
                     <select
-                      value={e.status}
+                      value={String(e.status).toLowerCase()}
                       onChange={(ev) => updateStatus(e.id, ev.target.value)}
                       className={`px-2 py-1 rounded-full text-xs font-bold ${statusStyle(
-                        e.status
+                        String(e.status).toUpperCase()
                       )}`}
                     >
-                      <option>NEW</option>
-                      <option>CONTACTED</option>
-                      <option>CLOSED</option>
+                      <option value="new">NEW</option>
+                      <option value="contacted">CONTACTED</option>
+                      <option value="qualified">QUALIFIED</option>
+                      <option value="hot">HOT</option>
+                      <option value="closed">CLOSED</option>
                     </select>
                   </td>
                   <td className="p-3 text-gray-500">{e.date}</td>
@@ -189,9 +211,27 @@ export default function AdminPanel() {
           </table>
         </div>
 
-        <p className="text-xs text-gray-500 text-center mt-4">
-          Static admin panel • Backend integration ready
-        </p>
+        {/* Pagination */}
+        <div className="flex items-center justify-between mt-4">
+          <div className="text-sm text-gray-600">{`Total: ${totalCount}`}</div>
+          <div className="flex items-center gap-2">
+            <button
+              disabled={page <= 1 || loading}
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              className="px-3 py-1 bg-white border rounded"
+            >
+              Prev
+            </button>
+            <div className="px-3">Page {page} / {totalPages}</div>
+            <button
+              disabled={page >= totalPages || loading}
+              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+              className="px-3 py-1 bg-white border rounded"
+            >
+              Next
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

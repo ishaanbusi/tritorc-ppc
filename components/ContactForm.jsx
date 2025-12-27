@@ -1,6 +1,7 @@
-'use client';
+"use client";
 
 import { useState } from 'react';
+import { sendContact } from '../lib/api';
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -10,10 +11,21 @@ export default function ContactForm() {
     phone: '',
     message: ''
   });
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert('Form submitted! In production, this would send data to your backend.');
+    setLoading(true);
+    try {
+      await sendContact(formData);
+      setFormData({ name: '', email: '', company: '', phone: '', message: '' });
+      alert('Message sent — thank you!');
+    } catch (err) {
+      console.error('sendContact error', err);
+      alert('Failed to send message. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -94,9 +106,10 @@ export default function ContactForm() {
 
       <button
         type="submit"
-        className="w-full px-8 py-4 bg-[#D6312F] text-white rounded-lg font-semibold hover:bg-red-700 transition-all hover:scale-105 shadow-lg"
+        disabled={loading}
+        className="w-full px-8 py-4 bg-[#D6312F] text-white rounded-lg font-semibold hover:bg-red-700 transition-all hover:scale-105 shadow-lg disabled:opacity-60"
       >
-        Send Message
+        {loading ? 'Sending...' : 'Send Message'}
       </button>
     </form>
   );
