@@ -17,89 +17,6 @@ export default function AdminPanel() {
   const [loading, setLoading] = useState(false);
   const [fetchError, setFetchError] = useState(null);
 
-  /* ---------------- LOGIN ---------------- */
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    const form = Object.fromEntries(new FormData(e.target));
-    const email = form.email;
-    const password = form.password;
-
-    try {
-      await login(email, password);
-      setLoggedIn(true);
-      setError("");
-    } catch (err) {
-      console.error('Login error', err);
-      setError(err?.response?.data?.message || err.message || 'Login failed');
-    }
-  };
-
-  /* ---------------- STATUS UPDATE (UI ONLY) ---------------- */
-  const updateStatus = (id, status) => {
-    // Optimistic UI update
-    setEnquiries((prev) => prev.map((e) => (e.id === id ? { ...e, status } : e)));
-    // Send to API
-    (async () => {
-      try {
-        const newStatus = typeof status === 'string' ? status.toLowerCase() : status;
-        await updatePPCStatus(id, newStatus);
-      } catch (err) {
-        console.error('Failed to update status', err);
-        // revert by refetching current page
-        fetchEnquiries(page);
-        alert('Failed to update status');
-      }
-    })();
-  };
-
-  const statusStyle = (status) => {
-    if (status === "NEW") return "bg-red-100 text-red-700";
-    if (status === "CONTACTED") return "bg-yellow-100 text-yellow-700";
-    return "bg-green-100 text-green-700";
-  };
-
-  const filtered = enquiries.filter((e) =>
-    e.name.toLowerCase().includes(search.toLowerCase()) || e.email.toLowerCase().includes(search.toLowerCase())
-  );
-
-  const count = (s) => enquiries.filter((e) => e.status === s).length;
-
-  /* ---------------- LOGIN PAGE ---------------- */
-  if (!loggedIn) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-        <form
-          onSubmit={handleLogin}
-          className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-sm"
-        >
-          <h2 className="text-2xl font-black mb-6 text-center">Admin Login</h2>
-
-          <input
-            name="email"
-            type="email"
-            placeholder="Email"
-            required
-            className="w-full mb-3 px-4 py-3 border rounded-lg"
-          />
-
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            required
-            className="w-full mb-4 px-4 py-3 border rounded-lg"
-          />
-
-          {error && <p className="text-red-600 text-sm mb-3">{error}</p>}
-
-          <button className="w-full bg-[#D6312F] text-white py-3 rounded-lg font-bold hover:bg-[#b72826]">
-            Login
-          </button>
-        </form>
-      </div>
-    );
-  }
-
   async function fetchEnquiries(p = 1) {
     setLoading(true);
     setFetchError(null);
@@ -124,6 +41,91 @@ export default function AdminPanel() {
     if (loggedIn) fetchEnquiries(page);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedIn, page]);
+
+  /* ---------------- LOGIN PAGE ---------------- */
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const form = Object.fromEntries(new FormData(e.target));
+    const email = form.email;
+    const password = form.password;
+
+    try {
+      await login(email, password);
+      setLoggedIn(true);
+      setError("");
+    } catch (err) {
+      console.error('Login error', err);
+      setError(err?.response?.data?.error || err.message || 'Login failed');
+    }
+  };
+
+  /* ---------------- STATUS UPDATE (UI ONLY) ---------------- */
+  const updateStatus = (id, status) => {
+    // Optimistic UI update
+    setEnquiries((prev) => prev.map((e) => (e.id === id ? { ...e, status } : e)));
+    // Send to API
+    (async () => {
+      try {
+        const newStatus = typeof status === 'string' ? status.toLowerCase() : status;
+        await updatePPCStatus(id, newStatus);
+      } catch (err) {
+        console.error('Failed to update status', err);
+        // revert by refetching current page
+        fetchEnquiries(page);
+        alert('Failed to update status');
+      }
+    })();
+  };
+
+  const statusStyle = (status) => {
+    const upper = String(status).toUpperCase();
+    if (upper === "NEW") return "bg-red-100 text-red-700";
+    if (upper === "CONTACTED") return "bg-yellow-100 text-yellow-700";
+    return "bg-green-100 text-green-700";
+  };
+
+  const filtered = enquiries.filter((e) =>
+    e.name.toLowerCase().includes(search.toLowerCase()) || e.email.toLowerCase().includes(search.toLowerCase())
+  );
+
+  const count = (s) => enquiries.filter((e) => String(e.status).toUpperCase() === s).length;
+
+  /* ---------------- LOGIN PAGE ---------------- */
+  if (!loggedIn) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+        <form
+          onSubmit={handleLogin}
+          className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-sm"
+        >
+          <h2 className="text-2xl font-black mb-6 text-center">Admin Login</h2>
+
+          <input
+            name="email"
+            type="email"
+            placeholder="Email"
+            required
+            className="w-full mb-3 px-4 py-3 border rounded-lg cursor-text caret-black"
+          />
+
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            required
+            className="w-full mb-4 px-4 py-3 border rounded-lg cursor-text caret-black"
+          />
+
+          {error && <p className="text-red-600 text-sm mb-3">{error}</p>}
+
+          <button className="w-full bg-[#D6312F] text-white py-3 rounded-lg font-bold hover:bg-[#b72826]">
+            Login
+          </button>
+        </form>
+      </div>
+    );
+  }
+
   /* ---------------- DASHBOARD ---------------- */
   return (
     <div className="min-h-screen bg-gray-100 p-6 md:p-10">
@@ -239,10 +241,15 @@ export default function AdminPanel() {
 
 /* ---------------- SMALL STAT CARD ---------------- */
 function Stat({ label, value, color }) {
+  const colorMap = {
+    red: '#dc2626',
+    yellow: '#ca8a04',
+    green: '#16a34a'
+  };
   return (
     <div className="bg-white rounded-xl p-4 shadow">
       <p className="text-sm text-gray-500">{label}</p>
-      <p className={`text-3xl font-black text-${color}-600`}>{value}</p>
+      <p className="text-3xl font-black" style={{ color: colorMap[color] }}>{value}</p>
     </div>
   );
 }

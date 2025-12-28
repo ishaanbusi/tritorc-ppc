@@ -28,12 +28,16 @@ export default function RootLayout({ children }) {
           `}
         </Script>
 
-        {/* LinkedIn Insight Tag */}
+        {/* LinkedIn Insight Tag (guarded) */}
         <Script id="linkedin-insight" strategy="afterInteractive">
           {`
-            _linkedin_partner_id = "8987961";
-            window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
-            window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+            try {
+              _linkedin_partner_id = "8987961";
+              window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+              window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+            } catch (e) {
+              console.warn('LinkedIn insight init failed', e);
+            }
           `}
         </Script>
 
