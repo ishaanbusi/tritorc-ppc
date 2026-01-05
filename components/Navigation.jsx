@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { usePathname } from "next/navigation";
 import { Menu, X, ChevronDown, Phone, Mail } from "lucide-react";
 import { countries } from "@/lib/countries";
+import { usePathname } from "next/navigation";
 
 export default function Navigation({ country, lang, translations }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -12,16 +12,22 @@ export default function Navigation({ country, lang, translations }) {
 
   const pathname = usePathname();
 
+  /* =========================================
+     REGION DETECTION (CORRECT FOR en-casp)
+  ========================================= */
+  const isCASP = pathname.includes("en-casp") || pathname.includes("/casp");
+  const isGCC = pathname.includes("en-gcc") || pathname.includes("/gcc");
+
+  const contactEmail = isCASP
+    ? "reach.casp@tritorc.com"
+    : "reach.ses@tritorc.com";
+
+  const contactPhone = isCASP ? "+971 565095820" : "+971 506304582";
+
+  const contactPhoneHref = isCASP ? "tel:+971565095820" : "tel:+971506304582";
+
   const currentCountry = countries[country];
   const availableLanguages = currentCountry?.languages || ["en"];
-
-  // ✅ EMAIL BY REGION
-  let contactEmail = "";
-  if (pathname.startsWith("/en-gcc")) {
-    contactEmail = "reach.ses@tritorc.com";
-  } else if (pathname.startsWith("/en-casp")) {
-    contactEmail = "reach.casp@tritorc.com";
-  }
 
   return (
     <nav className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-b border-gray-200 z-50">
@@ -39,7 +45,9 @@ export default function Navigation({ country, lang, translations }) {
             />
           </Link>
 
-          {/* DESKTOP NAV */}
+          {/* ================================
+             DESKTOP NAV
+          ================================ */}
           <div className="hidden md:flex items-center space-x-8">
             <Link
               href={`/${country}/${lang}/products`}
@@ -55,13 +63,6 @@ export default function Navigation({ country, lang, translations }) {
               {translations.nav.services}
             </Link>
 
-            {/* <Link
-              href={`/${country}/${lang}/industries`}
-              className="text-gray-700 hover:text-[#D6312F] font-medium"
-            >
-              {translations.nav.industries}
-            </Link> */}
-
             <Link
               href={`/${country}/${lang}/contact`}
               className="text-gray-700 hover:text-[#D6312F] font-medium"
@@ -70,23 +71,21 @@ export default function Navigation({ country, lang, translations }) {
             </Link>
 
             {/* EMAIL */}
-            {contactEmail && (
-              <a
-                href={`mailto:${contactEmail}`}
-                className="flex items-center gap-2 text-sm text-gray-700 hover:text-[#D6312F]"
-              >
-                <Mail className="w-4 h-4" />
-                {contactEmail}
-              </a>
-            )}
+            <a
+              href={`mailto:${contactEmail}`}
+              className="flex items-center gap-2 text-sm text-gray-700 hover:text-[#D6312F]"
+            >
+              <Mail className="w-4 h-4" />
+              {contactEmail}
+            </a>
 
             {/* PHONE */}
             <a
-              href="tel:+971506304582"
+              href={contactPhoneHref}
               className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#D6312F]/10 text-[#D6312F] font-bold hover:bg-[#D6312F] hover:text-white transition"
             >
               <Phone className="w-4 h-4" />
-              +971 506304582
+              {contactPhone}
             </a>
 
             {/* LANGUAGE */}
@@ -128,7 +127,9 @@ export default function Navigation({ country, lang, translations }) {
         </div>
       </div>
 
-      {/* MOBILE MENU */}
+      {/* ================================
+         MOBILE MENU
+      ================================ */}
       {mobileMenuOpen && (
         <div className="md:hidden bg-white border-t">
           <div className="px-4 py-4 space-y-3">
@@ -146,13 +147,6 @@ export default function Navigation({ country, lang, translations }) {
               {translations.nav.services}
             </Link>
 
-            {/* <Link
-              href={`/${country}/${lang}/industries`}
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {translations.nav.industries}
-            </Link> */}
-
             <Link
               href={`/${country}/${lang}/contact`}
               onClick={() => setMobileMenuOpen(false)}
@@ -161,23 +155,21 @@ export default function Navigation({ country, lang, translations }) {
             </Link>
 
             {/* MOBILE EMAIL */}
-            {contactEmail && (
-              <a
-                href={`mailto:${contactEmail}`}
-                className="flex items-center gap-2 pt-3 text-gray-700"
-              >
-                <Mail className="w-5 h-5" />
-                {contactEmail}
-              </a>
-            )}
+            <a
+              href={`mailto:${contactEmail}`}
+              className="flex items-center gap-2 pt-3 text-gray-700"
+            >
+              <Mail className="w-5 h-5" />
+              {contactEmail}
+            </a>
 
             {/* MOBILE PHONE */}
             <a
-              href="tel:+918850076944"
+              href={contactPhoneHref}
               className="flex items-center gap-2 px-4 py-3 rounded-lg bg-[#D6312F] text-white font-bold"
             >
               <Phone className="w-5 h-5" />
-              Call +91 88500 76944
+              {contactPhone}
             </a>
 
             {/* LANGUAGES */}

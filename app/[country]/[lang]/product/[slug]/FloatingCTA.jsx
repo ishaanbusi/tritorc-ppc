@@ -1,14 +1,25 @@
 "use client";
+
 import { useEffect, useState } from "react";
+import Link from "next/link";
+import { useParams } from "next/navigation";
 
 export default function FloatingCTA({ datasheetUrl }) {
   const [visible, setVisible] = useState(false);
+
+  // ✅ Read params directly from route
+  const params = useParams();
+  const country = params?.country;
+  const lang = params?.lang;
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 80);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // 🛡️ Safety guard (prevents undefined URLs)
+  if (!country || !lang) return null;
 
   return (
     <section
@@ -24,30 +35,31 @@ export default function FloatingCTA({ datasheetUrl }) {
         }
       `}
     >
-      {/* Get Quote */}
-      <button
-        className="px-5 py-2.5 rounded-xl 
-        bg-red-600 text-white text-sm font-medium
-        hover:bg-red-700 transition"
-        onClick={() => {
-          document
-            .getElementById("enquiry-form")
-            ?.scrollIntoView({ behavior: "smooth" });
-        }}
-      >
-        Get a Quote
-      </button>
+      {/* GET QUOTE */}
+      <Link href={`/${country}/${lang}/contact`}>
+        <button
+          className="
+            px-5 py-2.5 rounded-xl 
+            bg-red-600 text-white text-sm font-medium
+            hover:bg-red-700 transition
+          "
+        >
+          Get a Quote
+        </button>
+      </Link>
 
-      {/* Datasheet */}
+      {/* DATASHEET */}
       {datasheetUrl && (
         <a
           href={datasheetUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="px-5 py-2.5 rounded-xl 
-          bg-white/70 text-gray-900 text-sm font-medium
-          border border-gray-300 shadow-sm
-          hover:bg-white transition text-center"
+          className="
+            px-5 py-2.5 rounded-xl 
+            bg-white/70 text-gray-900 text-sm font-medium
+            border border-gray-300 shadow-sm
+            hover:bg-white transition text-center
+          "
         >
           Datasheet
         </a>

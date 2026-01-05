@@ -29,10 +29,15 @@ export default function ContactPage({ params }) {
   const t = translations[lang] || translations.en;
 
   /* ================================
-     COUNTRY-BASED EMAIL LOGIC
+     COUNTRY-BASED CONTACT DETAILS
   ================================ */
   const contactEmail =
     country === "casp" ? "reach.casp@tritorc.com" : "reach.ses@tritorc.com";
+
+  const contactPhone = country === "casp" ? "+971 565095820" : "+971 506304582";
+
+  const contactPhoneHref =
+    country === "casp" ? "tel:+971565095820" : "tel:+971506304582";
 
   return (
     <div className="min-h-screen bg-white">
@@ -71,7 +76,6 @@ export default function ContactPage({ params }) {
                CONTACT FORM
             ================================ */}
             <div className="lg:col-span-2">
-              {/* Passing email for backend consistency */}
               <ContactForm email={contactEmail} />
             </div>
 
@@ -100,10 +104,10 @@ export default function ContactPage({ params }) {
                 </div>
                 <h3 className="font-bold text-gray-900 mb-2">Phone</h3>
                 <a
-                  href="tel:+971506304582"
+                  href={contactPhoneHref}
                   className="text-gray-600 hover:text-[#D6312F]"
                 >
-                  +971 506304582
+                  {contactPhone}
                 </a>
               </div>
 
