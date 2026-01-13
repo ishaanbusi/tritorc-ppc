@@ -272,97 +272,95 @@ export default function ProductPage({ params }) {
 
       {/* =============================== TESTIMONIAL =============================== */}
       {product.testimonial && (
-        <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-white">
-          <div className="max-w-7xl mx-auto">
-            {/* Header */}
-            <div className="text-center mb-16">
-              <div className="inline-block px-4 py-2 bg-green-50 text-green-600 rounded-full text-sm font-bold mb-4">
-                Real Results
-              </div>
-              <h2 className="text-4xl lg:text-5xl font-black text-gray-900 leading-tight">
-                Trusted on High-Stakes
-                <br />
-                EPC Sites
-              </h2>
+        <section className="w-screen py-24 bg-gradient-to-br from-gray-50 to-white">
+          {/* Header */}
+          <div className="text-center mb-16 px-4 sm:px-6 lg:px-12">
+            <div className="inline-block px-4 py-2 bg-green-50 text-green-600 rounded-full text-sm font-bold mb-4">
+              Real Results
             </div>
+            <h2 className="text-4xl lg:text-5xl font-black text-gray-900 leading-tight">
+              Trusted on High-Stakes
+              <br />
+              EPC Sites
+            </h2>
+          </div>
 
-            {/* Content Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
-              {/* ================= Testimonial Card ================= */}
-              <div className="flex justify-center">
-                <div className="bg-white border-2 border-gray-900 rounded-3xl p-10 shadow-2xl relative w-full max-w-xl h-full flex flex-col">
-                  {/* Quote Icon */}
-                  <div className="absolute -top-6 -left-6 w-16 h-16 bg-[#D6312F] rounded-2xl flex items-center justify-center text-white text-5xl font-serif">
-                    &quot;
+          {/* Content Grid – FULL WIDTH */}
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-stretch px-4 sm:px-6 lg:px-12">
+            {/* ================= Testimonial Card (LEFT – WIDER) ================= */}
+            <div className="lg:col-span-3">
+              <div className="bg-white border-2 border-gray-900 rounded-3xl p-10 shadow-2xl relative h-full flex flex-col">
+                {/* Quote Icon */}
+                <div className="absolute -top-6 -left-6 w-16 h-16 bg-[#D6312F] rounded-2xl flex items-center justify-center text-white text-5xl font-serif">
+                  &quot;
+                </div>
+
+                {/* Quote Text */}
+                <p className="text-xl lg:text-2xl text-gray-900 font-medium leading-relaxed mb-8 flex-grow">
+                  {product.testimonial.quote}
+                </p>
+
+                {/* Author */}
+                <div className="flex items-center space-x-4 border-t-2 border-gray-200 pt-6">
+                  <div className="relative w-14 h-14 rounded-full overflow-hidden">
+                    <Image
+                      src={
+                        product.testimonial.authorImage ||
+                        "/images/avatar-placeholder.jpg"
+                      }
+                      alt={product.testimonial.author}
+                      fill
+                      className="object-cover"
+                    />
                   </div>
 
-                  {/* Quote Text */}
-                  <p className="text-xl lg:text-2xl text-gray-900 font-medium leading-relaxed mb-8 flex-grow">
-                    {product.testimonial.quote}
-                  </p>
-
-                  {/* Author */}
-                  <div className="flex items-center space-x-4 border-t-2 border-gray-200 pt-6">
-                    <div className="relative w-14 h-14 rounded-full overflow-hidden">
-                      <Image
-                        src={
-                          product.testimonial.authorImage ||
-                          "/images/avatar-placeholder.jpg"
-                        }
-                        alt={product.testimonial.author}
-                        fill
-                        className="object-cover"
-                      />
+                  <div>
+                    <div className="font-bold text-gray-900 text-lg">
+                      {product.testimonial.author}
                     </div>
+                    <div className="text-gray-600 text-sm">
+                      {product.testimonial.position}
+                      {product.testimonial.company && (
+                        <> • {product.testimonial.company}</>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-                    <div>
-                      <div className="font-bold text-gray-900 text-lg">
-                        {product.testimonial.author}
+            {/* ================= Case Study Card (RIGHT) ================= */}
+            {product.caseStudy && (
+              <div className="lg:col-span-2">
+                <div className="relative rounded-3xl overflow-hidden shadow-2xl h-full">
+                  {/* Image */}
+                  <div className="relative w-full h-full min-h-[420px]">
+                    <Image
+                      src={product.caseStudy.image}
+                      alt={product.caseStudy.projectName}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+
+                  {/* Overlay */}
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/80 to-transparent p-8">
+                    <div className="text-white">
+                      <div className="text-sm font-semibold text-[#D6312F] mb-2">
+                        CASE STUDY
                       </div>
-                      <div className="text-gray-600 text-sm">
-                        {product.testimonial.position}
-                        {product.testimonial.company && (
-                          <> • {product.testimonial.company}</>
-                        )}
+                      <div className="text-2xl font-bold">
+                        {product.caseStudy.projectName}
+                      </div>
+                      <div className="text-gray-300 mt-2 text-sm">
+                        {product.caseStudy.description ||
+                          "Completed mechanical commissioning with zero flange leaks"}
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-
-              {/* ================= Case Study Card ================= */}
-              {product.caseStudy && (
-                <div className="flex justify-center">
-                  <div className="relative rounded-3xl overflow-hidden shadow-2xl w-full max-w-xl h-full">
-                    {/* Image */}
-                    <div className="relative w-full h-full min-h-[420px]">
-                      <Image
-                        src={product.caseStudy.image}
-                        alt={product.caseStudy.projectName}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-
-                    {/* Overlay */}
-                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/80 to-transparent p-8">
-                      <div className="text-white">
-                        <div className="text-sm font-semibold text-[#D6312F] mb-2">
-                          CASE STUDY
-                        </div>
-                        <div className="text-2xl font-bold">
-                          {product.caseStudy.projectName}
-                        </div>
-                        <div className="text-gray-300 mt-2 text-sm">
-                          {product.caseStudy.description ||
-                            "Completed mechanical commissioning with zero flange leaks"}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
+            )}
           </div>
         </section>
       )}
