@@ -29,15 +29,34 @@ export default function ContactPage({ params }) {
   const t = translations[lang] || translations.en;
 
   /* ================================
-     COUNTRY-BASED CONTACT DETAILS
+     REGION-BASED CONTACT DETAILS
+     (CASP | US | GCC)
   ================================ */
-  const contactEmail =
-    country === "casp" ? "reach.casp@tritorc.com" : "reach.ses@tritorc.com";
+  const isCASP = country === "casp";
+  const isUS = country === "us";
 
-  const contactPhone = country === "casp" ? "+971 565095820" : "+971 506304582";
+  const regionContact = isCASP
+    ? {
+        email: "reach.casp@tritorc.com",
+        phone: "+971 565095820",
+        phoneHref: "tel:+971565095820",
+      }
+    : isUS
+    ? {
+        email: "reach.us@tritorc.com",
+        phone: "+17047494050", // change if needed
+        phoneHref: "tel:+17047494050",
+      }
+    : {
+        // GCC (default)
+        email: "reach.ses@tritorc.com",
+        phone: "+971 506304582",
+        phoneHref: "tel:+971506304582",
+      };
 
-  const contactPhoneHref =
-    country === "casp" ? "tel:+971565095820" : "tel:+971506304582";
+  const contactEmail = regionContact.email;
+  const contactPhone = regionContact.phone;
+  const contactPhoneHref = regionContact.phoneHref;
 
   return (
     <div className="min-h-screen bg-white">

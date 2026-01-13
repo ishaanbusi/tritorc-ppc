@@ -274,25 +274,25 @@ export default function HydraulicTorqueWrenchPage({ params }) {
         </div>
       </section>
 
-      <section className="py-14 md:py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
-        <div className="max-w-7xl mx-auto">
-          <div className="max-w-6xl mx-auto bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
+      <section className="py-14 md:py-20 px-0 bg-gray-50">
+        {/* FULL WIDTH CONTAINER */}
+        <div className="w-full">
+          <div className="w-full bg-white shadow-xl border-y border-gray-200 overflow-hidden">
             <div className="grid grid-cols-1 md:grid-cols-5">
-              {/* IMAGE — FULL FILL */}
+              {/* IMAGE — FULL HEIGHT LEFT */}
               <div className="md:col-span-2 relative min-h-[280px] md:min-h-[420px]">
                 <Image
                   src="/images/testimonail.jpg"
                   alt="Pamban Bridge Project Testimonial"
                   fill
-                  className="absolute inset-0 w-full h-full object-cover"
+                  className="absolute inset-0 object-cover"
                 />
-                {/* subtle overlay for polish */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
               </div>
 
-              {/* CONTENT */}
-              <div className="md:col-span-3 p-6 md:p-10 flex flex-col justify-center">
-                <p className="text-gray-700 text-base md:text-lg leading-relaxed mb-6">
+              {/* CONTENT — RIGHT SIDE */}
+              <div className="md:col-span-3 px-6 md:px-16 py-8 md:py-12 flex flex-col justify-center">
+                <p className="text-gray-700 text-base md:text-lg leading-relaxed mb-6 max-w-3xl">
                   “Tritorc has been a key partner in our shutdown success at
                   Qatar Gas. For five years, their dedicated team has delivered
                   reliable bolt torquing and flange-facing support, helping us

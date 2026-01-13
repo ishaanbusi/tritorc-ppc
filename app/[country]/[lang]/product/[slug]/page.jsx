@@ -274,32 +274,36 @@ export default function ProductPage({ params }) {
       {product.testimonial && (
         <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-white">
           <div className="max-w-7xl mx-auto">
+            {/* Header */}
             <div className="text-center mb-16">
               <div className="inline-block px-4 py-2 bg-green-50 text-green-600 rounded-full text-sm font-bold mb-4">
                 Real Results
               </div>
-              <h2 className="text-4xl lg:text-5xl font-black text-gray-900">
+              <h2 className="text-4xl lg:text-5xl font-black text-gray-900 leading-tight">
                 Trusted on High-Stakes
                 <br />
                 EPC Sites
               </h2>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              {/* Testimonial Card */}
-              <div>
-                <div className="bg-white border-2 border-gray-900 rounded-3xl p-10 shadow-2xl relative">
+            {/* Content Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
+              {/* ================= Testimonial Card ================= */}
+              <div className="flex justify-center">
+                <div className="bg-white border-2 border-gray-900 rounded-3xl p-10 shadow-2xl relative w-full max-w-xl h-full flex flex-col">
+                  {/* Quote Icon */}
                   <div className="absolute -top-6 -left-6 w-16 h-16 bg-[#D6312F] rounded-2xl flex items-center justify-center text-white text-5xl font-serif">
                     &quot;
                   </div>
 
-                  <p className="text-2xl text-gray-900 font-medium leading-relaxed mb-8">
+                  {/* Quote Text */}
+                  <p className="text-xl lg:text-2xl text-gray-900 font-medium leading-relaxed mb-8 flex-grow">
                     {product.testimonial.quote}
                   </p>
 
                   {/* Author */}
                   <div className="flex items-center space-x-4 border-t-2 border-gray-200 pt-6">
-                    <div className="relative w-16 h-16 rounded-full overflow-hidden">
+                    <div className="relative w-14 h-14 rounded-full overflow-hidden">
                       <Image
                         src={
                           product.testimonial.authorImage ||
@@ -315,21 +319,23 @@ export default function ProductPage({ params }) {
                       <div className="font-bold text-gray-900 text-lg">
                         {product.testimonial.author}
                       </div>
-                      <div className="text-gray-600">
-                        {product.testimonial.position} •{" "}
-                        {product.testimonial.company}
+                      <div className="text-gray-600 text-sm">
+                        {product.testimonial.position}
+                        {product.testimonial.company && (
+                          <> • {product.testimonial.company}</>
+                        )}
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Case Study Card */}
+              {/* ================= Case Study Card ================= */}
               {product.caseStudy && (
-                <div className="space-y-6">
-                  {/* Case Study Image */}
-                  <div className="relative rounded-3xl overflow-hidden shadow-2xl">
-                    <div className="relative w-full h-[400px]">
+                <div className="flex justify-center">
+                  <div className="relative rounded-3xl overflow-hidden shadow-2xl w-full max-w-xl h-full">
+                    {/* Image */}
+                    <div className="relative w-full h-full min-h-[420px]">
                       <Image
                         src={product.caseStudy.image}
                         alt={product.caseStudy.projectName}
@@ -338,7 +344,8 @@ export default function ProductPage({ params }) {
                       />
                     </div>
 
-                    <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black via-black/80 to-transparent p-8">
+                    {/* Overlay */}
+                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/80 to-transparent p-8">
                       <div className="text-white">
                         <div className="text-sm font-semibold text-[#D6312F] mb-2">
                           CASE STUDY
@@ -346,37 +353,10 @@ export default function ProductPage({ params }) {
                         <div className="text-2xl font-bold">
                           {product.caseStudy.projectName}
                         </div>
-                        <div className="text-gray-300 mt-2">
+                        <div className="text-gray-300 mt-2 text-sm">
                           {product.caseStudy.description ||
-                            "Zero flange leaks • On-time commissioning"}
+                            "Completed mechanical commissioning with zero flange leaks"}
                         </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Engineer Info */}
-                  <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl p-8 text-white shadow-xl">
-                    <div className="flex items-start space-x-4">
-                      <div className="relative w-20 h-20 rounded-xl overflow-hidden bg-white/20 flex-shrink-0">
-                        <Image
-                          src="/images/engineer-avatar.jpg"
-                          alt="Engineer"
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-
-                      <div>
-                        <div className="text-sm font-semibold text-blue-200 mb-1">
-                          YOUR FIELD ENGINEER
-                        </div>
-                        <div className="text-xl font-bold mb-2">
-                          John Anderson, PE
-                        </div>
-                        <div className="text-sm text-blue-100 mb-3">
-                          ASME PCC-1 Certified • 15+ Years EPC Experience
-                        </div>
-                        <div className="text-sm">24/7 Support Available</div>
                       </div>
                     </div>
                   </div>
@@ -621,22 +601,18 @@ function BenefitCards({ product }) {
     {
       title: "ASME PCC-1 Compliance",
       description: "Traceable bolt load documentation",
-      color: "bg-[#D6312F]",
     },
     {
       title: "±3% Precision Accuracy",
       description: "Calibration certificate included",
-      color: "bg-blue-600",
     },
     {
       title: "Fleet Optimization",
       description: "Reduced inventory with interchangeable parts",
-      color: "bg-green-600",
     },
     {
       title: "Global 24h Delivery",
       description: "OEM dispatch with worldwide coverage",
-      color: "bg-purple-600",
     },
   ];
 

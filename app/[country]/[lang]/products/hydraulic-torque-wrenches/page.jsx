@@ -18,7 +18,9 @@ import Footer from "@/components/Footer";
 import { translations } from "@/lib/translations";
 import { getProductsByCategory } from "@/lib/products";
 import CollageSection from "@/components/CollageSection";
-import VideoSection from "@/components/VideoSection";
+import UltraReels from "@/components/UltraReels";
+import HeroEnquiryForm from "@/components/HeroEnquiryForm";
+import ToolImages from "@/components/ToolImages";
 
 export default function TorqueWrenchesPage({ params }) {
   const { country, lang } = params;
@@ -150,6 +152,8 @@ export default function TorqueWrenchesPage({ params }) {
                 </div>
               ))}
             </div> */}
+            {/* ================= QUICK ENQUIRY FORM ================= */}
+            <HeroEnquiryForm />
 
             {/* Certifications */}
             <div className="flex justify-center items-center space-x-12 pt-8 border-t border-white/10">
@@ -316,64 +320,44 @@ export default function TorqueWrenchesPage({ params }) {
         </div>
       </section>
 
-      {/* ========================================
-          TESTIMONIALS - MATCHING PRODUCT PAGE
-          ======================================== */}
-      <section className="py-24 px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <div className="inline-block px-4 py-2 bg-green-50 text-green-600 rounded-full text-sm font-bold mb-4">
-              Real Results
-            </div>
-            <h2 className="text-4xl lg:text-5xl font-black text-gray-900 mb-4">
-              Trusted by Industry Leaders
-            </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              See what our clients say about working with Tritorc
-            </p>
-          </div>
+      <section className="px-0 bg-gray-50">
+        {/* FULL WIDTH CONTAINER */}
+        <div className="w-full">
+          <div className="w-full bg-white shadow-xl border-y border-gray-200 overflow-hidden">
+            <div className="grid grid-cols-1 md:grid-cols-5">
+              {/* IMAGE — FULL HEIGHT LEFT */}
+              <div className="md:col-span-2 relative min-h-[280px] md:min-h-[420px]">
+                <Image
+                  src="/images/testimonail.jpg"
+                  alt="Pamban Bridge Project Testimonial"
+                  fill
+                  className="absolute inset-0 object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+              </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {categoryProducts
-              .filter((p) => p.testimonial)
-              .slice(0, 2)
-              .map((product, idx) => (
-                <div
-                  key={idx}
-                  className="relative bg-white border-2 border-gray-900 rounded-3xl p-10 shadow-2xl"
-                >
-                  {/* Quote Mark */}
-                  <div className="absolute -top-6 -left-6 w-16 h-16 bg-[#D6312F] rounded-2xl flex items-center justify-center text-white text-5xl font-serif">
-                    &quot;
+              {/* CONTENT — RIGHT SIDE */}
+              <div className="md:col-span-3 px-6 md:px-16 py-8 md:py-12 flex flex-col justify-center">
+                <p className="text-gray-700 text-base md:text-lg leading-relaxed mb-6 max-w-3xl">
+                  “Tritorc has been a key partner in our shutdown success at
+                  Qatar Gas. For five years, their dedicated team has delivered
+                  reliable bolt torquing and flange-facing support, helping us
+                  complete critical shutdowns on time. Their professionalism,
+                  planning, and qualified workforce continue to add real value
+                  to our operations.”
+                </p>
+
+                {/* REVIEWER */}
+                <div className="mt-2">
+                  <div className="text-lg font-black text-gray-900">
+                    Mr. Aftab Ahmed Waseer
                   </div>
-
-                  <p className="text-lg text-gray-900 font-medium leading-relaxed mb-8 relative z-10">
-                    {product.testimonial.quote}
-                  </p>
-
-                  <div className="flex items-center space-x-4 border-t-2 border-gray-200 pt-6">
-                    <div className="relative w-16 h-16 rounded-full overflow-hidden">
-                      <Image
-                        src={product.testimonial.authorImage}
-                        alt={product.testimonial.author}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div>
-                      <div className="font-bold text-gray-900 text-lg">
-                        {product.testimonial.author}
-                      </div>
-                      <div className="text-gray-600 text-sm">
-                        {product.testimonial.position}
-                      </div>
-                      <div className="text-[#D6312F] font-bold text-sm">
-                        {product.testimonial.company}
-                      </div>
-                    </div>
+                  <div className="text-sm text-gray-500 font-medium">
+                    Shutdown Manager for Qatar Gas
                   </div>
                 </div>
-              ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -477,50 +461,15 @@ export default function TorqueWrenchesPage({ params }) {
       <div>
         <CollageSection />
       </div>
-
-      {/* ========================================
-          TOOLS IN ACTION - MATCHING PRODUCT PAGE
-          ======================================== */}
-      <section className="py-24 px-6 lg:px-8 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <div className="inline-block px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-sm font-bold text-white mb-4">
-              Real-World Performance
-            </div>
-            <h2 className="text-4xl lg:text-5xl font-black text-white mb-4">
-              Tools in Action
-            </h2>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              Real-world applications across industries
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {categoryProducts[0]?.images.slice(0, 4).map((img, idx) => (
-              <div
-                key={idx}
-                className="relative aspect-square rounded-2xl overflow-hidden group cursor-pointer shadow-xl"
-              >
-                <div className="relative w-full h-full">
-                  <Image
-                    src={img}
-                    alt={`Application ${idx + 1}`}
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <div>
+        <ToolImages />
+      </div>
 
       {/* ========================================
           MANUFACTURING VIDEOS - MATCHING STYLE
           ======================================== */}
       <div>
-        <VideoSection product={categoryProducts[0]} />
+        <UltraReels />
       </div>
 
       {/* ========================================

@@ -1,273 +1,305 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { ChevronDown, Download, Maximize2 } from "lucide-react";
 
 export default function CollapsibleChartSection({ product }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [activeTab, setActiveTab] = useState("Metric");
 
-  // Safe data extraction
-  const models = product?.selectorData?.models || [];
-  const technicalData = product?.selectorData?.technicalData || {};
+  const selectorData = product?.selectorData || {};
+  const models = selectorData.models || [];
+  const technicalData = selectorData.technicalData || {};
+  const datasheetUrl = product?.datasheetUrl || "";
 
-  // If no chart data, don't render
-  if (models.length === 0) {
-    return null;
-  }
+  if (!models.length) return null;
 
   const unitKey = activeTab.toLowerCase();
 
-  // ✅ Basic specs - ALWAYS VISIBLE (3 rows)
-  const basicSpecs = [
-    {
-      key: "squareDrive",
-      label: "Square Drive",
-      unit: "inch",
-      getValue: (model) => technicalData[model]?.squareDrive,
-      color: "text-gray-900",
-    },
-    {
-      key: "maxTorque",
-      label: "Max Torque",
-      unit: activeTab === "Metric" ? "Nm" : "Ft. Lbs.",
-      getValue: (model) => technicalData[model]?.maxTorque?.[unitKey],
-      highlight: true,
-      color: "text-[#D6312F]",
-    },
-    {
-      key: "weight",
-      label: "Weight",
-      unit: activeTab === "Metric" ? "Kg" : "Lbs.",
-      getValue: (model) => technicalData[model]?.weight?.[unitKey],
-      color: "text-green-600",
-    },
-  ];
+  /* -------------------------------------------------
+     AUTO FALLBACK SPEC CONFIG (FOR OLD DATASETS)
+  -------------------------------------------------- */
+  const autoSpecConfig = {
+    basic: [
+      { key: "squareDrive", label: "Square Drive", unit: "inch" },
+      {
+        key: "maxTorque",
+        label: "Max Torque",
+        unitMetric: "Nm",
+        unitImperial: "Ft. Lbs.",
+        highlight: true,
+        color: "text-[#D6312F]",
+      },
+      {
+        key: "weight",
+        label: "Weight",
+        unitMetric: "Kg",
+        unitImperial: "Lbs.",
+      },
+      {
+        key: "driveWeight",
+        label: "Drive Weight",
+        unitMetric: "Kg",
+        unitImperial: "Lbs.",
+      },
+      {
+        key: "ratchetWeight",
+        label: "Ratchet Weight",
+        unitMetric: "Kg",
+        unitImperial: "Lbs.",
+      },
+    ],
+    detailed: [
+      {
+        key: "minTorque",
+        label: "Min Torque",
+        unitMetric: "Nm",
+        unitImperial: "Ft. Lbs.",
+      },
+      {
+        key: "bodyLength",
+        label: "Body Length",
+        unitMetric: "mm",
+        unitImperial: "inch",
+      },
+      {
+        key: "overallLength",
+        label: "Overall Length",
+        unitMetric: "mm",
+        unitImperial: "inch",
+      },
+      {
+        key: "toolWidth",
+        label: "Tool Width",
+        unitMetric: "mm",
+        unitImperial: "inch",
+      },
+      {
+        key: "overallWidth",
+        label: "Overall Width",
+        unitMetric: "mm",
+        unitImperial: "inch",
+      },
+      {
+        key: "toolHeight",
+        label: "Tool Height",
+        unitMetric: "mm",
+        unitImperial: "inch",
+      },
+      {
+        key: "overallHeight",
+        label: "Overall Height",
+        unitMetric: "mm",
+        unitImperial: "inch",
+      },
+      {
+        key: "toolRadius",
+        label: "Tool Radius",
+        unitMetric: "mm",
+        unitImperial: "inch",
+      },
+      {
+        key: "reactionReach",
+        label: "Reaction Reach",
+        unitMetric: "mm",
+        unitImperial: "inch",
+      },
+      {
+        key: "acrossFlat",
+        label: "Across Flats",
+        unitMetric: "mm",
+        unitImperial: "inch",
+      },
+      { key: "h1", label: "Height H1", unitMetric: "mm", unitImperial: "inch" },
+      { key: "h2", label: "Height H2", unitMetric: "mm", unitImperial: "inch" },
+      {
+        key: "noseRadius",
+        label: "Nose Radius",
+        unitMetric: "mm",
+        unitImperial: "inch",
+      },
+    ],
+  };
 
-  // ✅ Detailed specs - SHOWN ON EXPAND (9 rows)
-  const detailedSpecs = [
-    {
-      key: "minTorque",
-      label: "Min Torque",
-      unit: activeTab === "Metric" ? "Nm" : "Ft. Lbs.",
-      getValue: (model) => technicalData[model]?.minTorque?.[unitKey],
-      color: "text-orange-600",
-    },
-    {
-      key: "bodyLength",
-      label: "Body Length (L1)",
-      unit: activeTab === "Metric" ? "mm" : "inch",
-      getValue: (model) => technicalData[model]?.bodyLength?.[unitKey],
-      color: "text-blue-600",
-    },
-    {
-      key: "overallLength",
-      label: "Overall Length (L2)",
-      unit: activeTab === "Metric" ? "mm" : "inch",
-      getValue: (model) => technicalData[model]?.overallLength?.[unitKey],
-      color: "text-blue-600",
-    },
-    {
-      key: "toolWidth",
-      label: "Tool Width (H1)",
-      unit: activeTab === "Metric" ? "mm" : "inch",
-      getValue: (model) => technicalData[model]?.toolWidth?.[unitKey],
-      color: "text-purple-600",
-    },
-    {
-      key: "overallWidth",
-      label: "Overall Width (H2)",
-      unit: activeTab === "Metric" ? "mm" : "inch",
-      getValue: (model) => technicalData[model]?.overallWidth?.[unitKey],
-      color: "text-purple-600",
-    },
-    {
-      key: "toolHeight",
-      label: "Tool Height (H3)",
-      unit: activeTab === "Metric" ? "mm" : "inch",
-      getValue: (model) => technicalData[model]?.toolHeight?.[unitKey],
-      color: "text-indigo-600",
-    },
-    {
-      key: "overallHeight",
-      label: "Overall Height (H4)",
-      unit: activeTab === "Metric" ? "mm" : "inch",
-      getValue: (model) => technicalData[model]?.overallHeight?.[unitKey],
-      color: "text-indigo-600",
-    },
-    {
-      key: "toolRadius",
-      label: "Tool Radius (R1)",
-      unit: activeTab === "Metric" ? "mm" : "inch",
-      getValue: (model) => technicalData[model]?.toolRadius?.[unitKey],
-      color: "text-pink-600",
-    },
-    {
-      key: "reactionReach",
-      label: "Reaction Reach (R2)",
-      unit: activeTab === "Metric" ? "mm" : "inch",
-      getValue: (model) => technicalData[model]?.reactionReach?.[unitKey],
-      color: "text-pink-600",
-    },
-  ];
+  const specConfig =
+    selectorData.specConfig && selectorData.specConfig.basic?.length
+      ? selectorData.specConfig
+      : autoSpecConfig;
 
-  const allSpecs = [...basicSpecs, ...(isExpanded ? detailedSpecs : [])];
+  /* -------------------------------------------------
+     CHECK IF ANY MODEL HAS A VALUE FOR A SPEC
+  -------------------------------------------------- */
+  const hasAnyValue = (specKey) => {
+    return models.some((model) => {
+      const value = technicalData[model]?.[specKey];
+      if (!value) return false;
+      if (typeof value === "string") return value.trim() !== "";
+      return value[unitKey] != null && value[unitKey] !== "";
+    });
+  };
+
+  /* -------------------------------------------------
+     BUILD SPECS (HIDE NON-EXISTING ONES)
+  -------------------------------------------------- */
+  const buildSpecs = (specs) =>
+    specs
+      .filter((spec) => hasAnyValue(spec.key)) // ✅ hide missing specs
+      .map((spec) => ({
+        ...spec,
+        unit:
+          activeTab === "Metric"
+            ? spec.unitMetric || spec.unit
+            : spec.unitImperial || spec.unit,
+        getValue: (model) => {
+          const value = technicalData[model]?.[spec.key];
+          if (!value) return null;
+          if (typeof value === "string") return value;
+          return value[unitKey];
+        },
+      }));
+
+  const basicSpecs = useMemo(
+    () => buildSpecs(specConfig.basic),
+    [technicalData, activeTab]
+  );
+
+  const detailedSpecs = useMemo(
+    () => buildSpecs(specConfig.detailed),
+    [technicalData, activeTab]
+  );
+
+  const allSpecs = useMemo(
+    () => [...basicSpecs, ...(isExpanded ? detailedSpecs : [])],
+    [basicSpecs, detailedSpecs, isExpanded]
+  );
+
+  const handleDownload = () => {
+    if (datasheetUrl) window.open(datasheetUrl, "_blank");
+  };
 
   return (
-    <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 via-white to-gray-50">
+    <section className="py-24 px-4 bg-gradient-to-br from-gray-50 via-white to-gray-50">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center space-x-2 px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-sm font-bold mb-4">
+        {/* HEADER */}
+        <div className="text-center mb-14">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-sm font-semibold mb-4">
             <Maximize2 className="w-4 h-4" />
-            <span>Technical Specifications</span>
+            Technical Specifications
           </div>
-          <h2 className="text-4xl lg:text-5xl font-black text-gray-900 mb-4 tracking-tight">
-            TSL Series Comparison
+          <h2 className="text-4xl lg:text-5xl font-black text-gray-900 mb-3">
+            {product?.name || "Product Comparison"}
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Compare specifications across all models to select the right tool
-            for your project
-          </p>
         </div>
 
-        {/* Unit Toggle */}
-        <div className="flex justify-center sm:justify-end mb-6">
-          <div className="inline-flex bg-white border-2 border-gray-200 rounded-xl p-1 shadow-sm">
-            <button
-              onClick={() => setActiveTab("Metric")}
-              className={`px-6 py-2.5 rounded-lg font-semibold text-sm transition-all ${
-                activeTab === "Metric"
-                  ? "bg-[#D6312F] text-white shadow-md"
-                  : "text-gray-700 hover:bg-gray-100"
-              }`}
-            >
-              Metric
-            </button>
-            <button
-              onClick={() => setActiveTab("Imperial")}
-              className={`px-6 py-2.5 rounded-lg font-semibold text-sm transition-all ${
-                activeTab === "Imperial"
-                  ? "bg-[#D6312F] text-white shadow-md"
-                  : "text-gray-700 hover:bg-gray-100"
-              }`}
-            >
-              Imperial
-            </button>
+        {/* UNIT TOGGLE */}
+        <div className="flex justify-end mb-6">
+          <div className="inline-flex bg-white border rounded-xl p-1 shadow-sm">
+            {["Metric", "Imperial"].map((unit) => (
+              <button
+                key={unit}
+                onClick={() => setActiveTab(unit)}
+                className={`px-6 py-2 rounded-lg text-sm font-semibold ${
+                  activeTab === unit
+                    ? "bg-[#D6312F] text-white"
+                    : "text-gray-700 hover:bg-gray-100"
+                }`}
+              >
+                {unit}
+              </button>
+            ))}
           </div>
         </div>
 
-        {/* Chart Container */}
-        <div className="bg-white border-2 border-gray-200 rounded-3xl overflow-hidden shadow-xl">
-          {/* Table */}
+        {/* TABLE */}
+        <div className="bg-white border rounded-3xl shadow-xl overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full border-collapse">
-              {/* Table Header - Sticky */}
-              <thead className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white sticky top-0 z-10">
+            <table className="min-w-full border-collapse">
+              <thead className="bg-gray-900 text-white sticky top-0">
                 <tr>
-                  <th className="border-r border-gray-700 px-6 py-4 text-left font-bold text-xs uppercase tracking-wider sticky left-0 bg-gray-900 z-20 min-w-[200px]">
+                  <th className="sticky left-0 bg-gray-900 px-6 py-4 text-left text-xs uppercase">
                     Specification
                   </th>
-                  <th className="border-r border-gray-700 px-4 py-4 text-center font-bold text-xs uppercase tracking-wider min-w-[80px]">
-                    Unit
-                  </th>
+                  <th className="px-4 py-4 text-xs uppercase">Unit</th>
                   {models.map((model) => (
-                    <th
-                      key={model}
-                      className="border-r border-gray-700 px-4 py-4 text-center font-bold text-sm min-w-[110px] last:border-r-0"
-                    >
+                    <th key={model} className="px-4 py-4 font-bold">
                       {model}
                     </th>
                   ))}
                 </tr>
               </thead>
 
-              {/* Table Body */}
               <tbody>
                 {allSpecs.map((spec, idx) => (
-                  <tr
-                    key={spec.key}
-                    className={`${
-                      idx % 2 === 0 ? "bg-white" : "bg-gray-50"
-                    } hover:bg-blue-50 transition-colors duration-150`}
-                  >
-                    <td
-                      className={`border-b border-r border-gray-200 px-6 py-4 font-semibold text-gray-900 sticky left-0 z-10 ${
-                        idx % 2 === 0 ? "bg-white" : "bg-gray-50"
-                      }`}
-                    >
-                      <div className="flex items-center space-x-2">
+                  <tr key={spec.key} className={idx % 2 ? "bg-gray-50" : ""}>
+                    <td className="sticky left-0 bg-inherit px-6 py-4 font-semibold">
+                      <div className="flex items-center gap-2">
                         {spec.highlight && (
-                          <div className="w-2 h-2 bg-[#D6312F] rounded-full animate-pulse"></div>
+                          <span className="w-2 h-2 bg-[#D6312F] rounded-full animate-pulse" />
                         )}
-                        <span>{spec.label}</span>
+                        {spec.label}
                       </div>
                     </td>
-                    <td className="border-b border-r border-gray-200 px-4 py-4 text-center text-xs text-gray-600 font-medium">
+                    <td className="text-center text-xs text-gray-500">
                       {spec.unit}
                     </td>
-                    {models.map((model) => {
-                      const value = spec.getValue(model);
-                      return (
-                        <td
-                          key={model}
-                          className={`border-b border-r border-gray-200 px-4 py-4 text-center font-bold last:border-r-0 ${spec.color}`}
-                        >
-                          {value || "-"}
-                        </td>
-                      );
-                    })}
+                    {models.map((model) => (
+                      <td
+                        key={model}
+                        className={`text-center font-bold ${
+                          spec.color || "text-gray-800"
+                        }`}
+                      >
+                        {spec.getValue(model) || "—"}
+                      </td>
+                    ))}
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
 
-          {/* Expand/Collapse Button */}
-          <div className="border-t-2 border-gray-200 bg-gradient-to-r from-gray-50 to-white p-6">
-            <button
-              onClick={() => setIsExpanded(!isExpanded)}
-              className="w-full group px-8 py-4 bg-gradient-to-r from-gray-900 to-gray-800 text-white rounded-xl font-bold text-base shadow-lg hover:shadow-xl transition-all hover:scale-[1.02] flex items-center justify-center space-x-3"
-            >
-              {isExpanded ? (
-                <>
-                  <span>Show Less Details</span>
-                  <ChevronDown className="w-5 h-5 rotate-180 group-hover:-translate-y-1 transition-transform" />
-                </>
-              ) : (
-                <>
-                  <span>
-                    Show All {detailedSpecs.length} Detailed Specifications
-                  </span>
-                  <ChevronDown className="w-5 h-5 group-hover:translate-y-1 transition-transform" />
-                </>
-              )}
-            </button>
-          </div>
+          {/* EXPAND */}
+          {!!detailedSpecs.length && (
+            <div className="border-t bg-gray-50 p-6">
+              <button
+                onClick={() => setIsExpanded(!isExpanded)}
+                className="w-full flex justify-center items-center gap-3 px-6 py-4 bg-gray-900 text-white rounded-xl font-semibold"
+              >
+                {isExpanded
+                  ? "Show Less Details"
+                  : "Show Detailed Specifications"}
+                <ChevronDown
+                  className={`w-5 h-5 transition ${
+                    isExpanded ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+            </div>
+          )}
         </div>
 
-        {/* Download CTA */}
-        <div className="mt-12">
-          <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-3xl p-8 lg:p-10 shadow-2xl">
-            <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
+        {/* DOWNLOAD */}
+        {!!datasheetUrl && (
+          <div className="mt-12">
+            <div className="bg-gray-900 rounded-3xl p-8 flex flex-col lg:flex-row items-center justify-between gap-6">
               <div className="text-white text-center lg:text-left">
                 <h3 className="text-2xl font-bold mb-2">
-                  Need the Complete Technical Documentation?
+                  Complete Technical Documentation
                 </h3>
-                <p className="text-gray-400 text-base">
-                  Download our comprehensive datasheet with CAD drawings, torque
-                  charts, and installation guides
+                <p className="text-gray-400">
+                  Datasheets, CAD drawings & torque charts
                 </p>
               </div>
-              <button className="flex-shrink-0 px-8 py-4 bg-[#D6312F] text-white rounded-xl font-bold text-base hover:bg-red-700 transition-all hover:scale-105 shadow-xl hover:shadow-2xl flex items-center space-x-3 whitespace-nowrap">
+              <button
+                onClick={handleDownload}
+                className="flex items-center gap-3 px-8 py-4 bg-[#D6312F] rounded-xl font-bold text-white hover:bg-red-700 transition"
+              >
                 <Download className="w-5 h-5" />
-                <span>Download Full Datasheet</span>
+                Download Datasheet
               </button>
             </div>
           </div>
-        </div>
-
-        {/* Additional Info Cards */}
+        )}
       </div>
     </section>
   );

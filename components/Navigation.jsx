@@ -13,18 +13,37 @@ export default function Navigation({ country, lang, translations }) {
   const pathname = usePathname();
 
   /* =========================================
-     REGION DETECTION (CORRECT FOR en-casp)
+     REGION DETECTION
   ========================================= */
   const isCASP = pathname.includes("en-casp") || pathname.includes("/casp");
   const isGCC = pathname.includes("en-gcc") || pathname.includes("/gcc");
+  const isUS = pathname.includes("en-us") || pathname.includes("/us");
 
-  const contactEmail = isCASP
-    ? "reach.casp@tritorc.com"
-    : "reach.ses@tritorc.com";
+  /* =========================================
+     REGION CONTACT DETAILS
+  ========================================= */
+  const regionContact = isCASP
+    ? {
+        email: "reach.casp@tritorc.com",
+        phone: "+971 565095820",
+        phoneHref: "tel:+971565095820",
+      }
+    : isUS
+    ? {
+        email: "reach.us@tritorc.com",
+        phone: "+17047494050", // change if needed
+        phoneHref: "tel:+17047494050",
+      }
+    : {
+        // GCC (default)
+        email: "reach.ses@tritorc.com",
+        phone: "+971 506304582",
+        phoneHref: "tel:+971506304582",
+      };
 
-  const contactPhone = isCASP ? "+971 565095820" : "+971 506304582";
-
-  const contactPhoneHref = isCASP ? "tel:+971565095820" : "tel:+971506304582";
+  const contactEmail = regionContact.email;
+  const contactPhone = regionContact.phone;
+  const contactPhoneHref = regionContact.phoneHref;
 
   const currentCountry = countries[country];
   const availableLanguages = currentCountry?.languages || ["en"];
