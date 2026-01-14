@@ -13,7 +13,6 @@ import { translations } from "@/lib/translations";
 import { getProductBySlug, getProductsByCategory } from "@/lib/products";
 import CollapsibleChartSection from "./CollapsibleChartSection";
 import FloatingCTA from "./FloatingCTA";
-import StaticReelSwiper from "@/components/StaticReelSwiper";
 import UltraReels from "@/components/UltraReels";
 
 // use renamed import
@@ -23,6 +22,24 @@ const VideoGallery = dyn(() => import("@/components/VideoGallery"), {
 
 export default function ProductPage({ params }) {
   const { country, lang, slug } = params;
+  const isCASP = country === "casp";
+  const isUS = country === "us";
+
+  const ctaContact = isCASP
+    ? {
+        phone: "+971 565095820",
+        phoneHref: "tel:+971565095820",
+      }
+    : isUS
+    ? {
+        phone: "+1 7047494050",
+        phoneHref: "tel:+17047494050",
+      }
+    : {
+        // GCC default
+        phone: "+971 506304582",
+        phoneHref: "tel:+971506304582",
+      };
   const t = translations[lang] || translations.en;
   const product = getProductBySlug(slug);
 
@@ -94,15 +111,26 @@ export default function ProductPage({ params }) {
               <div className="grid grid-cols-3 gap-4 py-4 border-y border-white/10">
                 <Metric
                   label="Precision"
-                  value={product.specifications?.Accuracy || "±3%"}
+                  value={
+                    product.trustMetrics?.precision ||
+                    product.specifications?.Accuracy ||
+                    "±3%"
+                  }
                 />
+
                 <Metric
                   label="Max Pressure"
                   value={
-                    product.specifications?.["Operating Pressure"] || "700 bar"
+                    product.trustMetrics?.maxPressure ||
+                    product.specifications?.["Operating Pressure"] ||
+                    "700 bar"
                   }
                 />
-                <Metric label="OEM Experience" value="35+ yrs" />
+
+                <Metric
+                  label="OEM Experience"
+                  value={product.trustMetrics?.oemExperience || "35+ yrs"}
+                />
               </div>
             </div>
 
@@ -396,7 +424,6 @@ export default function ProductPage({ params }) {
       <section className="relative py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
-
         <div className="absolute inset-0 bg-gradient-to-r from-[#D6312F]/10 via-transparent to-blue-600/10" />
 
         <div className="relative max-w-5xl mx-auto text-center">
@@ -404,35 +431,36 @@ export default function ProductPage({ params }) {
           <div className="mb-12">
             <div className="inline-flex items-center space-x-2 px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full mb-6">
               <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-              <span className="text-sm font-semibold text-white">
-                Sales Team Online Now
+              <span className="text-medium font-semibold text-white">
+                Need Tools on Site—Fast?
               </span>
             </div>
 
             <h2 className="text-5xl lg:text-6xl font-black text-white mb-6">
-              Ready to Get Started?
+              Request Rental Availability
             </h2>
 
             <p className="text-2xl text-gray-300 mb-8">
-              Fast response • Global delivery • OEM-level performance
+              Rapid mobilization • Short- & long-term rentals • Global project
+              support
             </p>
           </div>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <a
-              href="#hero"
+            <Link
+              href={`/${country}/${lang}/contact`}
               className="inline-flex items-center justify-center px-8 py-5 bg-gradient-to-r from-[#D6312F] to-red-600 text-white rounded-xl font-bold text-lg hover:shadow-2xl transition-all hover:scale-105"
             >
               Get Engineering Quote
               <ArrowRight className="ml-2 w-5 h-5" />
-            </a>
+            </Link>
 
             <a
-              href="tel:+918433708957"
+              href={ctaContact.phoneHref}
               className="inline-flex items-center justify-center px-8 py-5 bg-white/10 backdrop-blur-sm border-2 border-white/20 text-white rounded-xl font-bold text-lg hover:bg-white/20 transition-all"
             >
-              Call Sales: +91 84337-08957
+              Call Sales: {ctaContact.phone}
             </a>
           </div>
 
