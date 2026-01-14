@@ -341,17 +341,6 @@ export default function ProductPage({ params }) {
         </section>
       )}
 
-      {/* =============================== TESTIMONIAL =============================== */}
-
-      {/* <div>
-        <StaticReelSwiper />
-      </div> */}
-
-      {/* =============================== VIDEOS SECTION =============================== */}
-      {/* {product.videos && product.videos.length > 0 && (
-        <VideoGallery videos={product.videos} />
-      )} */}
-
       {/* =============================== FAQ =============================== */}
       <section className="py-24 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-4xl mx-auto">
