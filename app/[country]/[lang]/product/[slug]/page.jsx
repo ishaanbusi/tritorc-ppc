@@ -165,37 +165,17 @@ export default function ProductPage({ params }) {
         </div>
 
         {/* Client Logos */}
-        {product.clientLogos?.length > 0 && (
+        {/* {product.clientLogos?.length > 0 && (
           <ClientMarqueeModern clients={product.clientLogos} />
-        )}
+        )} */}
       </section>
 
-      {/* =============================== SPECS SECTION =============================== */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-12">
-          {/* BENEFITS */}
-          <div className="lg:col-span-3 space-y-12">
-            <div>
-              <div className="inline-block px-4 py-2 bg-red-50 text-[#D6312F] rounded-full text-sm font-bold mb-4">
-                Why EPC Teams Choose Tritorc
-              </div>
-              <h2 className="text-4xl lg:text-5xl font-black text-gray-900 mb-4">
-                Shutdown Readiness,
-                <br />
-                Zero Compromises
-              </h2>
-              <p className="text-xl text-gray-600">
-                Every spec engineered for mission-critical performance.
-              </p>
-            </div>
+      {/* Chart Selector (Dynamic) */}
+      {product.selectorData && <CollapsibleChartSection product={product} />}
 
-            <BenefitCards product={product} />
-          </div>
-
-          {/* STICKY SPEC CARD */}
-          <SpecsCard product={product} country={country} lang={lang} />
-        </div>
-      </section>
+      <div>
+        <UltraReels />
+      </div>
 
       {/* =============================== ABOUT TRITORC =============================== */}
       <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-white">
@@ -219,7 +199,7 @@ export default function ProductPage({ params }) {
       </section>
 
       {/* =============================== PRODUCT VISUALS / GALLERY =============================== */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 bg-white">
+      {/* <section className="py-24 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="text-center mb-16">
           <div className="inline-block px-4 py-2 bg-yellow-50 text-yellow-600 rounded-full text-sm font-bold mb-4">
             Field-Proven Design
@@ -265,119 +245,7 @@ export default function ProductPage({ params }) {
               </div>
             ))}
         </div>
-      </section>
-
-      {/* Chart Selector (Dynamic) */}
-      {product.selectorData && <CollapsibleChartSection product={product} />}
-
-      {/* =============================== TESTIMONIAL =============================== */}
-      {product.testimonial && (
-        <section className="w-screen py-24 bg-gradient-to-br from-gray-50 to-white">
-          {/* Header */}
-          <div className="text-center mb-16 px-4 sm:px-6 lg:px-12">
-            <div className="inline-block px-4 py-2 bg-green-50 text-green-600 rounded-full text-sm font-bold mb-4">
-              Real Results
-            </div>
-            <h2 className="text-4xl lg:text-5xl font-black text-gray-900 leading-tight">
-              Trusted on High-Stakes
-              <br />
-              EPC Sites
-            </h2>
-          </div>
-
-          {/* Content Grid – FULL WIDTH */}
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-stretch px-4 sm:px-6 lg:px-12">
-            {/* ================= Testimonial Card (LEFT – WIDER) ================= */}
-            <div className="lg:col-span-3">
-              <div className="bg-white border-2 border-gray-900 rounded-3xl p-10 shadow-2xl relative h-full flex flex-col">
-                {/* Quote Icon */}
-                <div className="absolute -top-6 -left-6 w-16 h-16 bg-[#D6312F] rounded-2xl flex items-center justify-center text-white text-5xl font-serif">
-                  &quot;
-                </div>
-
-                {/* Quote Text */}
-                <p className="text-xl lg:text-2xl text-gray-900 font-medium leading-relaxed mb-8 flex-grow">
-                  {product.testimonial.quote}
-                </p>
-
-                {/* Author */}
-                <div className="flex items-center space-x-4 border-t-2 border-gray-200 pt-6">
-                  <div className="relative w-14 h-14 rounded-full overflow-hidden">
-                    <Image
-                      src={
-                        product.testimonial.authorImage ||
-                        "/images/avatar-placeholder.jpg"
-                      }
-                      alt={product.testimonial.author}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-
-                  <div>
-                    <div className="font-bold text-gray-900 text-lg">
-                      {product.testimonial.author}
-                    </div>
-                    <div className="text-gray-600 text-sm">
-                      {product.testimonial.position}
-                      {product.testimonial.company && (
-                        <> • {product.testimonial.company}</>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* ================= Case Study Card (RIGHT) ================= */}
-            {product.caseStudy && (
-              <div className="lg:col-span-2">
-                <div className="relative rounded-3xl overflow-hidden shadow-2xl h-full">
-                  {/* Image */}
-                  <div className="relative w-full h-full min-h-[420px]">
-                    <Image
-                      src={product.caseStudy.image}
-                      alt={product.caseStudy.projectName}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-
-                  {/* Overlay */}
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/80 to-transparent p-8">
-                    <div className="text-white">
-                      <div className="text-sm font-semibold text-[#D6312F] mb-2">
-                        CASE STUDY
-                      </div>
-                      <div className="text-2xl font-bold">
-                        {product.caseStudy.projectName}
-                      </div>
-                      <div className="text-gray-300 mt-2 text-sm">
-                        {product.caseStudy.description ||
-                          "Completed mechanical commissioning with zero flange leaks"}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        </section>
-      )}
-
-      <div>
-        <UltraReels />
-      </div>
-
-      {/* <div>
-        <StaticReelSwiper />
-      </div> */}
-
-      {/* =============================== VIDEOS SECTION =============================== */}
-      {/* {product.videos && product.videos.length > 0 && (
-        <VideoGallery videos={product.videos} />
-      )} */}
-
+      </section> */}
       {/* =============================== RELATED PRODUCTS =============================== */}
       {related && related.length > 0 && (
         <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-white via-gray-50 to-white">
@@ -472,6 +340,17 @@ export default function ProductPage({ params }) {
           </div>
         </section>
       )}
+
+      {/* =============================== TESTIMONIAL =============================== */}
+
+      {/* <div>
+        <StaticReelSwiper />
+      </div> */}
+
+      {/* =============================== VIDEOS SECTION =============================== */}
+      {/* {product.videos && product.videos.length > 0 && (
+        <VideoGallery videos={product.videos} />
+      )} */}
 
       {/* =============================== FAQ =============================== */}
       <section className="py-24 px-4 sm:px-6 lg:px-8 bg-white">
