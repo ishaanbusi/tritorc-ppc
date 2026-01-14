@@ -353,7 +353,7 @@ export default function TorqueWrenchesPage({ params }) {
               {/* IMAGE — FULL HEIGHT LEFT */}
               <div className="md:col-span-2 relative min-h-[280px] md:min-h-[420px]">
                 <Image
-                  src="/images/refinary.jpg"
+                  src="/images/qatar-gas.webp"
                   alt="Pamban Bridge Project Testimonial"
                   fill
                   className="absolute inset-0 object-cover"

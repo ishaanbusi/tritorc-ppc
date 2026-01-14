@@ -20,6 +20,18 @@ const VideoGallery = dyn(() => import("@/components/VideoGallery"), {
   ssr: false,
 });
 
+const staticTorquePump = {
+  id: "twp-3",
+  name: "Torque Pump TWP-3",
+  slug: "torque-pump-twp-3",
+  category: "Hydraulic Torque Pump",
+  image: "/images/twp-3.webp", // update path if needed
+  shortDescription:
+    "High-performance electric torque pump designed for precise pressure control in heavy-duty bolting applications.",
+  torqueRange: "Up to 700 bar",
+  weight: "Air Driven 7 bar",
+};
+
 export default function ProductPage({ params }) {
   const { country, lang, slug } = params;
   const isCASP = country === "casp";
@@ -274,10 +286,10 @@ export default function ProductPage({ params }) {
             ))}
         </div>
       </section> */}
-      {/* =============================== RELATED PRODUCTS =============================== */}
       {related && related.length > 0 && (
         <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-white via-gray-50 to-white">
           <div className="max-w-7xl mx-auto">
+            {/* Heading */}
             <div className="text-center mb-16">
               <div className="inline-block px-4 py-2 bg-purple-50 text-purple-600 rounded-full text-sm font-bold mb-4">
                 Explore More
@@ -292,7 +304,7 @@ export default function ProductPage({ params }) {
 
             {/* Cards Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-              {related.map((p) => (
+              {[...related, staticTorquePump].map((p) => (
                 <Link
                   key={p.id}
                   href={`/${country}/${lang}/product/${p.slug}`}
@@ -334,7 +346,7 @@ export default function ProductPage({ params }) {
                           </span>
                         </div>
                         <div className="flex justify-between text-xs">
-                          <span className="text-gray-500">Weight</span>
+                          <span className="text-gray-500">Drive Type</span>
                           <span className="font-semibold text-gray-900">
                             {p.weight}
                           </span>
@@ -355,7 +367,7 @@ export default function ProductPage({ params }) {
               ))}
             </div>
 
-            {/* CTA Button */}
+            {/* CTA */}
             <div className="text-center">
               <Link
                 href={`/${country}/${lang}/products`}
