@@ -30,7 +30,7 @@ export default function Navigation({ country, lang, translations }) {
       }
     : isUS
     ? {
-        email: "reach.us@tritorc.com",
+        email: "reach.usa@tritorc.com",
         phone: "+17047494050", // change if needed
         phoneHref: "tel:+17047494050",
       }
