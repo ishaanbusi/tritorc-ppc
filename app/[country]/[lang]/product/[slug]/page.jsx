@@ -120,9 +120,9 @@ export default function ProductPage({ params }) {
               </p>
 
               {/* TRUST METRICS */}
-              <div className="grid grid-cols-3 gap-4 py-4 border-y border-white/10">
+              <div className="grid grid-cols-3 gap-4 py-4 border-y border-white/10 text-sm">
                 <Metric
-                  label="Precision"
+                  label="Max Torque"
                   value={
                     product.trustMetrics?.precision ||
                     product.specifications?.Accuracy ||
@@ -134,13 +134,13 @@ export default function ProductPage({ params }) {
                   label="Max Pressure"
                   value={
                     product.trustMetrics?.maxPressure ||
-                    product.specifications?.["Operating Pressure"] ||
+                    product.specifications?.[""] ||
                     "700 bar"
                   }
                 />
 
                 <Metric
-                  label="OEM Experience"
+                  label="Bolt Size"
                   value={product.trustMetrics?.oemExperience || "35+ yrs"}
                 />
               </div>
