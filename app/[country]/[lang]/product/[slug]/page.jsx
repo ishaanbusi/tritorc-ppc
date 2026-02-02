@@ -14,6 +14,7 @@ import { getProductBySlug, getProductsByCategory } from "@/lib/products";
 import CollapsibleChartSection from "./CollapsibleChartSection";
 import FloatingCTA from "./FloatingCTA";
 import UltraReels from "@/components/UltraReels";
+import { REGIONS } from "@/lib/regions";
 
 // use renamed import
 const VideoGallery = dyn(() => import("@/components/VideoGallery"), {
@@ -34,24 +35,25 @@ const staticTorquePump = {
 
 export default function ProductPage({ params }) {
   const { country, lang, slug } = params;
-  const isCASP = country === "casp";
-  const isUS = country === "us";
+  const getRegionContact = () => {
+    // Country-based resolution (same logic as Navigation & Contact page)
+    for (const region of Object.values(REGIONS)) {
+      if (region.countries.includes(country)) {
+        return region;
+      }
+    }
 
-  const ctaContact = isCASP
-    ? {
-        phone: "+971 565095820",
-        phoneHref: "tel:+971565095820",
-      }
-    : isUS
-    ? {
-        phone: "+1 7047494050",
-        phoneHref: "tel:+17047494050",
-      }
-    : {
-        // GCC default
-        phone: "+971 506304582",
-        phoneHref: "tel:+971506304582",
-      };
+    // Default fallback
+    return REGIONS.GCC;
+  };
+
+  const regionContact = getRegionContact();
+
+  const ctaContact = {
+    phone: regionContact.phone,
+    phoneHref: regionContact.phoneHref,
+  };
+
   const t = translations[lang] || translations.en;
   const product = getProductBySlug(slug);
 

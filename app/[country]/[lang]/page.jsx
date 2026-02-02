@@ -1,15 +1,42 @@
-import Link from 'next/link';
-import { ArrowRight, CheckCircle } from 'lucide-react';
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
-import ProductCard from '@/components/ProductCard';
-import IndustryCard from '@/components/IndustryCard';
-import CTASection from '@/components/CTASection';
-import { countries } from '@/lib/countries';
-import { translations } from '@/lib/translations';
-import { products } from '@/lib/products';
-import { industries } from '@/lib/industries';
+import Link from "next/link";
+import Image from "next/image";
+import { ArrowRight, CheckCircle } from "lucide-react";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
+import ProductCard from "@/components/ProductCard";
+import IndustryCard from "@/components/IndustryCard";
+import CTASection from "@/components/CTASection";
+import { countries } from "@/lib/countries";
+import { translations } from "@/lib/translations";
+import { products } from "@/lib/products";
+import { industries } from "@/lib/industries";
 
+// Press Releases Data
+const pressReleases = [
+  {
+    category: "Asia",
+    title: "Windergy, India Energy Week",
+    image: "/images/what-we-do-min.jpg",
+    alt: "Windergy India Energy Week event",
+    slug: "windergy-india-energy-week",
+  },
+  {
+    category: "Africa",
+    title: "Nigeria Oil & Gas Energy Week",
+    image: "/images/our-product-img1-min.jpg",
+    alt: "Africa operations featuring advanced torque equipment",
+    slug: "nigeria-oil-gas-energy-week",
+  },
+  {
+    category: "Middle East",
+    title: "ADIPEC",
+    image: "/images/tubing-min.jpg",
+    alt: "Middle East energy sector projects with pipeline solutions",
+    slug: "adipec-middle-east",
+  },
+];
+
+// Generate Static Params for All Country/Language Combinations
 export async function generateStaticParams() {
   const params = [];
   Object.entries(countries).forEach(([code, country]) => {
@@ -20,6 +47,7 @@ export async function generateStaticParams() {
   return params;
 }
 
+// Main Country Homepage Component
 export default function CountryHomePage({ params }) {
   const { country, lang } = params;
   const countryData = countries[country];
@@ -36,6 +64,7 @@ export default function CountryHomePage({ params }) {
     <div className="min-h-screen bg-white">
       <Navigation country={country} lang={lang} translations={t} />
 
+      {/* Hero Section */}
       <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 via-white to-gray-100">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -104,15 +133,74 @@ export default function CountryHomePage({ params }) {
         </div>
       </section>
 
+      {/* Press Releases / Events Section */}
+      <section className="border-y border-neutral-200 bg-white py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Desktop View - 3 Columns */}
+          <div className="hidden md:grid md:grid-cols-3 md:gap-8">
+            {pressReleases.map((release, index) => (
+              <article key={index} className="group flex items-center gap-4">
+                <div className="h-14 w-14 overflow-hidden rounded-lg flex-shrink-0">
+                  <Image
+                    src={release.image}
+                    alt={release.alt}
+                    width={56}
+                    height={56}
+                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
+                  />
+                </div>
+                <div className="flex-1">
+                  <div className="text-[10px] uppercase tracking-wider text-gray-500 font-semibold mb-1">
+                    {release.category}
+                  </div>
+                  <h3 className="text-sm font-semibold text-gray-900 group-hover:text-[#D6312F] transition-colors">
+                    {release.title}
+                  </h3>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          {/* Mobile View - Horizontal Scroll */}
+          <div className="md:hidden overflow-x-auto scrollbar-hide">
+            <div className="flex gap-4 pb-2">
+              {pressReleases.map((release, index) => (
+                <article
+                  key={index}
+                  className="group flex items-center gap-3 min-w-[280px]"
+                >
+                  <div className="h-12 w-12 overflow-hidden rounded-lg flex-shrink-0">
+                    <Image
+                      src={release.image}
+                      alt={release.alt}
+                      width={48}
+                      height={48}
+                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
+                    />
+                  </div>
+                  <div>
+                    <div className="text-[10px] uppercase tracking-wider text-gray-500 font-semibold mb-1">
+                      {release.category}
+                    </div>
+                    <h3 className="text-sm font-semibold text-gray-900">
+                      {release.title}
+                    </h3>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Products Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               {t.products.title}
             </h2>
-            <p className="text-xl text-gray-600">
-              {t.products.subtitle}
-            </p>
+            <p className="text-xl text-gray-600">{t.products.subtitle}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
@@ -139,15 +227,14 @@ export default function CountryHomePage({ params }) {
         </div>
       </section>
 
+      {/* Industries Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               {t.industries.title}
             </h2>
-            <p className="text-xl text-gray-600">
-              {t.industries.subtitle}
-            </p>
+            <p className="text-xl text-gray-600">{t.industries.subtitle}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -158,8 +245,10 @@ export default function CountryHomePage({ params }) {
         </div>
       </section>
 
+      {/* CTA Section */}
       <CTASection country={country} lang={lang} translations={t} />
 
+      {/* Footer */}
       <Footer country={country} lang={lang} translations={t} />
     </div>
   );

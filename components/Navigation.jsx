@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Menu, X, ChevronDown, Phone, Mail } from "lucide-react";
 import { countries } from "@/lib/countries";
 import { usePathname } from "next/navigation";
+import { REGIONS } from "@/lib/regions";
 
 export default function Navigation({ country, lang, translations }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -13,33 +14,28 @@ export default function Navigation({ country, lang, translations }) {
   const pathname = usePathname();
 
   /* =========================================
-     REGION DETECTION
+     REGION RESOLUTION (COUNTRY + PATH)
   ========================================= */
-  const isCASP = pathname.includes("en-casp") || pathname.includes("/casp");
-  const isGCC = pathname.includes("en-gcc") || pathname.includes("/gcc");
-  const isUS = pathname.includes("en-us") || pathname.includes("/us");
+  const getRegionContact = () => {
+    // 1️⃣ Country-based detection (preferred)
+    for (const region of Object.values(REGIONS)) {
+      if (region.countries.includes(country)) {
+        return region;
+      }
+    }
 
-  /* =========================================
-     REGION CONTACT DETAILS
-  ========================================= */
-  const regionContact = isCASP
-    ? {
-        email: "reach.casp@tritorc.com",
-        phone: "+971 565095820",
-        phoneHref: "tel:+971565095820",
+    // 2️⃣ Path-based fallback
+    for (const region of Object.values(REGIONS)) {
+      if (region.paths.some((p) => pathname.includes(p))) {
+        return region;
       }
-    : isUS
-    ? {
-        email: "reach.usa@tritorc.com",
-        phone: "+17047494050", // change if needed
-        phoneHref: "tel:+17047494050",
-      }
-    : {
-        // GCC (default)
-        email: "reach.ses@tritorc.com",
-        phone: "+971 506304582",
-        phoneHref: "tel:+971506304582",
-      };
+    }
+
+    // 3️⃣ Default fallback
+    return REGIONS.GCC;
+  };
+
+  const regionContact = getRegionContact();
 
   const contactEmail = regionContact.email;
   const contactPhone = regionContact.phone;

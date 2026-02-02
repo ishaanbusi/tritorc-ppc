@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm";
 import { countries } from "@/lib/countries";
 import { translations } from "@/lib/translations";
+import { REGIONS } from "@/lib/regions";
 
 /* ================================
    STATIC PARAMS (SSG)
@@ -28,31 +29,24 @@ export default function ContactPage({ params }) {
   const countryData = countries[country];
   const t = translations[lang] || translations.en;
 
-  /* ================================
-     REGION-BASED CONTACT DETAILS
-     (CASP | US | GCC)
-  ================================ */
-  const isCASP = country === "casp";
-  const isUS = country === "us";
+  /* =========================================
+     REGION RESOLUTION (COUNTRY + PATH)
+  ========================================= */
+  const getRegionContact = () => {
+    // 1️⃣ Country-based detection (preferred)
+    for (const region of Object.values(REGIONS)) {
+      if (region.countries.includes(country)) {
+        return region;
+      }
+    }
 
-  const regionContact = isCASP
-    ? {
-        email: "reach.casp@tritorc.com",
-        phone: "+971 565095820",
-        phoneHref: "tel:+971565095820",
-      }
-    : isUS
-    ? {
-        email: "reach.usa@tritorc.com",
-        phone: "+17047494050", // change if needed
-        phoneHref: "tel:+17047494050",
-      }
-    : {
-        // GCC (default)
-        email: "reach.ses@tritorc.com",
-        phone: "+971 506304582",
-        phoneHref: "tel:+971506304582",
-      };
+    // 2️⃣ Path-based fallback (future-safe)
+    // (Contact page doesn't expose pathname directly,
+    //  but this keeps logic consistent & reusable)
+    return REGIONS.GCC;
+  };
+
+  const regionContact = getRegionContact();
 
   const contactEmail = regionContact.email;
   const contactPhone = regionContact.phone;
