@@ -21,6 +21,7 @@ import CollageSection from "@/components/CollageSection";
 import UltraReels from "@/components/UltraReels";
 import HeroEnquiryForm from "@/components/HeroEnquiryForm";
 import ToolImages from "@/components/ToolImages";
+import { REGIONS } from "@/lib/regions";
 
 export default function TorqueWrenchesPage({ params }) {
   const { country, lang } = params;
@@ -52,29 +53,26 @@ export default function TorqueWrenchesPage({ params }) {
   ];
 
   /* ========================================
-   FLOATING BUTTONS - REGION AWARE
+   FLOATING BUTTONS - REGION AWARE (UNIFIED)
 ======================================== */
-  const isCASP = country === "casp";
-  const isUS = country === "us";
+  const getRegionContact = () => {
+    for (const region of Object.values(REGIONS)) {
+      if (region.countries.includes(country)) {
+        return region;
+      }
+    }
 
-  const floatingContact = isCASP
-    ? {
-        whatsapp: "https://wa.me/971565095820",
-        phone: "+971 565095820",
-        phoneHref: "tel:+971565095820",
-      }
-    : isUS
-    ? {
-        whatsapp: "https://wa.me/+17047494050", // change if needed
-        phone: "+1 7047494050",
-        phoneHref: "tel:+1 7047494050",
-      }
-    : {
-        // GCC (default)
-        whatsapp: "https://wa.me/971506304582",
-        phone: "+971 506304582",
-        phoneHref: "tel:+971506304582",
-      };
+    // Default fallback
+    return REGIONS.GCC;
+  };
+
+  const regionContact = getRegionContact();
+
+  const floatingContact = {
+    whatsapp: regionContact.phoneHref.replace("tel:", "https://wa.me/"),
+    phone: regionContact.phone,
+    phoneHref: regionContact.phoneHref,
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -604,8 +602,8 @@ function ProductCard({ product, country, lang }) {
                 product.badge === "Best Seller"
                   ? "bg-[#D6312F]"
                   : product.badge === "New"
-                  ? "bg-green-600"
-                  : "bg-blue-600"
+                    ? "bg-green-600"
+                    : "bg-blue-600"
               }`}
             >
               {product.badge}
@@ -706,8 +704,8 @@ function ProductListItem({ product, country, lang }) {
                     product.badge === "Best Seller"
                       ? "bg-[#D6312F]"
                       : product.badge === "New"
-                      ? "bg-green-600"
-                      : "bg-blue-600"
+                        ? "bg-green-600"
+                        : "bg-blue-600"
                   }`}
                 >
                   {product.badge}
