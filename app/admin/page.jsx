@@ -7,7 +7,8 @@ export default function AdminPanel() {
   const [loggedIn, setLoggedIn] = useState(isAuthenticated());
   const [error, setError] = useState("");
   const [search, setSearch] = useState("");
-  const [expanded, setExpanded] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedEnquiry, setSelectedEnquiry] = useState(null);
 
   const [enquiries, setEnquiries] = useState([]);
   const [page, setPage] = useState(1);
@@ -30,8 +31,8 @@ export default function AdminPanel() {
         setPage(res.pagination.page || p);
       }
     } catch (err) {
-      console.error('fetchPPC error', err);
-      setFetchError(err?.message || 'Failed to fetch enquiries');
+      console.error("fetchPPC error", err);
+      setFetchError(err?.message || "Failed to fetch enquiries");
     } finally {
       setLoading(false);
     }
@@ -54,25 +55,28 @@ export default function AdminPanel() {
       setLoggedIn(true);
       setError("");
     } catch (err) {
-      console.error('Login error', err);
-      setError(err?.response?.data?.error || err.message || 'Login failed');
+      console.error("Login error", err);
+      setError(err?.response?.data?.error || err.message || "Login failed");
     }
   };
 
   /* ---------------- STATUS UPDATE (UI ONLY) ---------------- */
   const updateStatus = (id, status) => {
     // Optimistic UI update
-    setEnquiries((prev) => prev.map((e) => (e.id === id ? { ...e, status } : e)));
+    setEnquiries((prev) =>
+      prev.map((e) => (e.id === id ? { ...e, status } : e)),
+    );
     // Send to API
     (async () => {
       try {
-        const newStatus = typeof status === 'string' ? status.toLowerCase() : status;
+        const newStatus =
+          typeof status === "string" ? status.toLowerCase() : status;
         await updatePPCStatus(id, newStatus);
       } catch (err) {
-        console.error('Failed to update status', err);
+        console.error("Failed to update status", err);
         // revert by refetching current page
         fetchEnquiries(page);
-        alert('Failed to update status');
+        alert("Failed to update status");
       }
     })();
   };
@@ -84,11 +88,33 @@ export default function AdminPanel() {
     return "bg-green-100 text-green-700";
   };
 
-  const filtered = enquiries.filter((e) =>
-    e.name.toLowerCase().includes(search.toLowerCase()) || e.email.toLowerCase().includes(search.toLowerCase())
+  const formatDate = (dateString) => {
+    try {
+      return new Date(dateString).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+    } catch {
+      return dateString;
+    }
+  };
+
+  const handleViewEnquiry = (enquiry) => {
+    setSelectedEnquiry(enquiry);
+    setModalOpen(true);
+  };
+
+  const filtered = enquiries.filter(
+    (e) =>
+      e.name.toLowerCase().includes(search.toLowerCase()) ||
+      e.email.toLowerCase().includes(search.toLowerCase()),
   );
 
-  const count = (s) => enquiries.filter((e) => String(e.status).toUpperCase() === s).length;
+  const count = (s) =>
+    enquiries.filter((e) => String(e.status).toUpperCase() === s).length;
 
   /* ---------------- LOGIN PAGE ---------------- */
   if (!loggedIn) {
@@ -145,10 +171,11 @@ export default function AdminPanel() {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-6">
           <Stat label="New" value={count("NEW")} color="red" />
-          <Stat label="Contacted" value={count("CONTACTED")} color="yellow" />
-          <Stat label="Closed" value={count("CLOSED")} color="green" />
+          <Stat label="Hot" value={count("HOT")} color="yellow" />
+          <Stat label="Qualified" value={count("QUALIFIED")} color="orange" />
+          <Stat label="Contacted" value={count("CONTACTED")} color="green" />
         </div>
 
         {/* Search */}
@@ -180,33 +207,30 @@ export default function AdminPanel() {
                   <td className="p-3">{e.phone}</td>
                   <td className="p-3">
                     <button
-                      onClick={() =>
-                        setExpanded(expanded === e.id ? null : e.id)
-                      }
-                      className="text-[#D6312F] underline"
+                      onClick={() => handleViewEnquiry(e)}
+                      className="text-[#D6312F] underline hover:font-semibold"
                     >
                       View
                     </button>
-                    {expanded === e.id && (
-                      <div className="mt-2 text-gray-700">{e.message}</div>
-                    )}
                   </td>
                   <td className="p-3">
                     <select
                       value={String(e.status).toLowerCase()}
                       onChange={(ev) => updateStatus(e.id, ev.target.value)}
                       className={`px-2 py-1 rounded-full text-xs font-bold ${statusStyle(
-                        String(e.status).toUpperCase()
+                        String(e.status).toUpperCase(),
                       )}`}
                     >
                       <option value="new">NEW</option>
                       <option value="contacted">CONTACTED</option>
                       <option value="qualified">QUALIFIED</option>
                       <option value="hot">HOT</option>
-                      <option value="closed">CLOSED</option>
+                      {/* <option value="closed">CLOSED</option> */}
                     </select>
                   </td>
-                  <td className="p-3 text-gray-500">{e.date}</td>
+                  <td className="p-3 text-gray-500">
+                    {formatDate(e.created_at)}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -224,7 +248,9 @@ export default function AdminPanel() {
             >
               Prev
             </button>
-            <div className="px-3">Page {page} / {totalPages}</div>
+            <div className="px-3">
+              Page {page} / {totalPages}
+            </div>
             <button
               disabled={page >= totalPages || loading}
               onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
@@ -235,6 +261,19 @@ export default function AdminPanel() {
           </div>
         </div>
       </div>
+
+      {/* Modal */}
+      {modalOpen && selectedEnquiry && (
+        <EnquiryModal
+          enquiry={selectedEnquiry}
+          onClose={() => setModalOpen(false)}
+          onStatusChange={(id, status) => {
+            updateStatus(id, status);
+          }}
+          statusStyle={statusStyle}
+          formatDate={formatDate}
+        />
+      )}
     </div>
   );
 }
@@ -242,14 +281,120 @@ export default function AdminPanel() {
 /* ---------------- SMALL STAT CARD ---------------- */
 function Stat({ label, value, color }) {
   const colorMap = {
-    red: '#dc2626',
-    yellow: '#ca8a04',
-    green: '#16a34a'
+    red: "#dc2626",
+    yellow: "#ca8a04",
+    green: "#16a34a",
+    orange: "#f97316",
   };
   return (
     <div className="bg-white rounded-xl p-4 shadow">
       <p className="text-sm text-gray-500">{label}</p>
-      <p className="text-3xl font-black" style={{ color: colorMap[color] }}>{value}</p>
+      <p className="text-3xl font-black" style={{ color: colorMap[color] }}>
+        {value}
+      </p>
+    </div>
+  );
+}
+
+/* -------------------- ENQUIRY MODAL -------------------- */
+function EnquiryModal({
+  enquiry,
+  onClose,
+  onStatusChange,
+  statusStyle,
+  formatDate,
+}) {
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        {/* Header */}
+        <div className="sticky top-0 bg-gray-50 border-b p-6 flex justify-between items-center">
+          <h2 className="text-2xl font-black">Enquiry Details</h2>
+          <button
+            onClick={onClose}
+            className="text-gray-500 hover:text-red-600 text-2xl font-bold"
+          >
+            ×
+          </button>
+        </div>
+
+        {/* Content */}
+        <div className="p-6 space-y-4">
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <p className="text-xs text-gray-500 uppercase font-bold">Name</p>
+              <p className="text-lg font-semibold">{enquiry.name}</p>
+            </div>
+            <div>
+              <p className="text-xs text-gray-500 uppercase font-bold">Email</p>
+              <p className="text-lg text-blue-600">
+                <a href={`mailto:${enquiry.email}`}>{enquiry.email}</a>
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <p className="text-xs text-gray-500 uppercase font-bold">Phone</p>
+              <p className="text-lg font-semibold">{enquiry.phone}</p>
+            </div>
+            <div>
+              <p className="text-xs text-gray-500 uppercase font-bold">
+                Company
+              </p>
+              <p className="text-lg font-semibold">
+                {enquiry.company || "N/A"}
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <p className="text-xs text-gray-500 uppercase font-bold mb-2">
+              Message
+            </p>
+            <div className="bg-gray-50 p-4 rounded-lg border text-sm text-gray-700 whitespace-pre-wrap break-words">
+              {enquiry.message}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4 border-t pt-4">
+            <div>
+              <p className="text-xs text-gray-500 uppercase font-bold">
+                Status
+              </p>
+              <select
+                value={String(enquiry.status).toLowerCase()}
+                onChange={(e) => onStatusChange(enquiry.id, e.target.value)}
+                className={`mt-2 px-3 py-2 rounded-full text-sm font-bold ${statusStyle(
+                  String(enquiry.status).toUpperCase(),
+                )}`}
+              >
+                <option value="new">NEW</option>
+                <option value="contacted">CONTACTED</option>
+                <option value="qualified">QUALIFIED</option>
+                <option value="hot">HOT</option>
+                {/* <option value="closed">CLOSED</option> */}
+              </select>
+            </div>
+            <div>
+              <p className="text-xs text-gray-500 uppercase font-bold">Date</p>
+              <p className="text-sm text-gray-600 mt-2">
+                {formatDate(enquiry.created_at)}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="sticky bottom-0 bg-gray-50 border-t p-6 flex justify-end gap-2">
+          <button
+            onClick={onClose}
+            className="px-6 py-2 bg-gray-200 text-gray-800 rounded-lg font-semibold hover:bg-gray-300"
+          >
+            Close
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
