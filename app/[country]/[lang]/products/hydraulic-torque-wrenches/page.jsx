@@ -62,7 +62,7 @@ export default function TorqueWrenchesPage({ params }) {
       }
     }
 
-    // Default fallback
+    // Default fallbacks
     return REGIONS.GCC;
   };
 
