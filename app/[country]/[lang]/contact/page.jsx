@@ -46,7 +46,9 @@ export default function ContactPage({ params }) {
     return REGIONS.GCC;
   };
 
-  const regionContact = getRegionContact();
+  const regionContact =
+    Object.values(REGIONS).find((region) => region.paths.includes(country)) ||
+    REGIONS.GCC;
 
   const contactEmail = regionContact.email;
   const contactPhone = regionContact.phone;
