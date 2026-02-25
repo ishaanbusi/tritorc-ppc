@@ -35,7 +35,18 @@ export default function Navigation({ country, lang, translations }) {
     return REGIONS.GCC;
   };
 
-  const regionContact = getRegionContact();
+  const baseRegion = getRegionContact();
+
+  /* =========================================
+   INDIA EMAIL OVERRIDE
+========================================= */
+  const regionContact =
+    country === "in"
+      ? {
+          ...baseRegion,
+          email: "reach.in@tritorc.com",
+        }
+      : baseRegion;
 
   const contactEmail = regionContact.email;
   const contactPhone = regionContact.phone;

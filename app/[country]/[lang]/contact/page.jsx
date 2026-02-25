@@ -30,25 +30,24 @@ export default function ContactPage({ params }) {
   const t = translations[lang] || translations.en;
 
   /* =========================================
-     REGION RESOLUTION (COUNTRY + PATH)
-  ========================================= */
-  const getRegionContact = () => {
-    // 1️⃣ Country-based detection (preferred)
-    for (const region of Object.values(REGIONS)) {
-      if (region.countries.includes(country)) {
-        return region;
-      }
-    }
+   REGION RESOLUTION (COUNTRY + PATH)
+========================================= */
+  const baseRegion =
+    Object.values(REGIONS).find(
+      (region) =>
+        region.countries.includes(country) || region.paths.includes(country),
+    ) || REGIONS.GCC;
 
-    // 2️⃣ Path-based fallback (future-safe)
-    // (Contact page doesn't expose pathname directly,
-    //  but this keeps logic consistent & reusable)
-    return REGIONS.GCC;
-  };
-
+  /* =========================================
+   INDIA EMAIL OVERRIDE
+========================================= */
   const regionContact =
-    Object.values(REGIONS).find((region) => region.paths.includes(country)) ||
-    REGIONS.GCC;
+    country === "in"
+      ? {
+          ...baseRegion,
+          email: "reach.in@tritorc.com",
+        }
+      : baseRegion;
 
   const contactEmail = regionContact.email;
   const contactPhone = regionContact.phone;
