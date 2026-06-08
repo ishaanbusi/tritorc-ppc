@@ -81,6 +81,14 @@
   }
 }
 
+iframe#launcher[title*="messaging" i] {
+  left: auto !important;
+  right: 20px !important;
+  bottom: 20px !important;
+  transform: scale(0.86) !important;
+  transform-origin: bottom right !important;
+}
+
 
 /* ===============================
    Client Marquee – Slow Scroll
@@ -102,5 +110,3 @@
 .animate-marquee-slow:hover {
   animation-play-state: paused;
 }
-
-
