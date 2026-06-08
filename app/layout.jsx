@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 import Script from "next/script";
+import ZendeskWidget from "@/components/ZendeskWidget";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -70,6 +71,7 @@ export default function RootLayout({ children }) {
           />
         </noscript>
 
+        <ZendeskWidget />
         {children}
       </body>
     </html>
