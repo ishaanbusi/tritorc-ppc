@@ -89,6 +89,20 @@ iframe#launcher[title*="messaging" i] {
   transform-origin: bottom right !important;
 }
 
+iframe[title="Messaging window"] {
+  inset: auto 20px 88px auto !important;
+  left: auto !important;
+  right: 20px !important;
+}
+
+@media (max-width: 480px) {
+  iframe[title="Messaging window"] {
+    inset: auto 12px 84px 12px !important;
+    width: calc(100dvw - 24px) !important;
+    max-width: calc(100dvw - 24px) !important;
+  }
+}
+
 
 /* ===============================
    Client Marquee – Slow Scroll
